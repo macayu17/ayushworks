@@ -26,14 +26,22 @@ const Hero = () => {
         </div>
         
         <div className="hero-visual">
-          <div className="floating-card card-1">
-            <span className="card-icon">💻</span>
-          </div>
-          <div className="floating-card card-2">
-            <span className="card-icon">🚀</span>
-          </div>
-          <div className="floating-card card-3">
-            <span className="card-icon">⚡</span>
+          <div className="profile-image-container">
+            <div className="profile-glow"></div>
+            <img 
+              src="/src/assets/images/profile.jpg" 
+              alt="Ayush Kumar" 
+              className="profile-image"
+              onError={(e) => {
+                console.log('Image failed to load, showing placeholder');
+                e.target.style.display = 'none';
+                e.target.nextElementSibling.style.display = 'flex';
+              }}
+              onLoad={() => console.log('Image loaded successfully')}
+            />
+            <div className="profile-placeholder" style={{display: 'none'}}>
+              <span className="placeholder-icon">👨‍💻</span>
+            </div>
           </div>
         </div>
       </div>

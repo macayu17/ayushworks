@@ -1,7 +1,6 @@
 import './Skills.css';
 
 const Skills = () => {
-  // Map skill names to devicon names
   const getIconUrl = (skillName) => {
     const iconMap = {
       'React': 'react',
@@ -19,12 +18,23 @@ const Skills = () => {
       'PostgreSQL': 'postgresql',
       'Prisma': 'prisma',
       'Firebase': 'firebase',
-      'Git/GitHub': 'github',
+      'Git': 'git',
+      'GitHub': 'github',
       'VS Code': 'vscode',
       'Python': 'python',
       'Java': 'java',
       'C++': 'cplusplus',
-      'C': 'c'
+      'C': 'c',
+      'Docker': 'docker',
+      'Vercel': 'vercel',
+      'Figma': 'figma',
+      'Canva': 'canva',
+      'Postman': 'postman',
+      'TensorFlow': 'tensorflow',
+      'PyTorch': 'pytorch',
+      'Scikit-learn': 'scikitlearn',
+      'Pandas': 'pandas',
+      'NumPy': 'numpy'
     };
     
     const iconName = iconMap[skillName] || skillName.toLowerCase();
@@ -60,12 +70,44 @@ const Skills = () => {
     {
       title: 'Tools & Languages',
       skills: [
-        { name: 'Git/GitHub', level: 75 },
+        { name: 'Git', level: 75 },
+        { name: 'GitHub', level: 75 },
         { name: 'VS Code', level: 85 },
         { name: 'Python', level: 70 },
         { name: 'Java', level: 65 },
         { name: 'C++', level: 75 },
         { name: 'C', level: 70 }
+      ]
+    },
+    {
+      title: 'AI/ML',
+      skills: [
+        { name: 'TensorFlow', level: 60 },
+        { name: 'PyTorch', level: 55 },
+        { name: 'Scikit-learn', level: 65 },
+        { name: 'Pandas', level: 70 },
+        { name: 'NumPy', level: 70 }
+      ]
+    },
+    {
+      title: 'DevOps & Deployment',
+      skills: [
+        { name: 'Docker', level: 60 },
+        { name: 'Git', level: 75 },
+        { name: 'Vercel', level: 70 }
+      ]
+    },
+    {
+      title: 'Design & UI/UX',
+      skills: [
+        { name: 'Figma', level: 65 },
+        { name: 'Canva', level: 70 }
+      ]
+    },
+    {
+      title: 'Testing',
+      skills: [
+        { name: 'Postman', level: 70 }
       ]
     }
   ];

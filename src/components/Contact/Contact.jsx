@@ -26,6 +26,7 @@ const Contact = () => {
   return (
     <section className="contact" id="contact">
       <div className="container">
+        <div className="glass-container">
         <h2 className="section-title">Get In Touch</h2>
         <p className="contact-subtitle">
           Have a question or want to work together? Feel free to reach out!
@@ -36,12 +37,12 @@ const Contact = () => {
             <div className="info-card">
               <div className="info-icon">📧</div>
               <h3>Email</h3>
-              <a href="mailto:ayush.kumar.1rf23cs041@rvit.ac.in">ayush.kumar.1rf23cs041@rvit.ac.in</a>
+              <a href="mailto:ayushhoff@gmail.com">ayushhoff@gmail.com</a>
             </div>
             <div className="info-card">
               <div className="info-icon">🎓</div>
               <h3>University</h3>
-              <p>RV Institute of Technology</p>
+              <p>RV Institute of Technology and Management</p>
             </div>
             <div className="info-card">
               <div className="info-icon">📍</div>
@@ -112,6 +113,7 @@ const Contact = () => {
               Send Message
             </button>
           </form>
+        </div>
         </div>
       </div>
     </section>

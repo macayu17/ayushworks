@@ -26,13 +26,7 @@
 
 body {
   margin: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.06) 0%, transparent 40%),
-    linear-gradient(135deg, #0a0a0a 0%, #0f0f0f 50%, #0a0a0a 100%);
-  background-color: var(--bg-primary);
-  background-attachment: fixed;
+  background: #000000;
   color: var(--text-primary);
   overflow-x: hidden;
   line-height: 1.6;
@@ -40,45 +34,16 @@ body {
 }
 
 body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.02) 0px,
-      transparent 1px,
-      transparent 40px,
-      rgba(255, 255, 255, 0.02) 41px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.02) 0px,
-      transparent 1px,
-      transparent 40px,
-      rgba(255, 255, 255, 0.02) 41px
-    );
-  pointer-events: none;
-  z-index: 0;
+  display: none;
 }
 
 body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at center, transparent 0%, rgba(10, 10, 10, 0.4) 100%);
-  pointer-events: none;
-  z-index: 0;
+  display: none;
 }
 
 html {
   scroll-behavior: smooth;
+  background: #000000;
 }
 
 code {

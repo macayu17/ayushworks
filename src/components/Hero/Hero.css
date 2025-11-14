@@ -1,5 +1,5 @@
 .hero {
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,7 +16,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
   pointer-events: none;
 }
 
@@ -43,13 +43,13 @@
 }
 
 .hero-name {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
   font-weight: 700;
   margin-bottom: 0.5rem;
   line-height: 1.2;
 }
 
-.name-gradient {
+.hero-name .decrypted-text {
   background: linear-gradient(135deg, var(--accent) 0%, #60a5fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -57,15 +57,10 @@
 }
 
 .hero-title {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(1rem, 2vw, 2.5rem);
   font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 1.5rem;
-}
-
-.typing-text {
-  position: relative;
-  display: inline-block;
 }
 
 .typing-text::after {
@@ -155,48 +150,71 @@
   align-items: center;
 }
 
-.profile-image-container {
+.profile-card {
   position: relative;
-  width: 350px;
-  height: 350px;
+  width: 380px;
+  background: rgba(17, 17, 17, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   animation: fadeInScale 1.2s ease;
+  transition: all 0.3s ease;
 }
 
-.profile-glow {
+.profile-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 
+    0 20px 60px rgba(59, 130, 246, 0.3),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.card-glow {
   position: absolute;
   inset: -20px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
-  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+  border-radius: 24px;
   filter: blur(30px);
   animation: pulse 3s ease-in-out infinite;
-  z-index: 0;
+  z-index: -1;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.profile-image-wrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
 }
 
 .profile-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  border-radius: 50%;
   border: 3px solid rgba(59, 130, 246, 0.3);
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    0 0 40px rgba(59, 130, 246, 0.2),
-    inset 0 0 20px rgba(59, 130, 246, 0.1);
-  position: relative;
-  z-index: 1;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
-  backdrop-filter: blur(10px);
+    0 10px 40px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(59, 130, 246, 0.2);
+  transition: all 0.3s ease;
 }
 
 .profile-image:hover {
-  transform: scale(1.05) rotate(2deg);
-  border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
+  transform: scale(1.05);
   border-color: rgba(59, 130, 246, 0.6);
   box-shadow: 
-    0 30px 80px rgba(0, 0, 0, 0.6),
-    0 0 60px rgba(59, 130, 246, 0.4),
-    inset 0 0 30px rgba(59, 130, 246, 0.2);
+    0 15px 50px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(59, 130, 246, 0.4);
 }
 
 .profile-placeholder {
@@ -205,12 +223,63 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
-  backdrop-filter: blur(10px);
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  background: rgba(17, 17, 17, 0.8);
+  border-radius: 50%;
   border: 3px solid rgba(59, 130, 246, 0.3);
   position: relative;
-  z-index: 1;
+}
+
+.placeholder-icon {
+  font-size: 5rem;
+}
+
+.card-info {
+  text-align: center;
+  width: 100%;
+}
+
+.card-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent) 0%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.card-role {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.card-stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .placeholder-icon {

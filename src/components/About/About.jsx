@@ -4,6 +4,7 @@ const About = () => {
   return (
     <section className="about" id="about">
       <div className="container">
+        <div className="glass-container">
         <h2 className="section-title">About Me</h2>
         <div className="about-content">
           <div className="about-text">
@@ -14,27 +15,25 @@ const About = () => {
             <div className="about-section">
               <h3 className="about-heading">What I do?</h3>
               <p className="about-description">
-                I'm currently pursuing my Computer Science Engineering degree at RV Institute of Technology. 
-                I work on academic projects, participate in coding competitions, and constantly learn new technologies.
+                I'm currently pursuing my Computer Science Engineering degree at RV Institute of Technology and Management. I love taking my skills beyond the classroom, whether that's applying machine learning to novel challenges, thriving in competitive coding environments, or leading technical and web teams for large-scale events.
               </p>
             </div>
 
             <div className="about-section">
               <h3 className="about-heading">Areas of Interest</h3>
               <p className="about-description">
-                Web Development, Machine Learning, Data Structures & Algorithms, Software Engineering, Database Management Systems
+                Areas of Interest Artificial Intelligence & NLP, Web Development, Competitive Programming, Software Engineering, Database Management Systems
               </p>
             </div>
 
             <p className="about-description">
-              When not coding, I read books, work on side projects, or explore new frameworks and tools.
+              My curiosity extends beyond code. I'm always exploring new frameworks, diving into tech publications, and looking for the next problem to solve.
             </p>
-
+            
             <p className="about-description about-cta">
-              I'm open to work, freelance, or collaborate. <a href="#contact" className="contact-link">Contact Me</a>.
+              I'm always open to new opportunities and collaborations. <a href="#contact" className="contact-link">Let's Connect</a>.
             </p>
           </div>
-          
           <div className="about-image">
             <div className="profile-placeholder">
               <div className="profile-icon">👨‍💻</div>
@@ -115,6 +114,7 @@ const About = () => {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>

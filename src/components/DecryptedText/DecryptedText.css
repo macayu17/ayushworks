@@ -1,0 +1,35 @@
+.decrypted-text {
+  display: inline-block;
+  font-family: 'Space Grotesk', monospace;
+  letter-spacing: 0.05em;
+}
+
+.decrypted-text.complete {
+  animation: glow 1s ease-in-out;
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+  color: var(--accent);
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  }
+}

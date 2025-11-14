@@ -1,19 +1,24 @@
 import './Hero.css';
+import DecryptedText from '../DecryptedText/DecryptedText';
+import ProfileCard from '../ProfileCard/ProfileCard';
+import profileImage from '../../assets/images/profile.png';
 
 const Hero = () => {
   return (
     <section className="hero" id="home">
       <div className="hero-content">
         <div className="hero-text">
-          <p className="hero-greeting">Hi, I'm</p>
+          <p className="hero-greeting">
+            <DecryptedText text="Hi, I'm" speed={30} showCursor={false} />
+          </p>
           <h1 className="hero-name">
-            <span className="name-gradient">Ayush Kumar</span>
+            <DecryptedText text="Ayush Kumar" speed={30} showCursor={true} />
           </h1>
           <h2 className="hero-title">
-            <span className="typing-text">Computer Science Student</span>
+            <DecryptedText text="Computer Science Student" speed={30} showCursor={false} />
           </h2>
           <p className="hero-description">
-            A CSE student at RV Institute of Technology, Bangalore. I enjoy programming and exploring web technologies.
+            "A CSE undergrad based in Bengaluru. Tackling coding challenges, training transformers, and occasionally sleeping."
           </p>
           <div className="hero-buttons">
             <a href="#contact" className="btn btn-primary">
@@ -26,23 +31,17 @@ const Hero = () => {
         </div>
         
         <div className="hero-visual">
-          <div className="profile-image-container">
-            <div className="profile-glow"></div>
-            <img 
-              src="/src/assets/images/profile.jpg" 
-              alt="Ayush Kumar" 
-              className="profile-image"
-              onError={(e) => {
-                console.log('Image failed to load, showing placeholder');
-                e.target.style.display = 'none';
-                e.target.nextElementSibling.style.display = 'flex';
-              }}
-              onLoad={() => console.log('Image loaded successfully')}
-            />
-            <div className="profile-placeholder" style={{display: 'none'}}>
-              <span className="placeholder-icon">👨‍💻</span>
-            </div>
-          </div>
+          <ProfileCard
+            avatarUrl={profileImage}
+            name="Ayush"
+            title="Computer Science Undergrad"
+            handle="github/macayu17"
+            status="Available"
+            contactText="Contact"
+            showUserInfo={false}
+            enableTilt={true}
+            enableMobileTilt={false}
+          />
         </div>
       </div>
 

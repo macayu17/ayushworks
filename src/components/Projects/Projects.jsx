@@ -55,6 +55,7 @@ const Projects = () => {
   return (
     <section className="projects" id="projects">
       <div className="container">
+        <div className="glass-container">
         <h2 className="section-title">Featured Projects</h2>
         <div className="projects-grid">
           {projects.map((project, index) => (
@@ -88,6 +89,7 @@ const Projects = () => {
               </div>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>

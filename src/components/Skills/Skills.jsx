@@ -34,10 +34,17 @@ const Skills = () => {
       'PyTorch': 'pytorch',
       'Scikit-learn': 'scikitlearn',
       'Pandas': 'pandas',
-      'NumPy': 'numpy'
+      'NumPy': 'numpy',
+      'Hugging Face': 'huggingface'
     };
     
     const iconName = iconMap[skillName] || skillName.toLowerCase();
+    
+    // Special case for Hugging Face
+    if (skillName === 'Hugging Face') {
+      return 'https://huggingface.co/front/assets/huggingface_logo.svg';
+    }
+    
     return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${iconName}/${iconName}-original.svg`;
   };
 
@@ -63,8 +70,7 @@ const Skills = () => {
         { name: 'MongoDB', level: 60 },
         { name: 'MySQL', level: 70 },
         { name: 'PostgreSQL', level: 65 },
-        { name: 'Prisma', level: 60 },
-        { name: 'Firebase', level: 70 }
+        { name: 'Prisma', level: 60 }
       ]
     },
     {
@@ -86,7 +92,8 @@ const Skills = () => {
         { name: 'PyTorch', level: 55 },
         { name: 'Scikit-learn', level: 65 },
         { name: 'Pandas', level: 70 },
-        { name: 'NumPy', level: 70 }
+        { name: 'NumPy', level: 70 },
+        { name: 'Hugging Face', level: 60 }
       ]
     },
     {
@@ -98,15 +105,10 @@ const Skills = () => {
       ]
     },
     {
-      title: 'Design & UI/UX',
+      title: 'Design, UI/UX & Testing',
       skills: [
         { name: 'Figma', level: 65 },
-        { name: 'Canva', level: 70 }
-      ]
-    },
-    {
-      title: 'Testing',
-      skills: [
+        { name: 'Canva', level: 70 },
         { name: 'Postman', level: 70 }
       ]
     }
@@ -115,6 +117,7 @@ const Skills = () => {
   return (
     <section className="skills" id="skills">
       <div className="container">
+        <div className="glass-container">
         <h2 className="section-title">Skills & Technologies</h2>
         <div className="skills-grid">
           {skillCategories.map((category, index) => (
@@ -139,6 +142,7 @@ const Skills = () => {
               </div>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>

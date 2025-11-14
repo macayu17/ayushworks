@@ -19,6 +19,7 @@ const Education = () => {
   return (
     <section className="education" id="education">
       <div className="container">
+        <div className="glass-container">
         <h2 className="section-title">Education</h2>
         <div className="education-grid">
           {education.map((edu, index) => (
@@ -33,6 +34,7 @@ const Education = () => {
               </div>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>

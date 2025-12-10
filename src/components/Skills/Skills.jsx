@@ -1,6 +1,10 @@
 import './Skills.css';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 const Skills = () => {
+  const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.2 });
+  const [gridRef, gridVisible] = useScrollAnimation({ threshold: 0.1 });
+
   const getIconUrl = (skillName) => {
     const iconMap = {
       'React': 'react',
@@ -37,14 +41,14 @@ const Skills = () => {
       'NumPy': 'numpy',
       'Hugging Face': 'huggingface'
     };
-    
+
     const iconName = iconMap[skillName] || skillName.toLowerCase();
-    
+
     // Special case for Hugging Face
     if (skillName === 'Hugging Face') {
       return 'https://huggingface.co/front/assets/huggingface_logo.svg';
     }
-    
+
     return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${iconName}/${iconName}-original.svg`;
   };
 
@@ -118,31 +122,39 @@ const Skills = () => {
     <section className="skills" id="skills">
       <div className="container">
         <div className="glass-container">
-        <h2 className="section-title">Skills & Technologies</h2>
-        <div className="skills-grid">
-          {skillCategories.map((category, index) => (
-            <div key={index} className="skill-category" style={{ animationDelay: `${index * 0.2}s` }}>
-              <h3 className="category-title">{category.title}</h3>
-              <div className="skills-list">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="skill-item">
-                    <div className="skill-header">
-                      <img 
-                        src={getIconUrl(skill.name)}
-                        alt={skill.name}
-                        className="skill-icon"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                        }}
-                      />
-                      <span className="skill-name">{skill.name}</span>
+          <h2
+            ref={titleRef}
+            className={`section-title scroll-hidden ${titleVisible ? 'scroll-visible' : ''}`}
+          >
+            Skills & Technologies
+          </h2>
+          <div
+            ref={gridRef}
+            className={`skills-grid scroll-hidden ${gridVisible ? 'scroll-visible' : ''}`}
+          >
+            {skillCategories.map((category, index) => (
+              <div key={index} className="skill-category" style={{ animationDelay: `${index * 0.2}s` }}>
+                <h3 className="category-title">{category.title}</h3>
+                <div className="skills-list">
+                  {category.skills.map((skill, skillIndex) => (
+                    <div key={skillIndex} className="skill-item">
+                      <div className="skill-header">
+                        <img
+                          src={getIconUrl(skill.name)}
+                          alt={skill.name}
+                          className="skill-icon"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                        <span className="skill-name">{skill.name}</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

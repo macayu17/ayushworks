@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer-content">
           <div className="footer-brand">
             <h3 className="footer-logo"><span className="footer-bracket">{`{`}</span><span className="footer-logo-text">ayush</span><span className="footer-bracket">{`}`}</span></h3>
-            <p className="footer-tagline">Building the future, one line of code at a time.</p>
+            <p className="footer-tagline"></p>
           </div>
 
           <div className="footer-links">
@@ -26,10 +26,10 @@ const Footer = () => {
             <div className="footer-section">
               <h4>Contact</h4>
               <ul>
-                <li><a href="mailto:ayush.kumar@example.com">Email</a></li>
-                <li><a href="https://github.com">GitHub</a></li>
-                <li><a href="https://linkedin.com">LinkedIn</a></li>
-                <li><a href="https://twitter.com">Twitter</a></li>
+                <li><a href="mailto:ayushhoff@gmail.com">Email</a></li>
+                <li><a href="https://github.com/macayu17">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/anayush14/">LinkedIn</a></li>
+                <li><a href="https://x.com/ayush_174_">Twitter</a></li>
               </ul>
             </div>
           </div>

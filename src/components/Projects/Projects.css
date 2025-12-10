@@ -9,15 +9,15 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   padding: 3rem;
-  box-shadow: 
+  box-shadow:
     0 8px 32px 0 rgba(0, 0, 0, 0.5),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
 }
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
   margin-top: 3rem;
 }
 
@@ -32,23 +32,25 @@
   animation: fadeInUp 0.8s ease forwards;
   opacity: 0;
   cursor: pointer;
-  box-shadow: 
+  box-shadow:
     0 8px 32px 0 rgba(0, 0, 0, 0.37),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card:hover {
   transform: translateY(-10px);
   border-color: rgba(59, 130, 246, 0.3);
   background: rgba(26, 26, 26, 0.8);
-  box-shadow: 
+  box-shadow:
     0 20px 50px rgba(59, 130, 246, 0.2),
     0 8px 32px 0 rgba(0, 0, 0, 0.37),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
 
 .project-image {
-  height: 200px;
+  height: 160px;
   background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
   display: flex;
   align-items: center;
@@ -69,7 +71,7 @@
 }
 
 .project-emoji {
-  font-size: 5rem;
+  font-size: 4rem;
   position: relative;
   z-index: 1;
   transition: transform 0.3s ease;
@@ -80,11 +82,14 @@
 }
 
 .project-content {
-  padding: 1.5rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .project-title {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.75rem;
@@ -104,26 +109,34 @@
   margin-bottom: 1.5rem;
 }
 
-.tech-tag {
-  padding: 0.4rem 0.8rem;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 0.85rem;
-  color: var(--accent);
-  font-weight: 500;
+.tech-icon {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
   transition: all 0.3s ease;
+  cursor: help;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.tech-tag:hover {
-  background: var(--accent-light);
-  border-color: var(--accent);
-  transform: translateY(-2px);
+.tech-icon:hover {
+  transform: translateY(-2px) scale(1.1);
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+}
+
+.tech-text {
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
 
 .project-links {
   display: flex;
   gap: 1rem;
+  margin-top: auto;
 }
 
 .project-link {
@@ -160,6 +173,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -167,8 +181,13 @@
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 768px) {

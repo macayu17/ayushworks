@@ -11,7 +11,7 @@ const Navbar = () => {
 
       // Update active section based on scroll position
       const sections = ['home', 'about', 'skills', 'projects', 'contact'];
-      
+
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -53,7 +53,9 @@ const Navbar = () => {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         <div className="navbar-logo" onClick={() => scrollToSection('home')}>
-          <span className="logo-text">&lt;AK /&gt;</span>
+          <span className="logo-bracket">{`{`}</span>
+          <span className="logo-text">ayush</span>
+          <span className="logo-bracket">{`}`}</span>
         </div>
 
         <ul className="navbar-menu">

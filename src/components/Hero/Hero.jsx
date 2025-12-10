@@ -1,5 +1,6 @@
 import './Hero.css';
 import DecryptedText from '../DecryptedText/DecryptedText';
+import TextPressure from '../TextPressure/TextPressure';
 import ProfileCard from '../ProfileCard/ProfileCard';
 import profileImage from '../../assets/images/profile.png';
 
@@ -11,9 +12,20 @@ const Hero = () => {
           <p className="hero-greeting">
             <DecryptedText text="Hi, I'm" speed={30} showCursor={false} />
           </p>
-          <h1 className="hero-name">
-            <DecryptedText text="Ayush Kumar" speed={30} showCursor={true} />
-          </h1>
+          <div className="hero-name-container">
+            <TextPressure
+              text="Ayush Kumar"
+              flex={true}
+              alpha={false}
+              stroke={false}
+              width={true}
+              weight={true}
+              italic={true}
+              textColor="#ffffff"
+              strokeColor="#ff0000"
+              minFontSize={36}
+            />
+          </div>
           <h2 className="hero-title">
             <DecryptedText text="Computer Science Student" speed={30} showCursor={false} />
           </h2>
@@ -29,12 +41,11 @@ const Hero = () => {
             </a>
           </div>
         </div>
-        
+
         <div className="hero-visual">
           <ProfileCard
             avatarUrl={profileImage}
             name="Ayush"
-            title="Computer Science Undergrad"
             handle="github/macayu17"
             status="Available"
             contactText="Contact"

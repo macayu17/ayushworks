@@ -29,25 +29,27 @@ function App() {
       {/* 🔥 Global Background Layer */}
       <ColorBends
         colors={[
-    "#ff7f3f", // warm orange
-    "#ff3f6c", // pink/red
-    "#6d5cff", // purple/indigo
-    "#1fa2ff", // bright blue
-    "#00e6af", // aqua
-    "#00ff4d"  // green
-  ]}
+          "#ff0000", // red
+          "#ff7700", // orange
+          "#ffff00", // yellow
+          "#00ff00", // green
+          "#00ffff", // cyan
+          "#0066ff", // blue
+          "#4400ff", // indigo
+          "#9900ff"  // violet
+        ]}
         rotation={0}
         speed={0.8}
-        scale={1}
-        frequency={5}
-        warpStrength={1.2}
+        scale={0.7}
+        frequency={2}
+        warpStrength={1}
         mouseInfluence={1}
-        parallax={1}
-        noise={0.5}
+        parallax={0.5}
+        noise={0.1}
         transparent
         style={{
-    transform: "translateX(-200px)"  // ⭐ SHIFT background LEFT
-  }}
+          transform: "translateX(-200px)"  // ⭐ SHIFT background LEFT
+        }}
       />
 
       {/* ⭐ Foreground Content */}

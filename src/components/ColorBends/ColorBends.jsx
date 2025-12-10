@@ -283,15 +283,16 @@ export default function ColorBends({
       pointerTargetRef.current.set(x, y);
     };
 
-    container.addEventListener('pointermove', handlePointerMove);
+    // Listen on window so events work even when other elements overlay the background
+    window.addEventListener('pointermove', handlePointerMove);
     return () => {
-      container.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointermove', handlePointerMove);
     };
   }, []);
 
   return <div
-  ref={containerRef}
-  className="color-bends-container"
-  style={{ position: "fixed", inset: 0 }}
-/>;
+    ref={containerRef}
+    className="color-bends-container"
+    style={{ position: "fixed", inset: 0 }}
+  />;
 }

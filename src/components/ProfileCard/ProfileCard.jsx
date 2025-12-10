@@ -29,7 +29,7 @@ const ProfileCardComponent = ({
   mobileTiltSensitivity = 5,
   miniAvatarUrl,
   name = 'Ayush Kumar',
-  title = 'Computer Science Student',
+  title = '',
   handle = 'macayu17',
   status = 'Available',
   contactText = 'Contact',
@@ -362,7 +362,7 @@ const ProfileCardComponent = ({
             <div className="pc-content">
               <div className="pc-details">
                 <h3>{name}</h3>
-                <p>{title}</p>
+                {title && <p>{title}</p>}
               </div>
             </div>
           </div>

@@ -33,6 +33,16 @@
 
 .hero-text {
   animation: fadeInUp 1s ease;
+  padding: 2rem 2.5rem;
+  border-radius: 24px;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.01) 50%,
+      rgba(59, 130, 246, 0.03) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .hero-greeting {
@@ -49,6 +59,13 @@
   line-height: 1.2;
 }
 
+.hero-name-container {
+  position: relative;
+  height: 80px;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
 .hero-name .decrypted-text {
   background: linear-gradient(135deg, var(--accent) 0%, #60a5fa 100%);
   -webkit-background-clip: text;
@@ -57,10 +74,11 @@
 }
 
 .hero-title {
-  font-size: clamp(1rem, 2vw, 2.5rem);
+  font-size: clamp(0.9rem, 1.6vw, 1.8rem);
   font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 1.5rem;
+  white-space: nowrap;
 }
 
 .typing-text::after {
@@ -71,8 +89,16 @@
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
 .hero-description {
@@ -109,7 +135,7 @@
   -webkit-backdrop-filter: blur(20px);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
+  box-shadow:
     0 4px 15px rgba(59, 130, 246, 0.3),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
 }
@@ -117,7 +143,7 @@
 .btn-primary:hover {
   background: rgba(37, 99, 235, 0.95);
   transform: translateY(-2px);
-  box-shadow: 
+  box-shadow:
     0 6px 20px rgba(59, 130, 246, 0.4),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
 }
@@ -128,7 +154,7 @@
   -webkit-backdrop-filter: blur(20px);
   color: var(--accent);
   border: 2px solid rgba(59, 130, 246, 0.3);
-  box-shadow: 
+  box-shadow:
     0 4px 15px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
 }
@@ -137,7 +163,7 @@
   background: rgba(59, 130, 246, 0.1);
   border-color: rgba(59, 130, 246, 0.5);
   transform: translateY(-2px);
-  box-shadow: 
+  box-shadow:
     0 6px 20px rgba(59, 130, 246, 0.2),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
 }
@@ -159,7 +185,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   padding: 2rem;
-  box-shadow: 
+  box-shadow:
     0 8px 32px 0 rgba(0, 0, 0, 0.5),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
   animation: fadeInScale 1.2s ease;
@@ -168,7 +194,7 @@
 
 .profile-card:hover {
   transform: translateY(-10px);
-  box-shadow: 
+  box-shadow:
     0 20px 60px rgba(59, 130, 246, 0.3),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
   border-color: rgba(59, 130, 246, 0.3);
@@ -203,7 +229,7 @@
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid rgba(59, 130, 246, 0.3);
-  box-shadow: 
+  box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.5),
     0 0 20px rgba(59, 130, 246, 0.2);
   transition: all 0.3s ease;
@@ -212,7 +238,7 @@
 .profile-image:hover {
   transform: scale(1.05);
   border-color: rgba(59, 130, 246, 0.6);
-  box-shadow: 
+  box-shadow:
     0 15px 50px rgba(0, 0, 0, 0.6),
     0 0 30px rgba(59, 130, 246, 0.4);
 }
@@ -291,6 +317,7 @@
     opacity: 0;
     transform: scale(0.8);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -298,10 +325,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.6;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.8;
     transform: scale(1.1);
@@ -313,6 +343,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -359,6 +390,7 @@
     opacity: 1;
     top: 6px;
   }
+
   100% {
     opacity: 0;
     top: 20px;
@@ -366,8 +398,13 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 968px) {

@@ -55,6 +55,30 @@ const Projects = () => {
 
   const projects = [
     {
+      title: 'FraudKavach — Real-Time Fraud Detection',
+      description: 'AI-driven fraud detection system for real-time transaction scoring and alerts. Built real-time ML inference pipeline with LightGBM for risk scoring, WebSocket-based event streaming, and explainable AI using SHAP for feature attribution.',
+      tech: ['React', 'TypeScript', 'Node.js', 'FastAPI', 'Socket.IO', 'LightGBM', 'Docker'],
+      github: 'https://github.com/macayu17',
+      live: '#',
+      image: '🛡️'
+    },
+    {
+      title: 'StockFlow — Virtual Stock Trading Platform',
+      description: 'Virtual trading platform with real-time prices, portfolio tracking, and competitive leaderboards. Built RESTful API with 25+ endpoints for auth, trading, portfolios with sub-100ms latency on real-time stock queries supporting 1,000+ simulated trades/day.',
+      tech: ['React', 'Node.js', 'Express.js', 'PostgreSQL', 'Prisma', 'JWT', 'Vercel'],
+      github: 'https://github.com/macayu17/Trade-Wars.git',
+      live: '#',
+      image: '📈'
+    },
+    {
+      title: 'EventEase — Event Management & Booking System',
+      description: 'Full-stack event management and ticketing with secure payments, QR tickets, and admin dashboards. Implemented scalable backend with webhook-based payments, background job processing, and S3-based asset storage.',
+      tech: ['React', 'Tailwind', 'Node.js', 'PostgreSQL', 'Redis', 'Razorpay', 'AWS S3'],
+      github: 'https://github.com/macayu17/events-management-booking.git',
+      live: '#',
+      image: '🎫'
+    },
+    {
       title: 'GridPulse — F1 Race Analytics Platform',
       description: 'Full-stack race replay and telemetry visualization platform for real-time F1 analytics with live track positioning. Built with FastAPI backend processing real F1 telemetry data and interactive React frontend with D3.js track visualization, live leaderboards, and sector analysis.',
       tech: ['React', 'Vite', 'FastAPI', 'Python', 'D3.js', 'Docker', 'FastF1'],
@@ -63,36 +87,12 @@ const Projects = () => {
       image: '🏎️'
     },
     {
-      title: 'StockFlow Virtual Stock Trading Platform',
-      description: 'Virtual trading platform with real-time prices, portfolio tracking, and competitive leaderboards. Built RESTful API with 25+ endpoints for auth, trading, portfolios with sub-100ms latency on real-time stock queries supporting 1,000+ simulated trades/day.',
-      tech: ['React', 'Node.js', 'Express.js', 'PostgreSQL', 'Prisma', 'JWT', 'Vercel'],
-      github: 'https://github.com/macayu17/Trade-Wars.git',
-      live: '#',
-      image: '📈'
-    },
-    {
-      title: 'EventEase Event Management & Booking System',
-      description: 'Full-stack event management and ticketing with secure payments, QR tickets, and admin dashboards. Implemented scalable backend with webhook-based payments, background job processing, and S3-based asset storage.',
-      tech: ['React', 'Tailwind', 'Node.js', 'PostgreSQL', 'Redis', 'Razorpay', 'AWS S3'],
-      github: 'https://github.com/macayu17/events-management-booking.git',
-      live: '#',
-      image: '🎫'
-    },
-    {
-      title: "Parkinson's Disease Screening using LLM",
+      title: 'Parkinson’s Disease Screening using LLM',
       description: 'Multimodal AI diagnostic system to detect Parkinson\'s Disease from clinical data achieving 96.73% accuracy. Combined 3 medical transformers (PubMedBERT, BioGPT, Clinical-T5) with 3 ML models through weighted voting, trained on 42,645 patient samples.',
       tech: ['Python', 'PyTorch', 'Flask', 'Transformers', 'LightGBM', 'XGBoost', 'SVM'],
       github: 'https://github.com/macayu17/Parkinsons-Disease-Assesment-Portal.git',
       live: '#',
       image: '🧠'
-    },
-    {
-      title: 'FraudKavach — Real-Time Fraud Detection',
-      description: 'AI-driven fraud detection system for real-time transaction scoring and alerts. Built real-time ML inference pipeline with LightGBM for risk scoring, WebSocket-based event streaming, and explainable AI using SHAP for feature attribution.',
-      tech: ['React', 'TypeScript', 'Node.js', 'FastAPI', 'Socket.IO', 'LightGBM', 'Docker'],
-      github: 'https://github.com/macayu17',
-      live: '#',
-      image: '🛡️'
     },
     {
       title: 'Multimodal Sentiment Analysis on Tweets',

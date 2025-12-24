@@ -21,6 +21,7 @@ import {
 } from 'react-icons/si';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import f1Image from '../../assets/images/f1.png';
+import occasioImage from '../../assets/images/occasio.png';
 
 const Projects = () => {
   const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.2 });
@@ -85,7 +86,7 @@ const Projects = () => {
       image: '📈'
     },
     {
-      title: 'EventEase — Event Management & Booking System',
+      title: 'Occasio — Event Management & Booking System',
       description: 'Full-stack event management and ticketing with secure payments, QR tickets, and admin dashboards. Implemented scalable backend with webhook-based payments, background job processing, and S3-based asset storage.',
       highlights: [
         'Event creation + ticket booking flow with admin dashboard',
@@ -96,7 +97,8 @@ const Projects = () => {
       tech: ['React', 'Tailwind', 'Node.js', 'PostgreSQL', 'Redis', 'Razorpay', 'AWS S3'],
       github: 'https://github.com/macayu17/events-management-booking.git',
       live: '#',
-      image: '🎫'
+      image: occasioImage,
+      imageFallback: '🎫'
     },
     {
       title: 'GridPulse — F1 Race Analytics Platform',
@@ -164,7 +166,20 @@ const Projects = () => {
                     project.image.startsWith('data:') ||
                     project.image.includes('/') ||
                     /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(project.image)) ? (
-                    <img className="project-image-media" src={project.image} alt="" loading="lazy" />
+                    <>
+                      {project.imageFallback && (
+                        <span className="project-emoji project-emoji-fallback">{project.imageFallback}</span>
+                      )}
+                      <img
+                        className="project-image-media"
+                        src={project.image}
+                        alt={project.title}
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    </>
                   ) : (
                     <span className="project-emoji">{project.image}</span>
                   )}

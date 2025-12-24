@@ -77,6 +77,14 @@
   transition: transform 0.3s ease;
 }
 
+.project-emoji-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .project-image-media {
   width: auto;
   height: 145px;

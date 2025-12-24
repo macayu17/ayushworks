@@ -20,6 +20,7 @@ import {
   SiOpencv
 } from 'react-icons/si';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import f1Image from '../../assets/images/f1.png';
 
 const Projects = () => {
   const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.2 });
@@ -55,16 +56,29 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'FraudKavach — Real-Time Fraud Detection',
-      description: 'AI-driven fraud detection system for real-time transaction scoring and alerts. Built real-time ML inference pipeline with LightGBM for risk scoring, WebSocket-based event streaming, and explainable AI using SHAP for feature attribution.',
-      tech: ['React', 'TypeScript', 'Node.js', 'FastAPI', 'Socket.IO', 'LightGBM', 'Docker'],
-      github: 'https://github.com/macayu17',
+      title: 'FraudKavach — Smart Payment Insights & Fraud Awareness',
+      description:
+        'Fintech web app for card-payment simulation with real-time analytics, fraud-risk indicators, and accessibility-first UI.',
+      highlights: [
+        'Multi-currency payments with history + insights',
+        'Rule-based fraud-risk scoring with clear explanations',
+        'Analytics dashboard: trends, categories, success vs failure',
+        'WCAG 2.0 AA: keyboard + screen-reader support'
+      ],
+      tech: ['React', 'TypeScript', 'Node.js', 'Express.js', 'REST APIs', 'WebSockets', 'Charts'],
+      github: 'https://github.com/macayu17/FraudKavach.git',
       live: '#',
       image: '🛡️'
     },
     {
       title: 'StockFlow — Virtual Stock Trading Platform',
       description: 'Virtual trading platform with real-time prices, portfolio tracking, and competitive leaderboards. Built RESTful API with 25+ endpoints for auth, trading, portfolios with sub-100ms latency on real-time stock queries supporting 1,000+ simulated trades/day.',
+      highlights: [
+        'Real-time price lookup with paper-trading workflows',
+        'Portfolio tracking with P&L and holdings breakdown',
+        'Secure auth + role-safe trading endpoints',
+        'Competitive leaderboards for simulated performance'
+      ],
       tech: ['React', 'Node.js', 'Express.js', 'PostgreSQL', 'Prisma', 'JWT', 'Vercel'],
       github: 'https://github.com/macayu17/Trade-Wars.git',
       live: '#',
@@ -73,6 +87,12 @@ const Projects = () => {
     {
       title: 'EventEase — Event Management & Booking System',
       description: 'Full-stack event management and ticketing with secure payments, QR tickets, and admin dashboards. Implemented scalable backend with webhook-based payments, background job processing, and S3-based asset storage.',
+      highlights: [
+        'Event creation + ticket booking flow with admin dashboard',
+        'Secure payments with webhook-driven confirmation',
+        'QR-based ticketing for fast check-in validation',
+        'Scalable storage for event assets (S3-backed)'
+      ],
       tech: ['React', 'Tailwind', 'Node.js', 'PostgreSQL', 'Redis', 'Razorpay', 'AWS S3'],
       github: 'https://github.com/macayu17/events-management-booking.git',
       live: '#',
@@ -81,14 +101,26 @@ const Projects = () => {
     {
       title: 'GridPulse — F1 Race Analytics Platform',
       description: 'Full-stack race replay and telemetry visualization platform for real-time F1 analytics with live track positioning. Built with FastAPI backend processing real F1 telemetry data and interactive React frontend with D3.js track visualization, live leaderboards, and sector analysis.',
+      highlights: [
+        'Race replay with telemetry-driven insights',
+        'Interactive track visualization and live positioning',
+        'Leaderboards with sector + lap analysis',
+        'FastAPI backend processing real F1 telemetry data'
+      ],
       tech: ['React', 'Vite', 'FastAPI', 'Python', 'D3.js', 'Docker', 'FastF1'],
-      github: 'https://github.com/macayu17/f1-replay-system.git',
+      github: 'https://github.com/macayu17/f1-r eplay-system.git',
       live: '#',
-      image: '🏎️'
+      image: f1Image
     },
     {
       title: 'Parkinson’s Disease Screening using LLM',
       description: 'Multimodal AI diagnostic system to detect Parkinson\'s Disease from clinical data achieving 96.73% accuracy. Combined 3 medical transformers (PubMedBERT, BioGPT, Clinical-T5) with 3 ML models through weighted voting, trained on 42,645 patient samples.',
+      highlights: [
+        'Multimodal screening pipeline from clinical inputs',
+        'Ensemble voting across transformers + ML models',
+        'Trained on 42,645 samples; achieved 96.73% accuracy',
+        'Deployed via Flask for practical assessment flow'
+      ],
       tech: ['Python', 'PyTorch', 'Flask', 'Transformers', 'LightGBM', 'XGBoost', 'SVM'],
       github: 'https://github.com/macayu17/Parkinsons-Disease-Assesment-Portal.git',
       live: '#',
@@ -97,6 +129,12 @@ const Projects = () => {
     {
       title: 'Multimodal Sentiment Analysis on Tweets',
       description: 'Sophisticated multimodal model to analyze public sentiment from text, images, and videos. Achieved 87.23% accuracy on Sentiment140 dataset (1.6M tweets) using BERT, RoBERTa for text, CNNs for images, and MFCCs for audio components.',
+      highlights: [
+        'Multimodal sentiment from text + images + audio',
+        'Transformer-based NLP (BERT/RoBERTa) for text features',
+        'Vision + audio features via CNNs and MFCCs',
+        '87.23% accuracy on Sentiment140 (1.6M tweets)'
+      ],
       tech: ['Python', 'TensorFlow', 'PyTorch', 'Transformers', 'OpenCV', 'XGBoost', 'Librosa'],
       github: 'https://github.com/macayu17',
       live: '#',
@@ -121,11 +159,26 @@ const Projects = () => {
             {projects.map((project, index) => (
               <div key={index} className="project-card" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="project-image">
-                  <span className="project-emoji">{project.image}</span>
+                  {typeof project.image === 'string' &&
+                  (project.image.startsWith('http') ||
+                    project.image.startsWith('data:') ||
+                    project.image.includes('/') ||
+                    /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(project.image)) ? (
+                    <img className="project-image-media" src={project.image} alt="" loading="lazy" />
+                  ) : (
+                    <span className="project-emoji">{project.image}</span>
+                  )}
                 </div>
                 <div className="project-content">
                   <h3 className="project-title">{project.title}</h3>
                   <p className="project-description">{project.description}</p>
+                  {Array.isArray(project.highlights) && project.highlights.length > 0 && (
+                    <ul className="project-highlights">
+                      {project.highlights.map((item, itemIndex) => (
+                        <li key={itemIndex}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
                   <div className="project-tech">
                     {project.tech.map((tech, techIndex) => (
                       <div key={techIndex} className="tech-icon" title={tech}>

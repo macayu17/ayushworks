@@ -54,7 +54,10 @@ const About = () => {
             </div>
           </div>
 
-          <div className="tech-section">
+          <div
+            ref={techRef}
+            className={`tech-section scroll-hidden ${techVisible ? 'scroll-visible' : ''}`}
+          >
             <h3 className="tech-title">Tools that I have used</h3>
             <div className="marquee-wrapper">
               <div className="marquee-container">

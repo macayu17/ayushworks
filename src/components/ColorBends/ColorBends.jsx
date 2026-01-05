@@ -290,9 +290,11 @@ export default function ColorBends({
     };
   }, []);
 
-  return <div
-    ref={containerRef}
-    className="color-bends-container"
-    style={{ position: "fixed", inset: 0 }}
-  />;
+  return (
+    <div
+      ref={containerRef}
+      className={["color-bends-container", className].filter(Boolean).join(' ')}
+      style={{ position: 'fixed', inset: 0, ...style }}
+    />
+  );
 }

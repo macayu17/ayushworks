@@ -9,6 +9,10 @@ export const useScrollAnimation = (options = {}) => {
     const ref = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
 
+    const threshold = options.threshold ?? 0.1;
+    const rootMargin = options.rootMargin ?? '0px 0px -50px 0px';
+    const root = options.root ?? null;
+
     useEffect(() => {
         const element = ref.current;
         if (!element) return;
@@ -22,9 +26,9 @@ export const useScrollAnimation = (options = {}) => {
                 }
             },
             {
-                threshold: options.threshold || 0.1,
-                rootMargin: options.rootMargin || '0px 0px -50px 0px',
-                ...options
+                threshold,
+                rootMargin,
+                root
             }
         );
 
@@ -33,7 +37,7 @@ export const useScrollAnimation = (options = {}) => {
         return () => {
             if (element) observer.unobserve(element);
         };
-    }, [options.threshold, options.rootMargin]);
+    }, [threshold, rootMargin, root]);
 
     return [ref, isVisible];
 };
@@ -48,8 +52,15 @@ export const useStaggeredAnimation = (count, options = {}) => {
     const refs = useRef([]);
     const [visibleStates, setVisibleStates] = useState(Array(count).fill(false));
 
+    const threshold = options.threshold ?? 0.1;
+    const rootMargin = options.rootMargin ?? '0px 0px -50px 0px';
+    const root = options.root ?? null;
+    const staggerDelay = options.staggerDelay ?? 100;
+
     useEffect(() => {
-        const observers = refs.current.map((element, index) => {
+        const elements = refs.current.slice(0, count);
+
+        const observers = elements.map((element, index) => {
             if (!element) return null;
 
             const observer = new IntersectionObserver(
@@ -64,9 +75,9 @@ export const useStaggeredAnimation = (count, options = {}) => {
                     }
                 },
                 {
-                    threshold: options.threshold || 0.1,
-                    rootMargin: options.rootMargin || '0px 0px -50px 0px',
-                    ...options
+                    threshold,
+                    rootMargin,
+                    root
                 }
             );
 
@@ -76,17 +87,18 @@ export const useStaggeredAnimation = (count, options = {}) => {
 
         return () => {
             observers.forEach((observer, index) => {
-                if (observer && refs.current[index]) {
-                    observer.unobserve(refs.current[index]);
+                const el = elements[index];
+                if (observer && el) {
+                    observer.unobserve(el);
                 }
             });
         };
-    }, [count, options.threshold, options.rootMargin]);
+    }, [count, threshold, rootMargin, root]);
 
-    return refs.current.map((_, index) => ({
+    return Array.from({ length: count }, (_, index) => ({
         ref: (el) => { refs.current[index] = el; },
         isVisible: visibleStates[index],
-        delay: index * (options.staggerDelay || 100)
+        delay: index * staggerDelay
     }));
 };
 

@@ -6,6 +6,8 @@ const Contact = () => {
   const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.2 });
   const [contentRef, contentVisible] = useScrollAnimation({ threshold: 0.1 });
 
+  const CONTACT_EMAIL = 'ayushhoff@gmail.com';
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,8 +24,20 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    alert('Message sent! (This is a demo)');
+
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const subject = formData.subject.trim();
+    const message = formData.message.trim();
+
+    const mailSubject = subject || `Message from ${name}`;
+    const mailBody = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+
+    const mailtoUrl = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+      mailSubject
+    )}&body=${encodeURIComponent(mailBody)}`;
+
+    window.location.href = mailtoUrl;
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
 

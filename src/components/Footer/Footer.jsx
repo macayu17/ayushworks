@@ -29,7 +29,7 @@ const Footer = () => {
                 <li><a href="mailto:ayushhoff@gmail.com">Email</a></li>
                 <li><a href="https://github.com/macayu17">GitHub</a></li>
                 <li><a href="https://www.linkedin.com/in/anayush14/">LinkedIn</a></li>
-                <li><a href="https://x.com/ayush_174_">Twitter</a></li>
+                <li><a href="https://x.com/ayush_174_">X</a></li>
               </ul>
             </div>
           </div>

@@ -47,9 +47,6 @@ function App() {
         parallax={0.5}
         noise={0.1}
         transparent
-        style={{
-          transform: "translateX(-200px)"  // ⭐ SHIFT background LEFT
-        }}
       />
 
       {/* ⭐ Foreground Content */}

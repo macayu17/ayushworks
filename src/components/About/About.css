@@ -133,6 +133,31 @@
   padding: 0.75rem 0;
   display: flex;
   user-select: none;
+
+  /* Fade edges (so items disappear smoothly at the ends) */
+  --marquee-fade: clamp(32px, 7vw, 96px);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    rgba(0, 0, 0, 0.9) calc(var(--marquee-fade) * 0.7),
+    #000 var(--marquee-fade),
+    #000 calc(100% - var(--marquee-fade)),
+    rgba(0, 0, 0, 0.9) calc(100% - (var(--marquee-fade) * 0.7)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    rgba(0, 0, 0, 0.9) calc(var(--marquee-fade) * 0.7),
+    #000 var(--marquee-fade),
+    #000 calc(100% - var(--marquee-fade)),
+    rgba(0, 0, 0, 0.9) calc(100% - (var(--marquee-fade) * 0.7)),
+    transparent 100%
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 .marquee-content {

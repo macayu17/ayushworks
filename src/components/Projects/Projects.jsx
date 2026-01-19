@@ -59,12 +59,10 @@ const Projects = () => {
     {
       title: 'FraudKavach — Smart Payment Insights & Fraud Awareness',
       description:
-        'Fintech web app for card-payment simulation with real-time analytics, fraud-risk indicators, and accessibility-first UI.',
+        'Fintech payment simulator with fraud signals.',
       highlights: [
-        'Multi-currency payments with history + insights',
-        'Rule-based fraud-risk scoring with clear explanations',
-        'Analytics dashboard: trends, categories, success vs failure',
-        'WCAG 2.0 AA: keyboard + screen-reader support'
+        'Explainable risk scoring',
+        'Accessible UI (keyboard + screen reader)'
       ],
       tech: ['React', 'TypeScript', 'Node.js', 'Express.js', 'REST APIs', 'WebSockets', 'Charts'],
       github: 'https://github.com/macayu17/FraudKavach.git',
@@ -73,12 +71,10 @@ const Projects = () => {
     },
     {
       title: 'StockFlow — Virtual Stock Trading Platform',
-      description: 'Virtual trading platform with real-time prices, portfolio tracking, and competitive leaderboards. Built RESTful API with 25+ endpoints for auth, trading, portfolios with sub-100ms latency on real-time stock queries supporting 1,000+ simulated trades/day.',
+      description: 'Paper-trading with quotes, portfolios, and leaderboards.',
       highlights: [
-        'Real-time price lookup with paper-trading workflows',
-        'Portfolio tracking with P&L and holdings breakdown',
-        'Secure auth + role-safe trading endpoints',
-        'Competitive leaderboards for simulated performance'
+        'Portfolio tracking (P&L + holdings)',
+        'Secure auth + trading workflows'
       ],
       tech: ['React', 'Node.js', 'Express.js', 'PostgreSQL', 'Prisma', 'JWT', 'Vercel'],
       github: 'https://github.com/macayu17/Trade-Wars.git',
@@ -87,12 +83,10 @@ const Projects = () => {
     },
     {
       title: 'Occasio — Event Management & Booking System',
-      description: 'Full-stack event management and ticketing with secure payments, QR tickets, and admin dashboards. Implemented scalable backend with webhook-based payments, background job processing, and S3-based asset storage.',
+      description: 'Event booking with payments and QR tickets.',
       highlights: [
-        'Event creation + ticket booking flow with admin dashboard',
-        'Secure payments with webhook-driven confirmation',
-        'QR-based ticketing for fast check-in validation',
-        'Scalable storage for event assets (S3-backed)'
+        'Admin dashboard + booking flow',
+        'Webhook payments + QR check-in'
       ],
       tech: ['React', 'Tailwind', 'Node.js', 'PostgreSQL', 'Redis', 'Razorpay', 'AWS S3'],
       github: 'https://github.com/macayu17/events-management-booking.git',
@@ -102,26 +96,22 @@ const Projects = () => {
     },
     {
       title: 'GridPulse — F1 Race Analytics Platform',
-      description: 'Full-stack race replay and telemetry visualization platform for real-time F1 analytics with live track positioning. Built with FastAPI backend processing real F1 telemetry data and interactive React frontend with D3.js track visualization, live leaderboards, and sector analysis.',
+      description: 'F1 telemetry replay + track analytics.',
       highlights: [
-        'Race replay with telemetry-driven insights',
-        'Interactive track visualization and live positioning',
-        'Leaderboards with sector + lap analysis',
-        'FastAPI backend processing real F1 telemetry data'
+        'Track visualization + positioning',
+        'Leaderboards + sector analysis'
       ],
       tech: ['React', 'Vite', 'FastAPI', 'Python', 'D3.js', 'Docker', 'FastF1'],
-      github: 'https://github.com/macayu17/f1-r eplay-system.git',
+      github: 'https://github.com/macayu17/f1-replay-system.git',
       live: '#',
       image: f1Image
     },
     {
       title: 'Parkinson’s Disease Screening using LLM',
-      description: 'Multimodal AI diagnostic system to detect Parkinson\'s Disease from clinical data achieving 96.73% accuracy. Combined 3 medical transformers (PubMedBERT, BioGPT, Clinical-T5) with 3 ML models through weighted voting, trained on 42,645 patient samples.',
+      description: 'Clinical screening via transformers + ML.',
       highlights: [
-        'Multimodal screening pipeline from clinical inputs',
-        'Ensemble voting across transformers + ML models',
-        'Trained on 42,645 samples; achieved 96.73% accuracy',
-        'Deployed via Flask for practical assessment flow'
+        'Ensemble across transformer + ML models',
+        'Flask-based assessment flow'
       ],
       tech: ['Python', 'PyTorch', 'Flask', 'Transformers', 'LightGBM', 'XGBoost', 'SVM'],
       github: 'https://github.com/macayu17/Parkinsons-Disease-Assesment-Portal.git',
@@ -130,12 +120,10 @@ const Projects = () => {
     },
     {
       title: 'Multimodal Sentiment Analysis on Tweets',
-      description: 'Sophisticated multimodal model to analyze public sentiment from text, images, and videos. Achieved 87.23% accuracy on Sentiment140 dataset (1.6M tweets) using BERT, RoBERTa for text, CNNs for images, and MFCCs for audio components.',
+      description: 'Multimodal sentiment (text + vision + audio).',
       highlights: [
-        'Multimodal sentiment from text + images + audio',
-        'Transformer-based NLP (BERT/RoBERTa) for text features',
-        'Vision + audio features via CNNs and MFCCs',
-        '87.23% accuracy on Sentiment140 (1.6M tweets)'
+        'Transformers for text features',
+        'CNN/MFCC pipeline for vision/audio'
       ],
       tech: ['Python', 'TensorFlow', 'PyTorch', 'Transformers', 'OpenCV', 'XGBoost', 'Librosa'],
       github: 'https://github.com/macayu17',

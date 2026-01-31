@@ -22,7 +22,7 @@ const About = () => {
           >
             <div className="about-text">
               <p className="about-description">
-                Hello! I'm a developer from Bangalore, India. I enjoy programming and exploring technology.
+                Hello! I'm a developer from Bengaluru, India. I enjoy programming and exploring technology.
               </p>
 
               <div className="about-section">

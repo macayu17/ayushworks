@@ -12,8 +12,8 @@
   --border: #27272a;
   --shadow: rgba(0, 0, 0, 0.3);
 
-  --font-display: 'Cinzel', serif;
-  --font-body: 'Cormorant Garamond', serif;
+  --font-display: 'Unbounded', sans-serif;
+  --font-body: 'Geist', sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
   font-family: var(--font-body);

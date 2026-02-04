@@ -52,8 +52,15 @@ const Contact = () => {
             Get In Touch
           </h2>
           <p className="contact-subtitle">
-            Have a question or want to work together? Feel free to reach out!
+            Available for internships, freelance & full-time roles
           </p>
+
+          <div className="status-badge-container">
+            <div className="status-badge">
+              <span className="status-dot"></span>
+              <span>Open to Work</span>
+            </div>
+          </div>
 
           <div
             ref={contentRef}

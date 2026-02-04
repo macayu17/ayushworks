@@ -57,77 +57,52 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'FraudKavach — Smart Payment Insights & Fraud Awareness',
-      description:
-        'Fintech payment simulator with fraud signals.',
-      highlights: [
-        'Explainable risk scoring',
-        'Accessible UI (keyboard + screen reader)'
-      ],
-      tech: ['React', 'TypeScript', 'Node.js', 'Express.js', 'REST APIs', 'WebSockets', 'Charts'],
+      title: 'FraudKavach',
+      description: 'Fintech payment simulator with fraud detection & explainable risk scoring.',
+      tech: ['React', 'TypeScript', 'Node.js', 'Express.js'],
       github: 'https://github.com/macayu17/FraudKavach.git',
-      live: '#',
+      live: null,
       image: '🛡️'
     },
     {
-      title: 'StockFlow — Virtual Stock Trading Platform',
-      description: 'Paper-trading with quotes, portfolios, and leaderboards.',
-      highlights: [
-        'Portfolio tracking (P&L + holdings)',
-        'Secure auth + trading workflows'
-      ],
-      tech: ['React', 'Node.js', 'Express.js', 'PostgreSQL', 'Prisma', 'JWT', 'Vercel'],
+      title: 'StockFlow',
+      description: 'Paper-trading platform with real-time quotes, portfolios & leaderboards.',
+      tech: ['React', 'Node.js', 'PostgreSQL', 'Prisma'],
       github: 'https://github.com/macayu17/Trade-Wars.git',
-      live: '#',
+      live: null,
       image: '📈'
     },
     {
-      title: 'Occasio — Event Management & Booking System',
-      description: 'Event booking with payments and QR tickets.',
-      highlights: [
-        'Admin dashboard + booking flow',
-        'Webhook payments + QR check-in'
-      ],
-      tech: ['React', 'Tailwind', 'Node.js', 'PostgreSQL', 'Redis', 'Razorpay', 'AWS S3'],
+      title: 'Occasio',
+      description: 'Event booking with payments, QR tickets & admin dashboard.',
+      tech: ['React', 'Tailwind', 'Node.js', 'PostgreSQL', 'Razorpay'],
       github: 'https://github.com/macayu17/events-management-booking.git',
-      live: '#',
+      live: 'https://occasio.ayushh.in/',
       image: occasioImage,
       imageFallback: '🎫'
     },
     {
-      title: 'GridPulse — F1 Race Analytics Platform',
-      description: 'F1 telemetry replay + track analytics.',
-      highlights: [
-        'Track visualization + positioning',
-        'Leaderboards + sector analysis'
-      ],
-      tech: ['React', 'Vite', 'FastAPI', 'Python', 'D3.js', 'Docker', 'FastF1'],
+      title: 'GridPulse',
+      description: 'F1 race analytics with telemetry replay & track visualization.',
+      tech: ['React', 'Vite', 'FastAPI', 'Python', 'Docker'],
       github: 'https://github.com/macayu17/f1-replay-system.git',
-      live: '#',
+      live: 'https://pitwall.ayushh.in/',
       image: f1Image
     },
     {
-      title: 'Parkinson’s Disease Screening using LLM',
-      description: 'Clinical screening via transformers + ML.',
-      highlights: [
-        'Ensemble across transformer + ML models',
-        'Flask-based assessment flow'
-      ],
-      tech: ['Python', 'PyTorch', 'Flask', 'Transformers', 'LightGBM', 'XGBoost', 'SVM'],
+      title: 'Parkinson\'s Screening',
+      description: 'Clinical screening using transformer-based ML models.',
+      tech: ['Python', 'PyTorch', 'Flask', 'Transformers'],
       github: 'https://github.com/macayu17/Parkinsons-Disease-Assesment-Portal.git',
-      live: '#',
+      live: 'https://huggingface.co/spaces/Penguindrum920/Parkinson_Disease_Assesment_Portal',
       image: '🧠'
     },
     {
-      title: 'Multimodal Sentiment Analysis on Tweets',
-      description: 'Multimodal sentiment (text + vision + audio).',
-      highlights: [
-        'Transformers for text features',
-        'CNN/MFCC pipeline for vision/audio'
-      ],
-      tech: ['Python', 'TensorFlow', 'PyTorch', 'Transformers', 'OpenCV', 'XGBoost', 'Librosa'],
+      title: 'Multimodal Sentiment',
+      description: 'Sentiment analysis using text, vision & audio transformers.',
+      tech: ['Python', 'TensorFlow', 'PyTorch', 'OpenCV'],
       github: 'https://github.com/macayu17',
-      live: '#',
+      live: null,
       image: '💬'
     }
   ];
@@ -150,10 +125,10 @@ const Projects = () => {
               <div key={index} className="project-card" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="project-image">
                   {typeof project.image === 'string' &&
-                  (project.image.startsWith('http') ||
-                    project.image.startsWith('data:') ||
-                    project.image.includes('/') ||
-                    /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(project.image)) ? (
+                    (project.image.startsWith('http') ||
+                      project.image.startsWith('data:') ||
+                      project.image.includes('/') ||
+                      /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(project.image)) ? (
                     <>
                       {project.imageFallback && (
                         <span className="project-emoji project-emoji-fallback">{project.imageFallback}</span>
@@ -175,13 +150,6 @@ const Projects = () => {
                 <div className="project-content">
                   <h3 className="project-title">{project.title}</h3>
                   <p className="project-description">{project.description}</p>
-                  {Array.isArray(project.highlights) && project.highlights.length > 0 && (
-                    <ul className="project-highlights">
-                      {project.highlights.map((item, itemIndex) => (
-                        <li key={itemIndex}>{item}</li>
-                      ))}
-                    </ul>
-                  )}
                   <div className="project-tech">
                     {project.tech.map((tech, techIndex) => (
                       <div key={techIndex} className="tech-icon" title={tech}>
@@ -190,13 +158,22 @@ const Projects = () => {
                     ))}
                   </div>
                   <div className="project-links">
-                    <a href={project.github} className="project-link">
-                      <span>GitHub</span>
+                    <a href={project.github} className="project-link" target="_blank" rel="noopener noreferrer">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
                       </svg>
+                      <span>Code</span>
                     </a>
-
+                    {project.live && (
+                      <a href={project.live} className="project-link project-link-live" target="_blank" rel="noopener noreferrer">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                          <polyline points="15 3 21 3 21 9" />
+                          <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg>
+                        <span>Live Demo</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

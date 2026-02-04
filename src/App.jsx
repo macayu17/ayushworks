@@ -2,6 +2,7 @@
 import './App.css';
 import Loader from './components/Loader/Loader';
 import Navbar from './components/Navbar/Navbar';
+import SocialSidebar from './components/SocialSidebar/SocialSidebar';
 import Hero from './components/Hero/Hero';
 import About from './components/About/About';
 import GitHubContributions from './components/GitHubContributions/GitHubContributions';
@@ -51,6 +52,7 @@ function App() {
 
       {/* ⭐ Foreground Content */}
       <Navbar />
+      <SocialSidebar />
       <Hero />
       <About />
       <Projects />

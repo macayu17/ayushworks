@@ -127,6 +127,7 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -211,6 +212,17 @@
 .project-link svg {
   width: 16px;
   height: 16px;
+}
+
+.project-link-live {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: var(--accent);
+}
+
+.project-link-live:hover {
+  background: var(--accent);
+  color: white;
 }
 
 @keyframes fadeInUp {

@@ -30,7 +30,7 @@ const Hero = () => {
             <DecryptedText text="Computer Science Student" speed={30} showCursor={false} />
           </h2>
           <p className="hero-description">
-            "A CSE undergrad based in Bengaluru. Tackling coding challenges, training transformers, and occasionally sleeping."
+            Building performant web apps & ML solutions. Based in Bengaluru.
           </p>
           <div className="hero-buttons">
             <a href="#contact" className="btn btn-primary">

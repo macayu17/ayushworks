@@ -22,35 +22,18 @@ const About = () => {
           >
             <div className="about-text">
               <p className="about-description">
-                Hello! I'm a developer from Bengaluru, India. I enjoy programming and exploring technology.
+                Developer with a passion for building elegant solutions. I focus on creating performant, user-friendly applications.
               </p>
 
-              <div className="about-section">
-                <h3 className="about-heading">What I do?</h3>
-                <p className="about-description">
-                  I'm currently pursuing my Computer Science Engineering degree at RV Institute of Technology and Management. I love taking my skills beyond the classroom, whether that's applying machine learning to novel challenges, thriving in competitive coding environments, or leading technical and web teams for large-scale events.
-                </p>
+              <div className="about-badges">
+                <span className="about-badge">Full Stack</span>
+                <span className="about-badge">AI/ML</span>
+                <span className="about-badge">Open Source</span>
               </div>
-
-              <div className="about-section">
-                <h3 className="about-heading">Areas of Interest</h3>
-                <p className="about-description">
-                  Areas of Interest Artificial Intelligence & NLP, Web Development, Competitive Programming, Software Engineering, Database Management Systems
-                </p>
-              </div>
-
-              <p className="about-description">
-                My curiosity extends beyond code. I'm always exploring new frameworks, diving into tech publications, and looking for the next problem to solve.
-              </p>
 
               <p className="about-description about-cta">
-                I'm always open to new opportunities and collaborations. <a href="#contact" className="contact-link">Let's Connect</a>.
+                <a href="#contact" className="contact-link">Let's Connect →</a>
               </p>
-            </div>
-            <div className="about-image">
-              <div className="profile-placeholder">
-                <div className="profile-icon">👨‍💻</div>
-              </div>
             </div>
           </div>
 

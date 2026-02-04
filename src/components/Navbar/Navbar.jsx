@@ -8,11 +8,12 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      // Check if contact section is visible
+      // Check if at bottom of page or contact section is visible
+      const isAtBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 50;
       const contactEl = document.getElementById('contact');
       if (contactEl) {
         const contactRect = contactEl.getBoundingClientRect();
-        if (contactRect.top <= 200) {
+        if (isAtBottom || contactRect.top <= window.innerHeight / 2) {
           setActiveSection('contact');
           return;
         }

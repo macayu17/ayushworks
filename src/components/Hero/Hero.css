@@ -415,31 +415,110 @@
   }
 
   .hero-visual {
-    height: 300px;
+    height: 280px;
+    order: -1;
   }
 
-  .floating-card {
-    width: 80px;
-    height: 80px;
-    font-size: 2.5rem;
+  .profile-card {
+    width: 300px;
+    padding: 1.5rem;
+  }
+
+  .profile-image-wrapper {
+    width: 140px;
+    height: 140px;
+  }
+
+  .card-name {
+    font-size: 1.25rem;
+  }
+
+  .card-role {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-stats {
+    padding-top: 1rem;
+    gap: 0.5rem;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
   }
 }
 
 @media (max-width: 640px) {
   .hero {
-    padding: 6rem 1rem 4rem;
+    min-height: auto;
+    padding: 5rem 1rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-content {
+    gap: 1.5rem;
+  }
+
+  .hero-text {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .hero-greeting {
+    font-size: 1rem;
+  }
+
+  .hero-name {
+    font-size: 1.3rem;
+  }
+
+  .hero-name-container {
+    height: 50px;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    white-space: normal;
+  }
+
+  .hero-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
   }
 
   .hero-buttons {
     flex-direction: column;
+    gap: 0.75rem;
   }
 
   .btn {
     width: 100%;
     text-align: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
   }
 
   .hero-visual {
     display: none;
+  }
+
+  .scroll-indicator {
+    bottom: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .mouse {
+    width: 20px;
+    height: 32px;
   }
 }

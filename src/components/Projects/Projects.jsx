@@ -20,8 +20,6 @@ import {
   SiOpencv
 } from 'react-icons/si';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
-import f1Image from '../../assets/images/f1.png';
-import occasioImage from '../../assets/images/occasio.png';
 
 const Projects = () => {
   const [titleRef, titleVisible] = useScrollAnimation({ threshold: 0.2 });
@@ -57,53 +55,46 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'FraudKavach',
-      description: 'Fintech payment simulator with fraud detection & explainable risk scoring.',
-      tech: ['React', 'TypeScript', 'Node.js', 'Express.js'],
-      github: 'https://github.com/macayu17/FraudKavach.git',
-      live: null,
-      image: '🛡️'
-    },
-    {
-      title: 'StockFlow',
-      description: 'Paper-trading platform with real-time quotes, portfolios & leaderboards.',
-      tech: ['React', 'Node.js', 'PostgreSQL', 'Prisma'],
-      github: 'https://github.com/macayu17/Trade-Wars.git',
-      live: null,
-      image: '📈'
-    },
-    {
       title: 'Occasio',
       description: 'Event booking with payments, QR tickets & admin dashboard.',
       tech: ['React', 'Tailwind', 'Node.js', 'PostgreSQL', 'Razorpay'],
       github: 'https://github.com/macayu17/events-management-booking.git',
-      live: 'https://occasio.ayushh.in/',
-      image: occasioImage,
-      imageFallback: '🎫'
+      live: 'https://occasio.ayushh.in/'
     },
     {
       title: 'GridPulse',
       description: 'F1 race analytics with telemetry replay & track visualization.',
       tech: ['React', 'Vite', 'FastAPI', 'Python', 'Docker'],
       github: 'https://github.com/macayu17/f1-replay-system.git',
-      live: 'https://pitwall.ayushh.in/',
-      image: f1Image
+      live: 'https://pitwall.ayushh.in/'
     },
     {
       title: 'Parkinson\'s Screening',
       description: 'Clinical screening using transformer-based ML models.',
       tech: ['Python', 'PyTorch', 'Flask', 'Transformers'],
       github: 'https://github.com/macayu17/Parkinsons-Disease-Assesment-Portal.git',
-      live: 'https://huggingface.co/spaces/Penguindrum920/Parkinson_Disease_Assesment_Portal',
-      image: '🧠'
+      live: 'https://huggingface.co/spaces/Penguindrum920/Parkinson_Disease_Assesment_Portal'
+    },
+    {
+      title: 'FraudKavach',
+      description: 'Fintech payment simulator with fraud detection & explainable risk scoring.',
+      tech: ['React', 'TypeScript', 'Node.js', 'Express.js'],
+      github: 'https://github.com/macayu17/FraudKavach.git',
+      live: null
+    },
+    {
+      title: 'StockFlow',
+      description: 'Paper-trading platform with real-time quotes, portfolios & leaderboards.',
+      tech: ['React', 'Node.js', 'PostgreSQL', 'Prisma'],
+      github: 'https://github.com/macayu17/Trade-Wars.git',
+      live: null
     },
     {
       title: 'Multimodal Sentiment',
       description: 'Sentiment analysis using text, vision & audio transformers.',
       tech: ['Python', 'TensorFlow', 'PyTorch', 'OpenCV'],
       github: 'https://github.com/macayu17',
-      live: null,
-      image: '💬'
+      live: null
     }
   ];
 
@@ -123,30 +114,6 @@ const Projects = () => {
           >
             {projects.map((project, index) => (
               <div key={index} className="project-card" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="project-image">
-                  {typeof project.image === 'string' &&
-                    (project.image.startsWith('http') ||
-                      project.image.startsWith('data:') ||
-                      project.image.includes('/') ||
-                      /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(project.image)) ? (
-                    <>
-                      {project.imageFallback && (
-                        <span className="project-emoji project-emoji-fallback">{project.imageFallback}</span>
-                      )}
-                      <img
-                        className="project-image-media"
-                        src={project.image}
-                        alt={project.title}
-                        loading="lazy"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                    </>
-                  ) : (
-                    <span className="project-emoji">{project.image}</span>
-                  )}
-                </div>
                 <div className="project-content">
                   <h3 className="project-title">{project.title}</h3>
                   <p className="project-description">{project.description}</p>

@@ -1,5 +1,5 @@
 .skills {
-  padding: 4rem 2rem;
+  padding: 1.5rem 2rem;
 }
 
 .glass-container {
@@ -8,7 +8,7 @@
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
-  padding: 3rem;
+  padding: 1.5rem;
   box-shadow: 
     0 8px 32px 0 rgba(0, 0, 0, 0.5),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
@@ -16,9 +16,9 @@
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
 }
 
 .skill-category {
@@ -137,9 +137,29 @@
 @media (max-width: 768px) {
   .skills-grid {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 
   .skills {
-    padding: 4rem 1rem;
+    padding: 2rem 1rem;
+  }
+
+  .glass-container {
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
+
+  .skill-category {
+    padding: 0.85rem;
+    min-height: auto;
+  }
+
+  .category-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-name {
+    font-size: 0.8rem;
   }
 }

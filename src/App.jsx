@@ -7,7 +7,6 @@ import Hero from './components/Hero/Hero';
 import About from './components/About/About';
 import GitHubContributions from './components/GitHubContributions/GitHubContributions';
 import Projects from './components/Projects/Projects';
-import Education from './components/Education/Education';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 
@@ -57,7 +56,6 @@ function App() {
       <About />
       <Projects />
       <GitHubContributions username="macayu17" />
-      <Education />
       <Contact />
       <Footer />
 

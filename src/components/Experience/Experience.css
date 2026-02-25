@@ -1,11 +1,11 @@
 .experience {
-  padding: 6rem 2rem;
+  padding: 2rem 2rem;
   background: var(--bg-primary);
 }
 
 .timeline {
   max-width: 900px;
-  margin: 3rem auto 0;
+  margin: 1.5rem auto 0;
   position: relative;
 }
 
@@ -22,9 +22,17 @@
 .timeline-item {
   position: relative;
   padding-left: 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   animation: fadeInLeft 0.8s ease forwards;
   opacity: 0;
+}
+
+.timeline-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
 }
 
 .timeline-dot {
@@ -131,18 +139,56 @@
 
 @media (max-width: 768px) {
   .experience {
-    padding: 4rem 1rem;
+    padding: 2rem 1rem;
   }
 
   .experience-header {
     flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .experience-role {
+    font-size: 1.2rem;
+  }
+
+  .experience-company {
+    font-size: 1rem;
   }
 
   .experience-period {
     align-self: flex-start;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.75rem;
   }
 
   .timeline-item {
-    padding-left: 2rem;
+    padding-left: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .timeline-content {
+    padding: 1.25rem;
+    border-radius: 10px;
+  }
+
+  .timeline::before {
+    left: -4px;
+    width: 1px;
+  }
+
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    left: -7px;
+  }
+
+  .experience-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .experience-achievements li {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
   }
 }

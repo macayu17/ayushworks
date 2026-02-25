@@ -85,14 +85,32 @@
 .calendar-wrapper {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) var(--bg-secondary);
+    direction: ltr;
+}
+
+.calendar-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+
+.calendar-wrapper::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.calendar-wrapper::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
 }
 
 .calendar-inner {
     display: flex;
-    justify-content: center;
-    width: 100%;
+    justify-content: flex-end;
+    width: max-content;
+    min-width: 100%;
 }
 
 /* Style the calendar component */
@@ -144,10 +162,6 @@
     .github-contributions .container {
         max-width: 95%;
     }
-
-    .calendar-wrapper {
-        overflow-x: auto;
-    }
 }
 
 @media (max-width: 768px) {
@@ -163,8 +177,8 @@
 
     .contributions-title {
         font-size: 1rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
     }
 }

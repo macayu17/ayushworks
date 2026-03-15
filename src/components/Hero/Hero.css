@@ -79,7 +79,7 @@
   display: inline-block;
   width: 8px;
   height: 1.2em;
-  background-color: #3b82f6; /* Blue cursor in screenshot */
+  background-color: var(--zinc-300); /* Zinc cursor */
   margin-left: 2px;
   vertical-align: text-bottom;
 }

@@ -28,6 +28,8 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 8px 0;
+  display: flex;
+  justify-content: flex-end; /* Align right to see latest */
 }
 
 .calendar-wrapper::-webkit-scrollbar {
@@ -35,7 +37,8 @@
 }
 
 .calendar-inner {
-  min-width: 600px;
+  min-width: max-content; /* Dynamically sizes to fit all months */
+  padding-right: 16px;
 }
 
 /* Base calendar styles */

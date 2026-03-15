@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
-import { FaHome, FaUser, FaCode, FaProjectDiagram, FaEnvelope } from 'react-icons/fa';
+import { FaHome, FaUser, FaCode, FaEnvelope, FaTrophy } from 'react-icons/fa';
 
 const navItems = [
   { path: '/', icon: <FaHome size={20} />, label: 'Home' },
@@ -40,6 +40,21 @@ export default function Sidebar() {
               <span className="corner br"></span>
             </NavLink>
           ))}
+          
+          <a
+            href="https://codolio.com/profile/macayu17"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sidebar-nav-item"
+            title="Codolio Profile"
+            aria-label="Codolio Profile"
+          >
+            <FaTrophy size={20} />
+            <span className="corner tl"></span>
+            <span className="corner tr"></span>
+            <span className="corner bl"></span>
+            <span className="corner br"></span>
+          </a>
         </nav>
       </aside>
 
@@ -60,6 +75,19 @@ export default function Sidebar() {
               <span className="nav-label">{item.label}</span>
             </NavLink>
           ))}
+          
+          <a
+            href="https://codolio.com/profile/macayu17"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mobile-nav-item"
+            aria-label="Codolio Profile"
+          >
+            <div className="icon-wrap">
+              <FaTrophy size={20} />
+            </div>
+            <span className="nav-label">Codolio</span>
+          </a>
         </div>
       </nav>
     </>

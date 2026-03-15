@@ -1,5 +1,6 @@
 import './About.css';
 import { FaRegEnvelope, FaTwitter, FaCalendarAlt, FaChevronRight } from 'react-icons/fa';
+import ayushImg from '../../assets/images/AyushBW11.png';
 
 const About = () => {
   return (
@@ -9,7 +10,7 @@ const About = () => {
       <div className="about-identity">
         <div className="identity-image-wrapper bracket-box bracket-corners">
           <img 
-            src="https://github.com/macayu17.png" 
+            src={ayushImg} 
             alt="Ayush Kumar" 
             className="identity-image"
           />
@@ -103,15 +104,8 @@ const About = () => {
 
       {/* Cards */}
       <div className="about-cards">
-        <a href="#projects" className="about-card bracket-box" style={{display: 'block'}}>
-          <div className="ac-top">
-            <span>[ 01 ]</span>
-            <FaCalendarAlt className="ac-icon" />
-          </div>
-          <h3 className="ac-title">Timeline</h3>
-          <p className="ac-desc">My journey through projects, milestones, and achievements</p>
-        </a>
-
+        {/* Intentionally removed Timeline card per user request */}
+        
         <a href="/skill" className="about-card bracket-box" style={{display: 'block'}}>
           <div className="ac-top">
             <span>[ 02 ]</span>

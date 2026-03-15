@@ -1,4 +1,5 @@
 import './Education.css';
+import rvLogo from '../../assets/images/image.png';
 
 const Education = () => {
   const educationData = [
@@ -7,21 +8,8 @@ const Education = () => {
       institution: 'RV Institute of Technology & Management',
       period: 'Nov 2022 - Jun 2026',
       details: 'Relevant Coursework: Data Structures, Algorithms, Database Management Systems, Computer Networks.',
-      score: 'CGPA: 8.79'
-    },
-    {
-      degree: 'Class 12th',
-      institution: 'Saraswati Vidya Mandir, CIL, Ranchi',
-      period: 'Jul 2018 - May 2020',
-      details: 'Physics, Chemistry, Mathematics, Physical Education.',
-      score: 'Percentage: 92.4%'
-    },
-    {
-      degree: 'Class 10th',
-      institution: 'Saraswati Vidya Mandir, Bokaro',
-      period: 'Apr 2017 - May 2018',
-      details: 'Science, Mathematics, Social Science, English, Hindi.',
-      score: 'Percentage: 94.6%'
+      score: 'CGPA: 8.79',
+      logo: rvLogo
     }
   ];
 
@@ -37,9 +25,18 @@ const Education = () => {
             <div className="edu-index">{(index + 1).toString().padStart(2, '0')}</div>
             <div className="edu-content">
               <div className="edu-header">
-                <div>
-                  <h3 className="edu-degree">{item.degree}</h3>
-                  <div className="edu-institution">{item.institution}</div>
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                  {item.logo && (
+                    <img 
+                      src={item.logo} 
+                      alt="Institution Logo" 
+                      style={{ width: '40px', height: '40px', objectFit: 'contain', borderRadius: '4px', backgroundColor: 'white', padding: '2px' }}
+                    />
+                  )}
+                  <div>
+                    <h3 className="edu-degree">{item.degree}</h3>
+                    <div className="edu-institution">{item.institution}</div>
+                  </div>
                 </div>
                 <div className="edu-period">{item.period}</div>
               </div>

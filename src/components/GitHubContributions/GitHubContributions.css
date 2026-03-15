@@ -1,184 +1,50 @@
 .github-contributions {
-    padding: 2rem 2rem 3rem;
-    position: relative;
-    margin-top: -2rem;
-}
-
-.github-contributions .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.contributions-container {
-    padding: 1.5rem 2rem;
-    border-radius: 20px;
-    background: linear-gradient(135deg,
-            rgba(20, 20, 20, 0.9) 0%,
-            rgba(12, 12, 12, 0.95) 50%,
-            rgba(20, 20, 20, 0.9) 100%);
-    backdrop-filter: blur(30px) saturate(150%);
-    -webkit-backdrop-filter: blur(30px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow:
-        0 4px 24px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
-        0 1px 0 rgba(255, 255, 255, 0.05) inset;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Subtle glow effect on hover */
-.contributions-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg,
-            transparent 0%,
-            rgba(59, 130, 246, 0.3) 50%,
-            transparent 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.contributions-container:hover::before {
-    opacity: 1;
-}
-
-.contributions-container:hover {
-    border-color: rgba(59, 130, 246, 0.15);
-    transform: translateY(-2px);
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.5),
-        0 0 40px rgba(59, 130, 246, 0.08),
-        0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  padding: 32px 0 48px;
+  border-bottom: 1px dashed var(--zinc-800);
 }
 
 .contributions-header {
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .contributions-title {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    letter-spacing: -0.01em;
+  font-family: var(--font-jetbrains);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--zinc-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .contributions-username {
-    color: var(--accent);
-    font-weight: 500;
-    opacity: 0.8;
+  color: var(--zinc-400);
 }
 
 .calendar-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) var(--bg-secondary);
-    direction: ltr;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 8px 0;
 }
 
 .calendar-wrapper::-webkit-scrollbar {
-    height: 6px;
-}
-
-.calendar-wrapper::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
-}
-
-.calendar-wrapper::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 3px;
+  display: none;
 }
 
 .calendar-inner {
-    display: flex;
-    justify-content: flex-end;
-    width: max-content;
-    min-width: 100%;
+  min-width: 600px;
 }
 
-/* Style the calendar component */
-.calendar-wrapper article {
-    color: var(--text-secondary) !important;
-    width: 100%;
+/* Override react-github-calendar colors for zinc theme */
+.calendar-inner .react-activity-calendar {
+  color: var(--zinc-400) !important;
 }
 
-/* Total count styling */
-.calendar-wrapper article>div:last-child {
-    color: var(--text-muted) !important;
-    font-size: 0.8rem !important;
-    margin-top: 0.5rem;
-    opacity: 0.6;
-}
-
-/* Contribution cells hover animations */
-.calendar-wrapper rect {
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-    rx: 2;
-}
-
-.calendar-wrapper rect:hover {
-    transform: scale(1.5);
-    filter: brightness(1.3) drop-shadow(0 0 6px currentColor);
-    z-index: 10;
-}
-
-/* Different glow intensities based on contribution level */
-.calendar-wrapper rect[fill="#0e4429"]:hover {
-    filter: brightness(1.4) drop-shadow(0 0 8px rgba(14, 68, 41, 0.8));
-}
-
-.calendar-wrapper rect[fill="#006d32"]:hover {
-    filter: brightness(1.3) drop-shadow(0 0 10px rgba(0, 109, 50, 0.8));
-}
-
-.calendar-wrapper rect[fill="#26a641"]:hover {
-    filter: brightness(1.2) drop-shadow(0 0 12px rgba(38, 166, 65, 0.9));
-}
-
-.calendar-wrapper rect[fill="#39d353"]:hover {
-    filter: brightness(1.15) drop-shadow(0 0 14px rgba(57, 211, 83, 1));
-}
-
-@media (max-width: 1100px) {
-    .github-contributions .container {
-        max-width: 95%;
-    }
-}
-
-@media (max-width: 768px) {
-    .github-contributions {
-        padding: 1.5rem 1rem 2rem;
-        margin-top: -1rem;
-    }
-
-    .contributions-container {
-        padding: 1.25rem 1rem;
-        border-radius: 16px;
-    }
-
-    .contributions-title {
-        font-size: 1rem;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.5rem;
-    }
+.calendar-inner text {
+  fill: var(--zinc-500) !important;
+  font-family: var(--font-jetbrains) !important;
+  font-size: 10px !important;
 }

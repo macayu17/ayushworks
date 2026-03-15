@@ -1,64 +1,49 @@
-﻿import { useState, useEffect } from 'react';
-import './App.css';
-import Loader from './components/Loader/Loader';
-import Navbar from './components/Navbar/Navbar';
-import SocialSidebar from './components/SocialSidebar/SocialSidebar';
+import './index.css';
+import Sidebar from './components/Sidebar/Sidebar';
+import CustomCursor from './components/CustomCursor/CustomCursor';
 import Hero from './components/Hero/Hero';
 import About from './components/About/About';
-import GitHubContributions from './components/GitHubContributions/GitHubContributions';
 import Projects from './components/Projects/Projects';
+import GitHubContributions from './components/GitHubContributions/GitHubContributions';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
-
-import ColorBends from "./components/ColorBends/ColorBends";
-
+import Skills from './components/Skills/Skills';
+import Experience from './components/Experience/Experience';
 
 function App() {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 2500);
-    return () => clearTimeout(t);
-  }, []);
-
-  if (loading) return <Loader />;
-
   return (
-    <div className="app">
+    <div style={{ position: 'relative', minHeight: '100vh', color: 'var(--zinc-100)', fontFamily: 'var(--font-geist)', backgroundColor: 'var(--zinc-900)' }}>
 
-      {/* 🔥 Global Background Layer */}
-      <ColorBends
-        colors={[
-          "#ff0000", // red
-          "#ff7700", // orange
-          "#ffff00", // yellow
-          "#00ff00", // green
-          "#00ffff", // cyan
-          "#0066ff", // blue
-          "#4400ff", // indigo
-          "#9900ff"  // violet
-        ]}
-        rotation={0}
-        speed={0.8}
-        scale={0.7}
-        frequency={2}
-        warpStrength={1}
-        mouseInfluence={1}
-        parallax={0.5}
-        noise={0.1}
-        transparent
-      />
+      {/* Side pattern strips */}
+      <div className="side-pattern left">
+        <div className="side-pattern-inner"></div>
+      </div>
+      <div className="side-pattern right">
+        <div className="side-pattern-inner"></div>
+      </div>
 
-      {/* ⭐ Foreground Content */}
-      <Navbar />
-      <SocialSidebar />
-      <Hero />
-      <About />
-      <Projects />
-      <GitHubContributions username="macayu17" />
-      <Contact />
-      <Footer />
+      {/* Global effects */}
+      <CustomCursor />
+      <div className="scanlines"></div>
 
+      {/* Sidebar */}
+      <Sidebar />
+
+      {/* Main content */}
+      <div className="main-wrapper">
+        <main className="main-content">
+          <div className="content-border">
+            <Hero />
+            <GitHubContributions username="macayu17" />
+            <Experience />
+            <Projects />
+            <Skills />
+            <About />
+            <Contact />
+          </div>
+          <Footer />
+        </main>
+      </div>
     </div>
   );
 }

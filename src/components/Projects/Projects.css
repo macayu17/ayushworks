@@ -1,64 +1,73 @@
 .projects {
   padding: 48px 0;
-  border-bottom: 1px dashed var(--zinc-800);
 }
 
 .projects-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 24px;
 }
 
-/* Browser mockup card */
+@media (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Card Container */
 .project-card {
-  border: 1px solid var(--zinc-800);
-  border-radius: 8px;
+  border: 1px dashed var(--zinc-800);
+  border-radius: 12px;
   overflow: hidden;
-  transition: border-color 0.3s;
-  background: transparent;
+  transition: all 0.3s ease;
+  background: rgba(9, 9, 11, 0.4);
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card:hover {
-  border-color: var(--zinc-700);
+  border-color: var(--zinc-600);
+  background: rgba(24, 24, 27, 0.4);
+  transform: translateY(-2px);
 }
 
-/* Traffic lights header */
-.project-browser-bar {
+/* Card Header (3 dots) */
+.project-header-dots {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--zinc-800);
-  background: rgba(9, 9, 11, 0.5);
+  padding: 16px 20px 0;
 }
 
 .traffic-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
+  background: var(--zinc-600);
 }
-.traffic-dot.red { background: #ef4444; }
-.traffic-dot.yellow { background: #eab308; }
-.traffic-dot.green { background: #22c55e; }
 
 /* Card body */
 .project-body {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .project-title-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 4px;
-  gap: 8px;
+  margin-bottom: 20px;
+  gap: 12px;
 }
 
 .project-title {
-  font-family: var(--font-jetbrains);
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-family: var(--font-geist);
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--zinc-100);
+  letter-spacing: -0.02em;
 }
 
 .project-status {
@@ -66,34 +75,39 @@
   font-size: 0.6rem;
   color: var(--zinc-500);
   border: 1px solid var(--zinc-800);
-  padding: 2px 8px;
-  border-radius: 999px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   white-space: nowrap;
 }
 
 .project-description {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--zinc-400);
   line-height: 1.6;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+/* Card Footer (Tags and Links) */
+.project-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: auto;
 }
 
 .project-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 16px;
+  gap: 8px;
 }
 
 .project-tag {
   font-family: var(--font-jetbrains);
   font-size: 0.65rem;
   color: var(--zinc-500);
-  padding: 2px 0;
-}
-.project-tag::before {
-  content: "#";
-  color: var(--zinc-600);
 }
 
 .project-links {
@@ -104,18 +118,11 @@
 .project-link {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-family: var(--font-jetbrains);
-  font-size: 0.7rem;
-  color: var(--zinc-400);
+  justify-content: center;
+  color: var(--zinc-500);
   transition: color 0.2s;
 }
 
 .project-link:hover {
   color: var(--zinc-100);
-}
-
-.project-link svg {
-  width: 14px;
-  height: 14px;
 }

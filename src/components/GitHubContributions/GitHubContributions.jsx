@@ -6,7 +6,8 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
     const calendarWrapperRef = useRef(null);
 
     const customTheme = {
-        dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
+        // White/Grayscale theme matching screenshot
+        dark: ['#18181b', '#3f3f46', '#71717a', '#a1a1aa', '#f4f4f5']
     };
 
     useEffect(() => {
@@ -33,14 +34,14 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                         theme={customTheme}
                         colorScheme="dark"
                         blockSize={11}
-                        blockMargin={3}
+                        blockMargin={4}
                         fontSize={12}
                         hideColorLegend={false}
                         hideMonthLabels={false}
                         hideTotalCount={false}
                         style={{ margin: '0 auto' }}
                         labels={{
-                            totalCount: '{{count}} contributions in the last year'
+                            totalCount: '{{count}} CONTINRIBUTIONS'
                         }}
                         errorMessage="Failed to load GitHub contributions"
                     />

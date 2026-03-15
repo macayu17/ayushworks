@@ -1,14 +1,14 @@
+import { Routes, Route } from 'react-router-dom';
 import './index.css';
 import Sidebar from './components/Sidebar/Sidebar';
 import CustomCursor from './components/CustomCursor/CustomCursor';
-import Hero from './components/Hero/Hero';
-import About from './components/About/About';
-import Projects from './components/Projects/Projects';
-import GitHubContributions from './components/GitHubContributions/GitHubContributions';
-import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
-import Skills from './components/Skills/Skills';
-import Experience from './components/Experience/Experience';
+
+// Pages
+import Home from './pages/Home';
+import About from './pages/About';
+import Skills from './pages/Skills';
+import Chat from './pages/Chat';
 
 function App() {
   return (
@@ -33,13 +33,12 @@ function App() {
       <div className="main-wrapper">
         <main className="main-content">
           <div className="content-border">
-            <Hero />
-            <GitHubContributions username="macayu17" />
-            <Experience />
-            <Projects />
-            <Skills />
-            <About />
-            <Contact />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/skill" element={<Skills />} />
+              <Route path="/chat" element={<Chat />} />
+            </Routes>
           </div>
           <Footer />
         </main>

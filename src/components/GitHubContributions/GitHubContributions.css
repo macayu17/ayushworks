@@ -38,7 +38,7 @@
   min-width: 600px;
 }
 
-/* Override react-github-calendar colors for zinc theme */
+/* Base calendar styles */
 .calendar-inner .react-activity-calendar {
   color: var(--zinc-400) !important;
 }
@@ -47,4 +47,10 @@
   fill: var(--zinc-500) !important;
   font-family: var(--font-jetbrains) !important;
   font-size: 10px !important;
+}
+
+/* Optional: making boxes slightly rounded to match screenshot */
+.calendar-inner rect {
+  rx: 2;
+  ry: 2;
 }

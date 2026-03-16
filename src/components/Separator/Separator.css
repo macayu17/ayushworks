@@ -1,7 +1,7 @@
 .section-separator {
   width: calc(100% + 32px);
-  margin: 16px -16px;
-  height: 48px;
+  margin: 8px -16px;
+  height: 16px;
   border-top: 1px dashed var(--zinc-800);
   border-bottom: 1px dashed var(--zinc-800);
   background: repeating-linear-gradient(
@@ -17,6 +17,6 @@
 @media (min-width: 640px) {
   .section-separator {
     width: calc(100% + 80px);
-    margin: 16px -40px;
+    margin: 8px -40px;
   }
 }

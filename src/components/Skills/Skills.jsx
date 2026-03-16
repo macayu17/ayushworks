@@ -9,6 +9,7 @@ const Skills = () => {
       'Vite': 'vitejs',
       'Next.js': 'nextjs',
       'TailwindCSS': 'tailwindcss',
+      'Tailwind CSS': 'tailwindcss',
       'Bootstrap': 'bootstrap',
       'TypeScript': 'typescript',
       'Node.js': 'nodejs',
@@ -31,11 +32,18 @@ const Skills = () => {
       'TensorFlow': 'tensorflow',
       'PyTorch': 'pytorch',
       'Scikit-learn': 'scikitlearn',
+      'scikit-learn': 'scikitlearn',
       'Pandas': 'pandas',
       'NumPy': 'numpy',
+      'FastAPI': 'fastapi',
+      'Flask': 'flask',
+      'D3.js': 'd3js',
+      'Linux': 'linux',
+      'AWS': 'amazonwebservices',
+      'Azure': 'azure'
     };
-    const iconName = iconMap[skillName] || skillName.toLowerCase();
-    if (skillName === 'Hugging Face') {
+    const iconName = iconMap[skillName] || skillName.toLowerCase().replace(/[\s\-.]/g, '');
+    if (skillName === 'Hugging Face' || skillName === 'Hugging Face Transformers') {
       return 'https://huggingface.co/front/assets/huggingface_logo.svg';
     }
     return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${iconName}/${iconName}-original.svg`;
@@ -43,20 +51,32 @@ const Skills = () => {
 
   const categories = [
     {
+      title: 'Languages',
+      skills: ['Python', 'C++', 'Java', 'JavaScript']
+    },
+    {
+      title: 'ML & Data',
+      skills: ['PyTorch', 'Hugging Face Transformers', 'scikit-learn', 'NumPy', 'Pandas', 'Time-Series Modeling']
+    },
+    {
+      title: 'Backend & APIs',
+      skills: ['FastAPI', 'Flask', 'Node.js', 'Express', 'REST APIs', 'WebSockets', 'Async Processing']
+    },
+    {
       title: 'Frontend',
-      skills: ['React', 'JavaScript', 'HTML/CSS', 'TypeScript', 'Next.js', 'TailwindCSS', 'Vite', 'Bootstrap']
+      skills: ['Next.js', 'React', 'Vite', 'TypeScript', 'D3.js', 'Tailwind CSS']
     },
     {
-      title: 'Backend & Database',
-      skills: ['Node.js', 'Express', 'MongoDB', 'MySQL', 'PostgreSQL', 'Prisma', 'Firebase']
+      title: 'Infra & DevOps',
+      skills: ['Docker', 'Linux', 'Git', 'CI/CD Pipelines']
     },
     {
-      title: 'Languages & Tools',
-      skills: ['Python', 'Java', 'C++', 'C', 'Git', 'GitHub', 'Docker', 'VS Code']
+      title: 'Databases & Cloud',
+      skills: ['PostgreSQL', 'MongoDB', 'MySQL', 'AWS', 'Azure']
     },
     {
-      title: 'AI / ML',
-      skills: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'Pandas', 'NumPy', 'Hugging Face']
+      title: 'Areas of Interest',
+      skills: ['Scalable ML Systems', 'Observability', 'NLP', 'Distributed Systems', 'Model Deployment', 'Large Language Models (LLM)']
     }
   ];
 
@@ -66,10 +86,13 @@ const Skills = () => {
         <span>// SKILLS</span>
       </div>
 
-      <div className="skills-categories">
+      <div className="skills-grid">
         {categories.map((cat, index) => (
-          <div key={index}>
-            <div className="skill-category-title">{cat.title}</div>
+          <div key={index} className="skill-category-card bracket-box">
+            <div className="skill-category-header">
+              <span className="category-marker">// 0{index + 1}</span>
+              <h3 className="category-title">{cat.title}</h3>
+            </div>
             <div className="skills-items">
               {cat.skills.map((skill, i) => (
                 <div key={i} className="skill-item">

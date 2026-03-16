@@ -11,6 +11,23 @@ const Hero = () => {
   const [textIndex, setTextIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
+  const [views, setViews] = useState(0);
+
+  useEffect(() => {
+    // Fetch and increment page views using a free public counter API
+    const fetchViews = async () => {
+      try {
+        const response = await fetch('https://api.counterapi.dev/v1/macayu17/portfolio/up');
+        const data = await response.json();
+        if (data && data.count) {
+          setViews(data.count);
+        }
+      } catch (error) {
+        console.error('Failed to fetch view count:', error);
+      }
+    };
+    fetchViews();
+  }, []);
 
   useEffect(() => {
     const currentText = texts[textIndex];
@@ -72,7 +89,7 @@ const Hero = () => {
         </div>
         <div className="hero-views-box">
           <FiEye className="hero-views-icon" />
-          <span>430 views</span>
+          <span>{views > 0 ? views.toLocaleString() : '...'} views</span>
         </div>
       </div>
     </section>

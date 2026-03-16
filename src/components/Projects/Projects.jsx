@@ -21,7 +21,7 @@ const Projects = () => {
     },
     {
       title: "Parkinson's Screening",
-      status: 'Research',
+      status: 'Completed',
       description: 'Clinical screening using transformer-based ML models.',
       tags: ['#Python', '#PyTorch', '#Flask', '#Transformers'],
       github: 'https://github.com/macayu17/Parkinsons-Disease-Assesment-Portal.git',
@@ -45,7 +45,7 @@ const Projects = () => {
     },
     {
       title: 'Multimodal Sentiment',
-      status: 'In Progress',
+      status: 'Completed',
       description: 'Sentiment analysis using text, vision & audio transformers.',
       tags: ['#Python', '#TensorFlow', '#PyTorch', '#OpenCV'],
       github: 'https://github.com/macayu17',

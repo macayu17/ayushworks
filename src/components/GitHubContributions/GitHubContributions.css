@@ -47,14 +47,7 @@
 }
 
 .calendar-wrapper {
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
   padding: 8px 0;
-}
-
-.calendar-wrapper::-webkit-scrollbar {
-  display: none;
 }
 
 .calendar-inner {

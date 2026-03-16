@@ -9,8 +9,30 @@
 }
 
 .contact-text-box {
+  position: relative;
   padding: 16px;
   background: rgba(24, 24, 27, 0.4); /* subtle dark backing for text */
+}
+
+.contact-text-box::before, .contact-text-box::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: var(--zinc-700);
+  border-style: solid;
+}
+
+.contact-text-box::before {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+
+.contact-text-box::after {
+  bottom: 0;
+  right: 0;
+  border-width: 0 1px 1px 0;
 }
 
 .contact-text {

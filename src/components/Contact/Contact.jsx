@@ -20,7 +20,7 @@ const Contact = () => {
       </div>
 
       <div className="contact-content">
-        <div className="contact-text-box bracket-box">
+        <div className="contact-text-box">
           <p className="contact-text">
             I'm currently open to internships, freelance work, and full-time opportunities.
             Feel free to reach out if you'd like to collaborate, ask a question, or simply say hi!

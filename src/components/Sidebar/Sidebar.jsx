@@ -7,7 +7,7 @@ const navItems = [
   { path: '/', icon: <FaHome size={20} />, label: 'Home' },
   { path: '/about', icon: <FaUser size={20} />, label: 'About' },
   { path: '/skill', icon: <FaCode size={20} />, label: 'Skills' },
-  { path: '/chat', icon: <FaEnvelope size={20} />, label: 'Chat' },
+  { path: '/contact', icon: <FaEnvelope size={20} />, label: 'Contact' },
 ];
 
 export default function Sidebar() {

@@ -1,16 +1,16 @@
-import Contact from '../components/Contact/Contact';
+import ContactComponent from '../components/Contact/Contact';
 import { useEffect } from 'react';
 
-const Chat = () => {
+const Contact = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <div className="page-transition">
-      <Contact />
+      <ContactComponent />
     </div>
   );
 };
 
-export default Chat;
+export default Contact;

@@ -95,9 +95,6 @@ const About = () => {
             <a href="/skill" className="qr-btn bracket-box qr-btn-brackets">
               &gt;_ Toolbox
             </a>
-            <a href="#projects" className="qr-btn bracket-box qr-btn-brackets">
-              <FaCalendarAlt /> Timeline
-            </a>
           </div>
         </div>
       </div>

@@ -91,8 +91,8 @@ const CustomCursor = () => {
         backgroundColor: '#ffffff',
         left: position.x,
         top: position.y,
-        width: isHovering ? '64px' : '16px',
-        height: isHovering ? '64px' : '16px',
+        width: isHovering ? '24px' : '16px',
+        height: isHovering ? '24px' : '16px',
         transform: 'translate(-50%, -50%)',
         opacity: isHovering ? 1 : 0.4
       }}

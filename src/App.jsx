@@ -23,7 +23,6 @@ function App() {
       </div>
 
       {/* Global effects */}
-      <CustomCursor />
       <div className="scanlines"></div>
 
       {/* Sidebar */}
@@ -43,6 +42,8 @@ function App() {
           <Footer />
         </main>
       </div>
+
+      <CustomCursor />
     </div>
   );
 }

@@ -83,9 +83,11 @@
 .stats-brackets::after { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
 
 .stats-divider {
-  border-top: 1px dashed var(--zinc-800);
-  margin-bottom: 16px;
-  opacity: 0.5;
+  font-family: var(--font-jetbrains);
+  color: var(--zinc-600);
+  margin-bottom: 24px;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
 }
 
 .stat-row {

@@ -89,3 +89,14 @@
   rx: 2;
   ry: 2;
 }
+
+/* Force hide the built-in total count wrapper to prevent duplicate "191 contributions" */
+.calendar-inner .react-activity-calendar footer {
+  display: flex;
+  justify-content: flex-end; /* Pushes the 'Less / More' legend to the right */
+}
+
+/* Hide the first child of the footer (which contains the total count) */
+.calendar-inner .react-activity-calendar footer > *:first-child {
+  display: none !important;
+}

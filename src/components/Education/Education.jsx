@@ -36,9 +36,9 @@ const Education = () => {
                   <div>
                     <h3 className="edu-degree">{item.degree}</h3>
                     <div className="edu-institution">{item.institution}</div>
+                    <div className="edu-period" style={{ marginTop: '4px' }}>{item.period}</div>
                   </div>
                 </div>
-                <div className="edu-period">{item.period}</div>
               </div>
               <p className="edu-details">{item.details}</p>
               {item.score && <span className="edu-score">{item.score}</span>}

@@ -70,6 +70,7 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                         hideColorLegend={false}
                         hideMonthLabels={false}
                         hideTotalCount={true}
+                        labels={{ totalCount: '' }}
                         transformData={selectLastHalfYear}
                         style={{ margin: '0', color: 'var(--zinc-300)' }}
                         errorMessage="Failed to load GitHub contributions"

@@ -43,12 +43,8 @@ body {
   background-color: var(--zinc-900);
   font-family: var(--font-geist);
   overflow-x: hidden;
-  cursor: none;
 }
 
-a, button, input, textarea, [role="button"] {
-  cursor: none;
-}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-jetbrains);

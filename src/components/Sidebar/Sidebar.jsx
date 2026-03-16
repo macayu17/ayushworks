@@ -18,8 +18,8 @@ export default function Sidebar() {
         {/* Logo */}
         <NavLink to="/" className="sidebar-logo">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 14v12" />
-            <path d="M12 20a6 6 0 0 1 6-6h0a6 6 0 0 1 6 6v6" />
+            <rect x="12" y="16" width="12" height="12" rx="5" />
+            <path d="M24 16v12" />
           </svg>
         </NavLink>
 

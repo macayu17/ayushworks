@@ -86,15 +86,15 @@ const CustomCursor = () => {
         pointerEvents: 'none',
         zIndex: 9999,
         borderRadius: '50%',
-        transition: 'width 0.15s ease-out, height 0.15s ease-out, opacity 0.15s ease-out',
-        mixBlendMode: 'exclusion',
+        transition: 'width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease-out',
+        mixBlendMode: 'difference',
         backgroundColor: '#ffffff',
         left: position.x,
         top: position.y,
-        width: isHovering ? '32px' : '12px',
-        height: isHovering ? '32px' : '12px',
+        width: isHovering ? '64px' : '16px',
+        height: isHovering ? '64px' : '16px',
         transform: 'translate(-50%, -50%)',
-        opacity: isHovering ? 0.8 : 0.5
+        opacity: isHovering ? 1 : 0.4
       }}
     />
   );

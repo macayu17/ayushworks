@@ -22,6 +22,30 @@
   color: var(--zinc-400);
 }
 
+.custom-total-contributions {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.custom-total-number {
+  font-family: var(--font-doto);
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: var(--zinc-100);
+  line-height: 1;
+}
+
+.custom-total-label {
+  font-family: var(--font-jetbrains);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--zinc-500);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .calendar-wrapper {
   overflow-x: auto;
   scrollbar-width: none;

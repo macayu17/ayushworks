@@ -4,11 +4,11 @@ import rvLogo from '../../assets/images/image.png';
 const Education = () => {
   const educationData = [
     {
-      degree: 'B.E. in Information Science and Engineering',
+      degree: 'B.E. in Computer Science and Engineering',
       institution: 'RV Institute of Technology & Management',
-      period: 'Nov 2022 - Jun 2026',
+      period: 'Sep 2023 - Aug 2027 (Ongoing)',
       details: 'Relevant Coursework: Data Structures, Algorithms, Database Management Systems, Computer Networks.',
-      score: 'CGPA: 8.79',
+      score: 'CGPA: 9.03',
       logo: rvLogo
     }
   ];

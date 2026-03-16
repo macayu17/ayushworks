@@ -36,6 +36,21 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
         return () => clearTimeout(timer);
     }, [username]);
 
+    // Function to ensure we always show a full year (365 days)
+    const selectLastHalfYear = (contributions) => {
+        const currentYear = new Date().getFullYear();
+        
+        return contributions.filter(activity => {
+            const date = new Date(activity.date);
+
+            // Calculate exact 365 days back
+            const oneYearAgo = new Date();
+            oneYearAgo.setFullYear(currentYear - 1);
+            
+            return date >= oneYearAgo;
+        });
+    };
+
     return (
         <section className="github-contributions" id="contributions">
             <div className="contributions-header">
@@ -49,12 +64,13 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                         username={username}
                         theme={customTheme}
                         colorScheme="dark"
-                        blockSize={11}
-                        blockMargin={4}
+                        blockSize={9}
+                        blockMargin={2}
                         fontSize={12}
                         hideColorLegend={false}
                         hideMonthLabels={false}
                         hideTotalCount={true}
+                        transformData={selectLastHalfYear}
                         style={{ margin: '0 auto', color: 'var(--zinc-300)' }}
                         errorMessage="Failed to load GitHub contributions"
                     />

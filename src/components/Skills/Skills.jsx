@@ -52,7 +52,7 @@ const Skills = () => {
   const categories = [
     {
       title: 'Languages',
-      skills: ['Python', 'C++', 'Java', 'JavaScript']
+      skills: ['Python', 'C++', 'C', 'Java', 'JavaScript', 'TypeScript']
     },
     {
       title: 'ML & Data',
@@ -64,7 +64,7 @@ const Skills = () => {
     },
     {
       title: 'Frontend',
-      skills: ['Next.js', 'React', 'Vite', 'TypeScript', 'D3.js', 'Tailwind CSS']
+      skills: ['Next.js', 'React', 'Vite', 'D3.js', 'Tailwind CSS']
     },
     {
       title: 'Infra & DevOps',

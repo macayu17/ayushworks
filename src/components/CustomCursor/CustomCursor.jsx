@@ -45,7 +45,7 @@ const CustomCursor = () => {
     window.addEventListener('mousemove', updatePosition, { passive: true });
 
     const bindAllClickables = () => {
-      const clickables = document.querySelectorAll('a, button, input, textarea, [role="button"]');
+      const clickables = document.querySelectorAll('a, button, input, textarea, [role="button"], .skill-item');
       clickables.forEach(bindElement);
     };
 
@@ -91,10 +91,10 @@ const CustomCursor = () => {
         backgroundColor: '#ffffff',
         left: position.x,
         top: position.y,
-        width: isHovering ? '24px' : '16px',
-        height: isHovering ? '24px' : '16px',
+        width: isHovering ? '32px' : '16px',
+        height: isHovering ? '32px' : '16px',
         transform: 'translate(-50%, -50%)',
-        opacity: isHovering ? 1 : 0.4
+        opacity: 1
       }}
     />
   );

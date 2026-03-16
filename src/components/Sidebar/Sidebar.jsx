@@ -43,7 +43,7 @@ export default function Sidebar() {
           ))}
           
           <a
-            href="https://codolio.com/profile/macayu17"
+            href="https://codolio.com/profile/anayush"
             target="_blank"
             rel="noopener noreferrer"
             className="sidebar-nav-item"

@@ -22,7 +22,6 @@ const Education = () => {
       <div className="education-timeline">
         {educationData.map((item, index) => (
           <div key={index} className="education-item">
-            <div className="edu-index">{(index + 1).toString().padStart(2, '0')}</div>
             <div className="edu-content">
               <div className="edu-header">
                 <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>

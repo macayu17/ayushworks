@@ -107,3 +107,11 @@
   filter: grayscale(0%) opacity(1);
   transform: scale(1.15) rotate(5deg);
 }
+
+.skill-item img.invert-logo {
+  filter: invert(1) grayscale(100%) opacity(0.7);
+}
+
+.skill-item:hover img.invert-logo {
+  filter: invert(1) grayscale(0%) opacity(1);
+}

@@ -46,6 +46,10 @@ const Skills = () => {
     if (skillName === 'Hugging Face' || skillName === 'Hugging Face Transformers') {
       return 'https://huggingface.co/front/assets/huggingface_logo.svg';
     }
+    if (skillName === 'AWS') {
+      // Using the plain wordmark so CSS inversion turns it solid white
+      return 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg';
+    }
     return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${iconName}/${iconName}-original.svg`;
   };
 
@@ -99,6 +103,7 @@ const Skills = () => {
                   <img
                     src={getIconUrl(skill)}
                     alt={skill}
+                    className={['Next.js', 'Express', 'GitHub', 'Flask', 'Prisma', 'AWS', 'Vercel'].includes(skill) ? 'invert-logo' : ''}
                     onError={(e) => { e.target.style.display = 'none'; }}
                   />
                   <span>{skill}</span>

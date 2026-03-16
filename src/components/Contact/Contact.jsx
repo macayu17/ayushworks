@@ -84,11 +84,11 @@ const Contact = () => {
               <span className="term-btn min"></span>
               <span className="term-btn max"></span>
             </div>
-            <span className="term-title">visitor@portfolio:~</span>
+            <span className="term-title">ayushhoff@gmail.com:~</span>
           </div>
           <div className="term-body">
             <div className="term-line">
-              <span className="term-user">visitor@portfolio</span><span className="term-colon">:</span><span className="term-path">~</span><span className="term-prompt">$</span> 
+              <span className="term-user">ayushhoff@gmail.com</span><span className="term-colon">:</span><span className="term-path">~</span><span className="term-prompt">$</span> 
               <span className="term-cmd"> ./contact.sh</span>
             </div>
             <form className="term-form" onSubmit={handleFormSubmit}>
@@ -111,7 +111,7 @@ const Contact = () => {
               
               <div className="term-submit-group">
                 <button type="submit" className="term-submit" disabled={formStatus === "SENDING"}>
-                  <span className="term-user">visitor@portfolio</span><span className="term-colon">:</span><span className="term-path">~</span><span className="term-prompt">$</span> Execute [-Y/n]{formStatus === "SENDING" ? "..." : ""}
+                  <span className="term-user">ayushhoff@gmail.com</span><span className="term-colon">:</span><span className="term-path">~</span><span className="term-prompt">$</span> Execute [-Y/n]{formStatus === "SENDING" ? "..." : ""}
                 </button>
               </div>
               {formStatus === "SUCCESS" && (

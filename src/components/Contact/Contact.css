@@ -173,11 +173,11 @@
   margin-bottom: 16px;
 }
 
-.term-user { color: #60a5fa; } /* blue */
-.term-colon { color: var(--zinc-300); }
-.term-path { color: #34d399; } /* emerald */
-.term-prompt { color: var(--zinc-300); margin-left: 2px; }
-.term-cmd { color: #facc15; } /* yellow */
+.term-user { color: var(--zinc-300); }
+.term-colon { color: var(--zinc-500); }
+.term-path { color: var(--zinc-400); }
+.term-prompt { color: var(--zinc-500); margin-left: 2px; }
+.term-cmd { color: var(--zinc-100); }
 
 .term-form {
   display: flex;
@@ -201,7 +201,7 @@
 }
 
 .term-caret {
-  color: #fb923c; /* orange */
+  color: var(--zinc-500);
 }
 
 .term-input {
@@ -237,7 +237,7 @@ textarea.term-input:focus {
 .term-submit {
   background: transparent;
   border: none;
-  color: #facc15;
+  color: var(--zinc-300);
   font-family: var(--font-jetbrains);
   font-size: 0.8rem;
   cursor: pointer;

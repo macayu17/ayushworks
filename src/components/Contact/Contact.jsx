@@ -14,6 +14,33 @@ const Contact = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      const activeEl = document.activeElement;
+      if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA')) {
+        const val = activeEl.value.trim().toLowerCase();
+        const commands = ['ls', 'whoami', 'clear', 'sudo'];
+        
+        if (commands.includes(val)) {
+          e.preventDefault();
+          
+          if (val === 'clear') {
+            setFormStatus("");
+            activeEl.value = ''; 
+          } else if (val === 'ls') {
+            setFormStatus("LS_OUTPUT");
+          } else if (val === 'whoami') {
+            setFormStatus("WHOAMI_OUTPUT");
+          } else if (val === 'sudo') {
+            setFormStatus("SUDO_OUTPUT");
+            document.body.classList.add('sudo-glitch');
+            setTimeout(() => document.body.classList.remove('sudo-glitch'), 1000);
+          }
+        }
+      }
+    }
+  };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setFormStatus("SENDING");
@@ -66,7 +93,7 @@ const Contact = () => {
           </button>
           
           <a 
-            href="/resume.pdf" 
+            href="https://drive.google.com/file/d/1l3HHt4OLJ9Pz5g8nZ5K4spQow7iUgb1d/view?usp=sharing" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="contact-action-btn"
@@ -91,7 +118,7 @@ const Contact = () => {
               <span className="term-user">ayushhoff@gmail.com</span><span className="term-colon">:</span><span className="term-path">~</span><span className="term-prompt">$</span> 
               <span className="term-cmd"> ./contact.sh</span>
             </div>
-            <form className="term-form" onSubmit={handleFormSubmit}>
+            <form className="term-form" onSubmit={handleFormSubmit} onKeyDown={handleKeyDown}>
               <div className="term-input-group">
                 <label htmlFor="name" className="term-label"><span className="term-caret">&gt;</span> Name: </label>
                 <input type="text" id="name" name="name" required className="term-input" spellCheck="false" autoComplete="off" />
@@ -114,6 +141,8 @@ const Contact = () => {
                   <span className="term-user">ayushhoff@gmail.com</span><span className="term-colon">:</span><span className="term-path">~</span><span className="term-prompt">$</span> Execute [-Y/n]{formStatus === "SENDING" ? "..." : ""}
                 </button>
               </div>
+              
+              {/* Output variants */}
               {formStatus === "SUCCESS" && (
                 <div className="term-status success">
                   <span className="term-sys">[SYSTEM]</span> Message payload delivered successfully.
@@ -122,6 +151,24 @@ const Contact = () => {
               {formStatus === "ERROR" && (
                 <div className="term-status error">
                   <span className="term-sys">[ERROR]</span> Connection refused. Please try again.
+                </div>
+              )}
+              {formStatus === "LS_OUTPUT" && (
+                <div className="term-status" style={{ whiteSpace: 'pre-wrap', color: 'var(--zinc-400)', lineHeight: '1.4' }}>
+                  drwxr-xr-x 2 root root 4096 about/{'\n'}
+                  drwxr-xr-x 2 root root 4096 skills/{'\n'}
+                  drwxr-xr-x 2 root root 4096 projects/{'\n'}
+                  -rw-r--r-- 1 root root  235 resume.pdf
+                </div>
+              )}
+              {formStatus === "WHOAMI_OUTPUT" && (
+                <div className="term-status" style={{ color: 'var(--zinc-300)' }}>
+                  visitor@ayush_os. You are browsing the portfolio of Ayush Kumar, Developer.
+                </div>
+              )}
+              {formStatus === "SUDO_OUTPUT" && (
+                <div className="term-status error" style={{ fontWeight: 'bold' }}>
+                  <span className="term-sys">[ERROR]</span> 0x0000005: Access Denied. System override attempt logged.
                 </div>
               )}
             </form>

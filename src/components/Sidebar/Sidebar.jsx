@@ -7,7 +7,7 @@ const navItems = [
   { path: '/', icon: <FaHome size={20} />, label: 'Home' },
   { path: '/about', icon: <FaUser size={20} />, label: 'About' },
   { path: '/skill', icon: <FaCode size={20} />, label: 'Skills' },
-  { path: 'https://codolio.com/profile/macayu17', icon: <GiOwl size={20} />, label: 'Codolio', external: true },
+  { path: 'https://codolio.com/profile/anayush', icon: <GiOwl size={20} />, label: 'Codolio', external: true },
   { path: '/contact', icon: <FaEnvelope size={20} />, label: 'Contact' },
 ];
 
@@ -70,6 +70,12 @@ export default function Sidebar() {
       <nav className="mobile-nav" aria-label="Mobile navigation">
         <div className="mobile-nav-inner">
           {navItems.map(item => {
+            const handleVibrate = () => {
+              if (navigator.vibrate) {
+                navigator.vibrate(50);
+              }
+            };
+
             if (item.external) {
               return (
                 <a
@@ -79,6 +85,7 @@ export default function Sidebar() {
                   rel="noopener noreferrer"
                   className="mobile-nav-item"
                   aria-label={item.label}
+                  onClick={handleVibrate}
                 >
                   <div className="icon-wrap">
                     {item.icon}
@@ -95,6 +102,7 @@ export default function Sidebar() {
                 className={({ isActive }) => `mobile-nav-item ${isActive ? 'active' : ''}`}
                 aria-label={item.label}
                 end={item.path === '/'}
+                onClick={handleVibrate}
               >
                 <div className="icon-wrap">
                   {item.icon}

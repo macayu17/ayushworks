@@ -43,7 +43,7 @@ const Skills = () => {
       'Azure': 'azure'
     };
     const iconName = iconMap[skillName] || skillName.toLowerCase().replace(/[\s\-.]/g, '');
-    if (skillName === 'Hugging Face' || skillName === 'Hugging Face Transformers') {
+    if (skillName === 'Hugging Face' || skillName === 'Hugging Face') {
       return 'https://huggingface.co/front/assets/huggingface_logo.svg';
     }
     if (skillName === 'AWS') {

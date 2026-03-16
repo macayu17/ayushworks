@@ -1,5 +1,6 @@
 import './Projects.css';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import Tilt from 'react-parallax-tilt';
 
 const Projects = () => {
   const projects = [
@@ -61,44 +62,57 @@ const Projects = () => {
 
       <div className="projects-grid">
         {projects.map((project, index) => (
-          <div key={index} className="project-card">
-            {/* Header dots */}
-            <div className="project-header-dots">
-              <span className="traffic-dot"></span>
-              <span className="traffic-dot"></span>
-              <span className="traffic-dot"></span>
-            </div>
-
-            {/* Card body */}
-            <div className="project-body">
-              <div className="project-title-row">
-                <h3 className="project-title">{project.title}</h3>
-                <span className="project-status">{project.status}</span>
+          <Tilt 
+            key={index} 
+            tiltMaxAngleX={4} 
+            tiltMaxAngleY={4} 
+            scale={1.01} 
+            transitionSpeed={2500} 
+            glareEnable={true} 
+            glareMaxOpacity={0.05} 
+            glareColor="#ffffff" 
+            glarePosition="bottom" 
+            className="tilt-wrapper"
+          >
+            <div className="project-card">
+              {/* Header dots */}
+              <div className="project-header-dots">
+                <span className="traffic-dot"></span>
+                <span className="traffic-dot"></span>
+                <span className={`traffic-dot ${project.live ? 'pulse-live' : ''}`}></span>
               </div>
 
-              <p className="project-description">{project.description}</p>
-
-              <div className="project-footer">
-                <div className="project-tags">
-                  {project.tags.slice(0, 3).map((tag, i) => (
-                    <span key={i} className="project-tag">{tag}</span>
-                  ))}
+              {/* Card body */}
+              <div className="project-body">
+                <div className="project-title-row">
+                  <h3 className="project-title">{project.title}</h3>
+                  <span className="project-status">{project.status}</span>
                 </div>
 
-                <div className="project-links">
-                  {project.live ? (
-                    <a href={project.live} className="project-link" target="_blank" rel="noopener noreferrer" aria-label="Visit Live Site">
-                      <FaExternalLinkAlt size={14} />
-                    </a>
-                  ) : (
-                    <a href={project.github} className="project-link" target="_blank" rel="noopener noreferrer" aria-label="View Source">
-                      <FaExternalLinkAlt size={14} />
-                    </a>
-                  )}
+                <p className="project-description">{project.description}</p>
+
+                <div className="project-footer">
+                  <div className="project-tags">
+                    {project.tags.slice(0, 3).map((tag, i) => (
+                      <span key={i} className="project-tag">{tag}</span>
+                    ))}
+                  </div>
+
+                  <div className="project-links">
+                    {project.live ? (
+                      <a href={project.live} className="project-link" target="_blank" rel="noopener noreferrer" aria-label="Visit Live Site">
+                        <FaExternalLinkAlt size={14} />
+                      </a>
+                    ) : (
+                      <a href={project.github} className="project-link" target="_blank" rel="noopener noreferrer" aria-label="View Source">
+                        <FaExternalLinkAlt size={14} />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </Tilt>
         ))}
       </div>
     </section>

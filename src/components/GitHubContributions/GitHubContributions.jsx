@@ -1,6 +1,8 @@
 import { GitHubCalendar } from 'react-github-calendar';
 import './GitHubContributions.css';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, cloneElement } from 'react';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 const GitHubContributions = ({ username = 'macayu17' }) => {
     const calendarWrapperRef = useRef(null);
@@ -72,9 +74,17 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                         hideTotalCount={true}
                         labels={{ totalCount: '' }}
                         transformData={selectLastHalfYear}
+                        renderBlock={(block, activity) => 
+                            cloneElement(block, {
+                                'data-tooltip-id': 'github-tooltip',
+                                'data-tooltip-html': `<span style="color:var(--zinc-300)">[COMMIT_RECORD]</span><br/><strong>${activity.count} contributions</strong> on ${activity.date}`,
+                                title: null
+                            })
+                        }
                         style={{ margin: '0', color: 'var(--zinc-300)' }}
                         errorMessage="Failed to load GitHub contributions"
                     />
+                    <Tooltip id="github-tooltip" style={{ backgroundColor: '#18181b', border: '1px dashed #3f3f46', borderRadius: '4px', fontSize: '0.75rem', fontFamily: 'var(--font-jetbrains)', color: '#fff', zIndex: 999 }} />
                 </div>
                 <div className="custom-total-contributions" style={{ position: 'absolute', bottom: '8px', left: '0', margin: '0' }}>
                     <span className="custom-total-number">{totalContributions > 0 ? totalContributions : '...'}</span>

@@ -217,7 +217,21 @@
   width: 100%;
 }
 .term-input:focus {
-  border-bottom: 1px dashed var(--zinc-600);
+  border-bottom: 2px dashed var(--zinc-800);
+}
+
+@keyframes sudoGlitch {
+  0% { filter: hue-rotate(0deg) contrast(1) invert(0); transform: translateX(0); }
+  10% { filter: hue-rotate(90deg) contrast(2) invert(1); transform: translateX(-5px) translateY(2px); }
+  20% { filter: hue-rotate(180deg) contrast(3) invert(0); transform: translateX(5px) translateY(-2px); }
+  30% { filter: hue-rotate(270deg) contrast(1) invert(1); transform: translateX(-2px) translateY(1px); }
+  40% { filter: hue-rotate(360deg) contrast(4) invert(0); transform: translateX(2px) translateY(-1px); }
+  50% { filter: hue-rotate(0deg) contrast(1); transform: translateX(0); }
+  100% { filter: hue-rotate(0deg) contrast(1); transform: translateX(0); }
+}
+
+body.sudo-glitch {
+  animation: sudoGlitch 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) 3;
 }
 
 textarea.term-input {

@@ -1,5 +1,6 @@
 import './About.css';
 import { FaRegEnvelope, FaTwitter, FaCalendarAlt, FaChevronRight } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import ayushImg from '../../assets/images/AyushBW11.png';
 
 const About = () => {
@@ -88,7 +89,7 @@ const About = () => {
               <FaRegEnvelope /> Email
             </a>
             <a href="https://x.com/ayush_174_" target="_blank" rel="noopener noreferrer" className="qr-btn bracket-box qr-btn-brackets">
-              <FaTwitter /> DM me
+              <FaXTwitter /> DM me
             </a>
           </div>
           <div className="qr-group">

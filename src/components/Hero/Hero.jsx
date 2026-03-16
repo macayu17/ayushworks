@@ -4,23 +4,37 @@ import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { FiEye } from 'react-icons/fi';
 
+const texts = ['Based in Bengaluru, India', 'Undergrad pursuing CSE'];
+
 const Hero = () => {
-  const fullText = 'Based in Bengaluru, India';
   const [displayText, setDisplayText] = useState('');
+  const [textIndex, setTextIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i < fullText.length) {
-        setDisplayText(fullText.slice(0, i + 1));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 60);
-    return () => clearInterval(interval);
-  }, []);
+    const currentText = texts[textIndex];
+    let timeout;
+    
+    if (isDeleting) {
+      timeout = setTimeout(() => {
+        setDisplayText(currentText.substring(0, displayText.length - 1));
+        if (displayText.length === 0) {
+          setIsDeleting(false);
+          setTextIndex((prev) => (prev + 1) % texts.length);
+        }
+      }, 30);
+    } else {
+      timeout = setTimeout(() => {
+        setDisplayText(currentText.substring(0, displayText.length + 1));
+        if (displayText.length === currentText.length) {
+          timeout = setTimeout(() => setIsDeleting(true), 2000);
+        }
+      }, 60);
+    }
+    
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, textIndex]);
 
   useEffect(() => {
     const cursorInterval = setInterval(() => {

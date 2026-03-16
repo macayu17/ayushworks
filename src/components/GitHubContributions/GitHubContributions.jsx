@@ -43,12 +43,6 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                     GitHub <span className="contributions-username">@{username}</span>
                 </h3>
             </div>
-
-            <div className="custom-total-contributions">
-                <span className="custom-total-number">{totalContributions > 0 ? totalContributions : '...'}</span>
-                <span className="custom-total-label">CONTRIBUTIONS</span>
-            </div>
-
             <div className="calendar-wrapper" ref={calendarWrapperRef}>
                 <div className="calendar-inner">
                     <GitHubCalendar
@@ -65,6 +59,11 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                         errorMessage="Failed to load GitHub contributions"
                     />
                 </div>
+            </div>
+
+            <div className="custom-total-contributions">
+                <span className="custom-total-number">{totalContributions > 0 ? totalContributions : '...'}</span>
+                <span className="custom-total-label">CONTRIBUTIONS</span>
             </div>
         </section>
     );

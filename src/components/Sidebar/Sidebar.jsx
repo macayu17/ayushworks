@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
-import { FaHome, FaUser, FaCode, FaEnvelope, FaTrophy } from 'react-icons/fa';
+import { FaHome, FaUser, FaCode, FaEnvelope } from 'react-icons/fa';
+import { GiOwl } from 'react-icons/gi';
 
 const navItems = [
   { path: '/', icon: <FaHome size={20} />, label: 'Home' },
@@ -49,7 +50,7 @@ export default function Sidebar() {
             title="Codolio Profile"
             aria-label="Codolio Profile"
           >
-            <FaTrophy size={20} />
+            <GiOwl size={20} />
             <span className="corner tl"></span>
             <span className="corner tr"></span>
             <span className="corner bl"></span>
@@ -84,7 +85,7 @@ export default function Sidebar() {
             aria-label="Codolio Profile"
           >
             <div className="icon-wrap">
-              <FaTrophy size={20} />
+              <GiOwl size={20} />
             </div>
             <span className="nav-label">Codolio</span>
           </a>

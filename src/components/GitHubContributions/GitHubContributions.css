@@ -1,6 +1,5 @@
 .github-contributions {
-  padding: 32px 0 48px;
-  border-bottom: 1px dashed var(--zinc-800);
+  padding: 24px 0;
 }
 
 .contributions-header {
@@ -28,8 +27,6 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 8px 0;
-  display: flex;
-  justify-content: flex-end; /* Align right to see latest */
 }
 
 .calendar-wrapper::-webkit-scrollbar {
@@ -50,6 +47,24 @@
   fill: var(--zinc-500) !important;
   font-family: var(--font-jetbrains) !important;
   font-size: 10px !important;
+}
+
+.calendar-inner .react-activity-calendar {
+  color: var(--zinc-300) !important;
+}
+
+.calendar-inner .react-activity-calendar div,
+.calendar-inner .react-activity-calendar span,
+.calendar-inner .react-activity-calendar header,
+.calendar-inner .react-activity-calendar footer,
+.calendar-inner .react-activity-calendar p,
+.calendar-inner .react-activity-calendar h1,
+.calendar-inner .react-activity-calendar h2,
+.calendar-inner .react-activity-calendar h3,
+.calendar-inner .react-activity-calendar h4,
+.calendar-inner .react-activity-calendar h5,
+.calendar-inner .react-activity-calendar h6 {
+  color: var(--zinc-300) !important;
 }
 
 /* Optional: making boxes slightly rounded to match screenshot */

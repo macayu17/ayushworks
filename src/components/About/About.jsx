@@ -110,7 +110,7 @@ const About = () => {
             <FaChevronRight className="ac-icon" />
           </div>
           <h3 className="ac-title">My Toolbox</h3>
-          <p className="ac-desc">The software and hardware I use daily</p>
+          <p className="ac-desc">The frameworks and tools I use</p>
         </a>
       </div>
 

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import './Hero.css';
-import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
+import { FaEnvelope, FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { FiEye } from 'react-icons/fi';
+import { NavLink } from 'react-router-dom';
 
 const texts = ['Based in Bengaluru, India', 'Undergrad pursuing CSE'];
 
@@ -73,6 +74,10 @@ const Hero = () => {
           {displayText}
           <span className="cursor" style={{ opacity: showCursor ? 1 : 0 }}></span>
         </p>
+        <NavLink to="/contact" className="hero-contact-box" aria-label="Go to contact page">
+          <FaEnvelope className="hero-contact-icon" />
+          <span>Contact Me</span>
+        </NavLink>
       </div>
 
       <div className="hero-right">

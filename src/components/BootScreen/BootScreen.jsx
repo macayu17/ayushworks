@@ -4,14 +4,14 @@ import './BootScreen.css';
 const bootSequence = [
   { text: "INITIALIZING AYUSH_ME v2.0.4...", delay: 300 },
   { text: "Loading kernel modules... ", status: "OK", delay: 150 },
-  { text: "Mounting virtual filesystems... ", status: "OK", delay: 100 },
+  { text: "Mounting virtual filesystems... ", status: "OK", delay: 300 },
   { text: "Starting network interfaces... ", status: "OK", delay: 200 },
   { text: "Checking memory allocation... ", status: "OK", delay: 100 },
-  { text: "Loading graphics drivers: matrix_overlay.ko... ", status: "OK", delay: 300 },
-  { text: "Establishing secure connection to mainframe... ", status: "WARN", delay: 400 },
-  { text: "Retrying connection... ", status: "OK", delay: 200 },
-  { text: "Decrypting user profile data... ", delay: 300 },
-  { text: "Access Granted. Welcome, Visitor.", delay: 500 }
+  { text: "Loading graphics drivers: matrix_overlay.ko... ", status: "OK", delay: 150 },
+  { text: "Establishing secure connection to mainframe... ", status: "WARN", delay: 150 },
+  { text: "Retrying connection... ", status: "OK", delay: 150 },
+  { text: "Decrypting user profile data... ", delay: 100 },
+  { text: "Access Granted. Welcome, Visitor.", delay: 200 }
 ];
 
 const BootScreen = ({ onComplete }) => {

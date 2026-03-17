@@ -111,7 +111,7 @@ const Contact = () => {
               <span className="term-btn min"></span>
               <span className="term-btn max"></span>
             </div>
-            <span className="term-title">ayushhoff@gmail.com:~</span>
+            <span className="term-title">Contact me~</span>
           </div>
           <div className="term-body">
             <div className="term-line">

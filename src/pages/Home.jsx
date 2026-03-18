@@ -5,6 +5,7 @@ import Education from '../components/Education/Education';
 import Separator from '../components/Separator/Separator';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { projectCatalog } from '../data/projects';
 
 const MotionDiv = motion.div;
 
@@ -33,7 +34,12 @@ const Home = () => {
       <Separator />
       <Education />
       <Separator />
-      <Projects />
+      <Projects
+        items={projectCatalog}
+        intro="A few things I've built and spent real time on. Open any project to see the full story."
+        showArchiveLink
+        showThumbnail={false}
+      />
     </MotionDiv>
   );
 };

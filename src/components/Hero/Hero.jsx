@@ -4,6 +4,7 @@ import { FaEnvelope, FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { FiEye } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
+import { getDevelopmentViewCount, getLiveViewCount } from '../../utils/viewCounter';
 
 const texts = ['Based in Bengaluru, India', 'Undergrad pursuing CSE'];
 
@@ -12,22 +13,30 @@ const Hero = () => {
   const [textIndex, setTextIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
-  const [views, setViews] = useState(0);
+  const [views, setViews] = useState(null);
 
   useEffect(() => {
-    // Fetch and increment page views using a free public counter API
+    let isActive = true;
+
     const fetchViews = async () => {
       try {
-        const response = await fetch('https://api.counterapi.dev/v1/macayu17/portfolio/up');
-        const data = await response.json();
-        if (data && data.count) {
-          setViews(data.count);
+        const nextViews = import.meta.env.DEV
+          ? getDevelopmentViewCount()
+          : await getLiveViewCount();
+
+        if (isActive) {
+          setViews(nextViews);
         }
       } catch (error) {
         console.error('Failed to fetch view count:', error);
       }
     };
+
     fetchViews();
+
+    return () => {
+      isActive = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -94,7 +103,7 @@ const Hero = () => {
         </div>
         <div className="hero-views-box">
           <FiEye className="hero-views-icon" />
-          <span>{views > 0 ? views.toLocaleString() : '...'} views</span>
+          <span>{typeof views === 'number' ? views.toLocaleString() : '...'} views</span>
         </div>
       </div>
     </section>

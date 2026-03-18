@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
-import { FaHome, FaUser, FaCode, FaEnvelope } from 'react-icons/fa';
+import { FaHome, FaUser, FaCode, FaEnvelope, FaFolderOpen } from 'react-icons/fa';
 import { GiOwl } from 'react-icons/gi';
 
 const navItems = [
   { path: '/', icon: <FaHome size={20} />, label: 'Home' },
+  { path: '/projects', icon: <FaFolderOpen size={20} />, label: 'Projects' },
   { path: '/about', icon: <FaUser size={20} />, label: 'About' },
   { path: '/skill', icon: <FaCode size={20} />, label: 'Skills' },
   { path: 'https://codolio.com/profile/anayush', icon: <GiOwl size={20} />, label: 'Codolio', external: true },

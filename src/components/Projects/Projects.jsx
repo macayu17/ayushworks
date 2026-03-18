@@ -1,69 +1,61 @@
 import './Projects.css';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaGithub, FaExternalLinkAlt, FaArrowRight } from 'react-icons/fa';
 import Tilt from 'react-parallax-tilt';
+import { projectCatalog } from '../../data/projects';
 
-const Projects = () => {
-  const projects = [
-    {
-      title: 'Occasio',
-      status: 'Live',
-      description: 'Event booking with payments, QR tickets & admin dashboard.',
-      tags: ['#React', '#Tailwind', '#Node.js', '#Razorpay'],
-      github: 'https://github.com/macayu17/events-management-booking.git',
-      live: 'https://occasio.ayushh.in/'
-    },
-    {
-      title: 'GridPulse',
-      status: 'Live',
-      description: 'F1 race analytics with telemetry replay & track visualization.',
-      tags: ['#React', '#Vite', '#FastAPI', '#Python'],
-      github: 'https://github.com/macayu17/f1-replay-system.git',
-      live: 'https://pitwall.ayushh.in/'
-    },
-    {
-      title: "Parkinson's Screening",
-      status: 'Completed',
-      description: 'Clinical screening using transformer-based ML models.',
-      tags: ['#Python', '#PyTorch', '#Flask', '#Transformers'],
-      github: 'https://github.com/macayu17/Parkinsons-Disease-Assesment-Portal.git',
-      live: 'https://huggingface.co/spaces/Penguindrum920/Parkinson_Disease_Assesment_Portal'
-    },
-    {
-      title: 'FraudKavach',
-      status: 'Completed',
-      description: 'Fintech payment simulator with fraud detection & explainable risk scoring.',
-      tags: ['#React', '#TypeScript', '#Node.js', '#Express.js'],
-      github: 'https://github.com/macayu17/FraudKavach.git',
-      live: null
-    },
-    {
-      title: 'StockFlow',
-      status: 'Completed',
-      description: 'Paper-trading platform with real-time quotes, portfolios & leaderboards.',
-      tags: ['#React', '#Node.js', '#PostgreSQL', '#Prisma'],
-      github: 'https://github.com/macayu17/Trade-Wars.git',
-      live: null
-    },
-    {
-      title: 'Multimodal Sentiment',
-      status: 'Completed',
-      description: 'Sentiment analysis using text, vision & audio transformers.',
-      tags: ['#Python', '#TensorFlow', '#PyTorch', '#OpenCV'],
-      github: 'https://github.com/macayu17',
-      live: null
+const stopCardNavigation = (event) => {
+  event.stopPropagation();
+};
+
+const Projects = ({
+  items = projectCatalog,
+  title = '// PROJECTS',
+  intro = 'Open any project to see the full breakdown, stack, and links.',
+  showArchiveLink = false,
+  showHeader = true,
+  showThumbnail = true,
+  sectionId = 'projects'
+}) => {
+  const navigate = useNavigate();
+
+  const openProject = (slug) => {
+    navigate(`/projects/${slug}`);
+  };
+
+  const handleCardKeyDown = (event, slug) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openProject(slug);
     }
-  ];
+  };
 
   return (
-    <section className="projects" id="projects">
-      <div className="section-header">
-        <span>// PROJECTS</span>
-      </div>
+    <section className="projects" id={sectionId || undefined}>
+      {showHeader && (
+        <>
+          <div className="section-header">
+            <span>{title}</span>
+            {showArchiveLink ? (
+              <Link to="/projects" className="projects-header-link">
+                View all
+                <FaArrowRight size={12} />
+              </Link>
+            ) : (
+              <span className="projects-counter">
+                {String(items.length).padStart(2, '0')} projects
+              </span>
+            )}
+          </div>
+
+          {intro && <p className="projects-intro">{intro}</p>}
+        </>
+      )}
 
       <div className="projects-grid">
-        {projects.map((project, index) => (
+        {items.map((project) => (
           <Tilt 
-            key={index} 
+            key={project.slug}
             tiltMaxAngleX={4} 
             tiltMaxAngleY={4} 
             scale={1.01} 
@@ -74,7 +66,15 @@ const Projects = () => {
             glarePosition="bottom" 
             className="tilt-wrapper"
           >
-            <div className="project-card">
+            <article
+              className="project-card"
+              role="link"
+              tabIndex={0}
+              onClick={() => openProject(project.slug)}
+              onKeyDown={(event) => handleCardKeyDown(event, project.slug)}
+              style={{ '--project-accent': project.accent }}
+              aria-label={`Open ${project.title} project details`}
+            >
               {/* Header dots */}
               <div className="project-header-dots">
                 <span className="traffic-dot"></span>
@@ -82,36 +82,78 @@ const Projects = () => {
                 <span className={`traffic-dot ${project.live ? 'pulse-live' : ''}`}></span>
               </div>
 
+              {showThumbnail && (
+                <div className={`project-cover ${project.image ? 'has-image' : 'is-fallback'}`}>
+                  {project.image ? (
+                    <img src={project.image} alt={`${project.title} preview`} className="project-cover-image" />
+                  ) : (
+                    <div className="project-cover-fallback">
+                      <span className="project-cover-label">{project.category}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Card body */}
               <div className="project-body">
                 <div className="project-title-row">
-                  <h3 className="project-title">{project.title}</h3>
+                  <div className="project-title-copy">
+                    <h3 className="project-title">{project.title}</h3>
+                    <p className="project-category">{project.category}</p>
+                  </div>
                   <span className="project-status">{project.status}</span>
                 </div>
 
-                <p className="project-description">{project.description}</p>
+                <p className="project-description">{project.summary}</p>
 
                 <div className="project-footer">
                   <div className="project-tags">
-                    {project.tags.slice(0, 3).map((tag, i) => (
-                      <span key={i} className="project-tag">{tag}</span>
+                    {project.tags.slice(0, 4).map((tag) => (
+                      <span key={tag} className="project-tag">#{tag}</span>
                     ))}
                   </div>
 
-                  <div className="project-links">
-                    {project.live ? (
-                      <a href={project.live} className="project-link" target="_blank" rel="noopener noreferrer" aria-label="Visit Live Site">
-                        <FaExternalLinkAlt size={14} />
-                      </a>
-                    ) : (
-                      <a href={project.github} className="project-link" target="_blank" rel="noopener noreferrer" aria-label="View Source">
-                        <FaExternalLinkAlt size={14} />
-                      </a>
-                    )}
+                  <div className="project-actions">
+                    <div className="project-links">
+                      {project.live && (
+                        <a
+                          href={project.live}
+                          className="project-link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Visit ${project.title} live site`}
+                          onClick={stopCardNavigation}
+                        >
+                          <FaExternalLinkAlt size={14} />
+                        </a>
+                      )}
+
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          className="project-link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`View ${project.title} source code`}
+                          onClick={stopCardNavigation}
+                        >
+                          <FaGithub size={15} />
+                        </a>
+                      )}
+                    </div>
+
+                    <Link
+                      to={`/projects/${project.slug}`}
+                      className="project-details-link"
+                      onClick={stopCardNavigation}
+                    >
+                      Details
+                      <FaArrowRight size={12} />
+                    </Link>
                   </div>
                 </div>
               </div>
-            </div>
+            </article>
           </Tilt>
         ))}
       </div>

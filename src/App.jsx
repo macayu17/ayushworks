@@ -13,6 +13,8 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Skills from './pages/Skills';
 import Contact from './pages/Contact';
+import ProjectsPage from './pages/Projects';
+import ProjectDetail from './pages/ProjectDetail';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -75,6 +77,8 @@ function App() {
                 <Routes location={location} key={location.pathname}>
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
+                  <Route path="/projects" element={<ProjectsPage />} />
+                  <Route path="/projects/:slug" element={<ProjectDetail />} />
                   <Route path="/skill" element={<Skills />} />
                   <Route path="/contact" element={<Contact />} />
                 </Routes>

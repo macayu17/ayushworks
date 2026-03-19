@@ -1,25 +1,26 @@
 import occasioImage from '../assets/images/occasio.png';
 import gridPulseImage from '../assets/images/f1.png';
+import equityFlowImage from '../assets/images/equityflow.png';
 
 export const projectCatalog = [
   {
     slug: 'occasio',
     title: 'Occasio',
     status: 'Live',
-    category: 'Full-stack event platform',
-    summary: 'Event booking with payments, QR tickets & admin dashboard.',
+    category: 'Event management and booking platform',
+    summary: 'Event ops platform with registrations, payments, ticketing, check-in, analytics, and team workflows.',
     details: [
-      'Occasio is a discovery-to-booking platform for events, designed to help users browse listings, complete checkout, and receive digital access without friction.',
-      'The product flow combines attendee-facing booking screens with organizer-facing administration so events, registrations, and ticket validation can be managed from one place.'
+      'Occasio is a full-stack event management system for organizers and attendees, covering event discovery, registration, payments, ticketing, and operational workflows from one product surface.',
+      'The platform combines a React plus Vite frontend with a Node.js, Express, Prisma, and PostgreSQL backend, adding organizer analytics, broadcast messaging, team roles, certificate workflows, and queue-backed ticket and email processing.'
     ],
     highlights: [
-      'Event discovery and registration workflow for live experiences',
-      'Integrated payment flow using Razorpay',
-      'QR-based ticket generation for attendee access',
-      'Admin dashboard for event and booking management'
+      'Public and admin flows for event discovery, registration, and scanner-based check-in',
+      'Organizer analytics, team access controls, and broadcast messaging workflows',
+      'Certificate designer, ticket styling, reminders, polls, and reviews',
+      'Queue-based QR ticket generation, email delivery, and payment fulfillment'
     ],
-    tags: ['React', 'Tailwind', 'Node.js', 'Razorpay'],
-    github: 'https://github.com/macayu17/events-management-booking.git',
+    tags: ['React', 'Vite', 'Tailwind CSS', 'Node.js', 'Express', 'Prisma', 'PostgreSQL'],
+    github: 'https://github.com/macayu17/Occasio',
     live: 'https://occasio.ayushh.in/',
     image: occasioImage,
     accent: '#fb7185'
@@ -28,88 +29,88 @@ export const projectCatalog = [
     slug: 'gridpulse',
     title: 'GridPulse',
     status: 'Live',
-    category: 'F1 analytics dashboard',
-    summary: 'F1 race analytics with telemetry replay & track visualization.',
+    category: 'Formula 1 telemetry analytics platform',
+    summary: 'Telemetry analytics and replay platform for race data ingestion, visualization, and real-time monitoring.',
     details: [
-      'GridPulse turns Formula 1 race data into an interactive replay experience with timing context, telemetry views, and circuit-level race tracking.',
-      'The interface is built around analysis and storytelling, making it easier to inspect driver pace, on-track position, and race evolution lap by lap.'
+      'GridPulse is a Formula 1 telemetry analytics platform built for ingesting and analyzing high-frequency race data streams, then replaying them through a driver-focused visual analytics experience.',
+      'The stack uses FastAPI, React, D3.js, Docker, and PostgreSQL to power telemetry replay, streaming dashboards, and sub-100 millisecond updates for track position, pace, and race-event reconstruction.'
     ],
     highlights: [
-      'Telemetry replay for race sessions',
-      'Interactive track visualization with driver positioning',
-      'Supporting race panels for timing and session context',
-      'Backend services tailored for motorsport data processing'
+      'FastAPI ingestion service handling 5000+ telemetry datapoints per minute',
+      'Caching and streaming architecture for sub-100ms dashboard refreshes',
+      'Telemetry replay pipelines synchronized across driver data streams',
+      'Interactive analytics dashboards for race monitoring and driver performance'
     ],
-    tags: ['React', 'Vite', 'FastAPI', 'Python'],
-    github: 'https://github.com/macayu17/f1-replay-system.git',
-    live: 'https://pitwall.ayushh.in/',
+    tags: ['FastAPI', 'React', 'D3.js', 'Docker', 'PostgreSQL', 'Python'],
+    github: 'https://github.com/macayu17/f1-replay-system',
+    live: 'https://gridpulse.ayushh.in',
     image: gridPulseImage,
     accent: '#38bdf8'
   },
   {
     slug: 'parkinsons-screening',
-    title: "Parkinson's Screening",
+    title: "Text-Based Parkinson's Screening",
     status: 'Completed',
-    category: 'Clinical ML screening tool',
-    summary: 'Clinical screening using transformer-based ML models.',
+    category: 'Clinical ML screening platform',
+    summary: 'Transformer-led clinical screening workflow with Flask inference and 42K-patient model training.',
     details: [
-      'This project explores a screening workflow for Parkinson\'s-related assessment using transformer-based machine learning models.',
-      'The emphasis is on packaging advanced models inside an accessible interface so prediction results can be surfaced in a way that is easier to review and interpret.'
+      'This project focuses on text-based Parkinson\'s disease screening using transformer models and ensemble learning on roughly 42,000 patient records, packaged as a clinical assessment portal.',
+      'The system combines PubMedBERT, BioGPT, Clinical-T5, traditional ML baselines, and a Flask inference interface to support reproducible training, evaluation, and clinician-friendly prediction workflows.'
     ],
     highlights: [
-      'Transformer-based modeling for health screening workflows',
-      'Interactive assessment interface',
-      'Prediction-focused result presentation',
-      'Prototype deployment through a public demo'
+      'NLP diagnostic pipeline trained on 42K+ patient records with 92% reported accuracy',
+      'Fine-tuned PubMedBERT, BioGPT, and Clinical-T5 for screening use cases',
+      'Reproducible training and evaluation pipeline with ablation-style experimentation',
+      'Production-ready Flask inference API for interactive clinical prediction'
     ],
-    tags: ['Python', 'PyTorch', 'Flask', 'Transformers'],
-    github: 'https://github.com/macayu17/Parkinsons-Disease-Assesment-Portal.git',
+    tags: ['Python', 'PyTorch', 'Transformers', 'Flask', 'LightGBM'],
+    github: 'https://github.com/macayu17/Parkinsons-Disease-Assesment-Portal',
     live: 'https://huggingface.co/spaces/Penguindrum920/Parkinson_Disease_Assesment_Portal',
     image: null,
     accent: '#22c55e'
   },
   {
-    slug: 'fraudkavach',
-    title: 'FraudKavach',
-    status: 'Completed',
-    category: 'Fintech risk simulator',
-    summary: 'Fintech payment simulator with fraud detection & explainable risk scoring.',
+    slug: 'sentinel',
+    title: 'Sentinel',
+    status: 'Ongoing',
+    category: 'Market microstructure simulator',
+    summary: 'Multi-agent market simulator with liquidity shock prediction and hidden institutional order detection.',
     details: [
-      'FraudKavach is framed as a payment simulation environment where suspicious behavior can be analyzed instead of treated as a black-box outcome.',
-      'Alongside transaction flows, the project focuses on explainable scoring so risky events can be surfaced with enough context to support trust and review.'
+      'Sentinel is a real-time market microstructure simulator built to study liquidity shocks, large hidden orders, and institutional activity through a multi-agent trading environment.',
+      'It combines a FastAPI simulation backend with ML-driven early-warning models and a Next.js plus TypeScript dashboard so order-book activity, predictions, and market stress signals can be monitored live.'
     ],
     highlights: [
-      'Payment simulation for testing transaction scenarios',
-      'Fraud detection flow with risk scoring',
-      'Explainability-oriented output for suspicious activity',
-      'Full-stack architecture for analysis and presentation'
+      'Simulation of high-frequency order book activity with 7+ trading agents and thousands of events per second',
+      'Liquidity shock predictor reporting 60 to 90 second early warnings with 85% accuracy on crash-style events',
+      'Hidden institutional order detection for TWAP, VWAP, and iceberg-style execution patterns at 83% accuracy',
+      'Bloomberg-style real-time dashboard powered by WebSockets, Next.js, and TypeScript'
     ],
-    tags: ['React', 'TypeScript', 'Node.js', 'Express.js'],
-    github: 'https://github.com/macayu17/FraudKavach.git',
-    live: null,
+    tags: ['Python', 'FastAPI', 'Next.js', 'TypeScript', 'WebSockets', 'XGBoost'],
+    github: 'https://github.com/macayu17/SENTINEL',
+    live: 'https://sentinel.ayushh.in/',
     image: null,
     accent: '#f97316'
   },
   {
-    slug: 'stockflow',
-    title: 'StockFlow',
-    status: 'Completed',
-    category: 'Paper trading platform',
-    summary: 'Paper-trading platform with real-time quotes, portfolios & leaderboards.',
+    slug: 'equityflow',
+    title: 'EquityFlow',
+    status: 'Live',
+    category: 'Real-time paper trading platform',
+    summary: 'Paper trading for stocks, F&O, and commodities with live pricing, portfolio P&L, and contract-aware execution.',
     details: [
-      'StockFlow is a simulated trading experience built around portfolio creation, quote tracking, and competitive performance comparison without real money exposure.',
-      'The platform structure blends market data, portfolio state, and ranking systems so users can practice decision-making in a more game-like environment.'
+      'EquityFlow is a real-time paper trading platform for stocks, derivatives, and commodities, designed around live market data, portfolio accounting, and execution flows that mirror trading behavior without real capital exposure.',
+      'The system pairs a Next.js and React frontend with a FastAPI backend to handle streaming price updates, holdings and order accounting, realized and unrealized P&L, and F&O contract resolution against a large indexed instrument set.'
     ],
     highlights: [
-      'Paper-trading workflow for simulated investing',
-      'Real-time quote integration for market context',
-      'Portfolio tracking and management views',
-      'Leaderboards to compare user performance'
+      'Live market updates with directional flash indicators on price ticks',
+      'Portfolio, holdings, average price, order history, and P&L accounting flows',
+      'F&O symbol resolution layer built around a 40k+ instrument universe',
+      'Responsive trading dashboard using Zustand and charting-focused UI components'
     ],
-    tags: ['React', 'Node.js', 'PostgreSQL', 'Prisma'],
-    github: 'https://github.com/macayu17/Trade-Wars.git',
-    live: null,
-    image: null,
+    tags: ['Next.js', 'React', 'TypeScript', 'FastAPI', 'Python', 'Tailwind CSS', 'Zustand'],
+    github: 'https://github.com/macayu17/Equityflow',
+    live: 'https://equityflow.ayushh.in',
+    image: equityFlowImage,
     accent: '#eab308'
   },
   {

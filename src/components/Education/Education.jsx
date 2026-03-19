@@ -7,7 +7,7 @@ const Education = () => {
       degree: 'B.E. in Computer Science and Engineering',
       institution: 'RV Institute of Technology & Management',
       period: 'Sep 2023 - Aug 2027 (Ongoing)',
-      details: 'Relevant Coursework: Data Structures, Algorithms, Database Management Systems, Computer Networks.',
+      details: 'Relevant Coursework: Data Structures, Algorithms, Database Management Systems, Computer Networks, Object Oriented Programming.',
       score: 'CGPA: 9.03',
       logo: rvLogo
     }

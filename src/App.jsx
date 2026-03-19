@@ -39,6 +39,8 @@ class ErrorBoundary extends React.Component {
 
 function App() {
   const location = useLocation();
+  const isProjectsRoute =
+    location.pathname === '/projects' || location.pathname.startsWith('/projects/');
   const [isBooting, setIsBooting] = useState(() => {
     return !sessionStorage.getItem('hasBooted');
   });
@@ -71,7 +73,7 @@ function App() {
 
         {/* Main content */}
         <div className="main-wrapper" style={{ opacity: isBooting ? 0 : 1, transition: 'opacity 0.8s ease-in' }}>
-          <main className="main-content">
+          <main className={`main-content${isProjectsRoute ? ' main-content-wide' : ''}`}>
             <div className="content-border">
               <AnimatePresence mode="wait">
                 <Routes location={location} key={location.pathname}>

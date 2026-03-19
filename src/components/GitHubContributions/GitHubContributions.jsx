@@ -49,16 +49,11 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
             return undefined;
         }
 
-        if (isCompactMobile) {
-            calendarWrapperRef.current.scrollLeft = 0;
-            return undefined;
-        }
-
         const timer = setTimeout(() => {
             if (calendarWrapperRef.current) {
-                calendarWrapperRef.current.scrollLeft = calendarWrapperRef.current.scrollWidth;
+                calendarWrapperRef.current.scrollLeft = 0;
             }
-        }, 500);
+        }, 250);
 
         return () => clearTimeout(timer);
     }, [isCompactMobile]);

@@ -1,6 +1,8 @@
 import occasioImage from '../assets/images/occasio.png';
 import gridPulseImage from '../assets/images/f1.png';
 import equityFlowImage from '../assets/images/equityflow.png';
+import attendlyImage from '../assets/images/attendly.png';
+import vectorImage from '../assets/images/vector.png';
 
 export const projectCatalog = [
   {
@@ -134,6 +136,50 @@ export const projectCatalog = [
     live: null,
     image: null,
     accent: '#a855f7'
+  },
+  {
+    slug: 'attendly',
+    title: 'Attendly',
+    status: 'Live',
+    category: 'Student attendance tracking platform',
+    summary: 'Attendance tracker with bunk buffer insights, timetable planning, history edits, and Supabase-backed persistence.',
+    details: [
+      'Attendly is a smart attendance tracker for students, built around day-to-day subject management, attendance logging, and fast visibility into how safely classes can be skipped without dropping below minimum requirements.',
+      'The product combines a React, TypeScript, and Vite frontend with Supabase, Zustand, and PostgreSQL to support timetable-aware tracking, multi-session classes, attendance history editing, and a polished dashboard experience.'
+    ],
+    highlights: [
+      'One-click present, absent, and cancelled attendance logging per subject',
+      'Bunk buffer and recovery tracking to show skip margin and catch-up needs',
+      'Timetable integration with support for multiple sessions in the same day',
+      'Attendance history editing, next-class visibility, and student-focused dashboard flows'
+    ],
+    tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'Zustand'],
+    github: 'https://github.com/macayu17/attendly',
+    live: 'https://attendly.ayushh.in',
+    image: attendlyImage,
+    accent: '#6366f1'
+  },
+  {
+    slug: 'vector',
+    title: 'Vector',
+    status: 'Live',
+    category: 'Job application tracking system',
+    summary: 'Kanban-style job search tracker with analytics, calendar planning, and local-first application management.',
+    details: [
+      'Vector is a modern job application tracking system built for managing the full application pipeline, from wishlist and outreach to interviews, offers, and rejections inside a Kanban-driven workflow.',
+      'It uses Next.js, TypeScript, Tailwind CSS, Zustand, and drag-and-drop UI primitives to combine application tracking, analytics, event scheduling, and local-first persistence inside a polished glassmorphism interface.'
+    ],
+    highlights: [
+      'Drag-and-drop Kanban board for moving applications across search stages',
+      'Analytics dashboard for status distribution, interview rate, and offer tracking',
+      'Calendar workflows for interviews, OAs, follow-ups, and upcoming event visibility',
+      'Local-first persistence with import and export support for private job-search management'
+    ],
+    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Zustand', 'dnd-kit', 'Radix UI', 'Zod'],
+    github: 'https://github.com/macayu17/Vector',
+    live: 'https://vector.ayushh.in',
+    image: vectorImage,
+    accent: '#60a5fa'
   }
 ];
 

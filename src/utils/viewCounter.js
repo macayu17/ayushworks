@@ -33,6 +33,18 @@ const writeStoredCount = (storage, key, count) => {
   storage.setItem(key, String(count));
 };
 
+const mergeWithCachedCount = (count, cachedCount) => {
+  if (!Number.isFinite(count) || count < 0) {
+    return cachedCount;
+  }
+
+  if (!Number.isFinite(cachedCount) || cachedCount < 0) {
+    return count;
+  }
+
+  return Math.max(count, cachedCount);
+};
+
 const fetchCounterCount = async (path = '') => {
   const response = await fetch(`${COUNTER_API_BASE_URL}${path}`, {
     cache: 'no-store',
@@ -75,20 +87,23 @@ export const getLiveViewCount = async () => {
 
   if (hasCountedThisSession) {
     const currentCount = await fetchCounterCount('/');
-    writeStoredCount(localStorage, LIVE_VIEW_COUNT_CACHE_KEY, currentCount);
-    return currentCount;
+    const resolvedCount = mergeWithCachedCount(currentCount, cachedCount);
+    writeStoredCount(localStorage, LIVE_VIEW_COUNT_CACHE_KEY, resolvedCount);
+    return resolvedCount;
   }
 
   try {
     const nextCount = await fetchCounterCount('/up');
-    writeStoredCount(localStorage, LIVE_VIEW_COUNT_CACHE_KEY, nextCount);
+    const resolvedCount = mergeWithCachedCount(nextCount, cachedCount);
+    writeStoredCount(localStorage, LIVE_VIEW_COUNT_CACHE_KEY, resolvedCount);
     sessionStorage?.setItem(LIVE_VIEW_COUNT_SESSION_KEY, 'true');
-    return nextCount;
+    return resolvedCount;
   } catch (incrementError) {
     try {
       const currentCount = await fetchCounterCount('/');
-      writeStoredCount(localStorage, LIVE_VIEW_COUNT_CACHE_KEY, currentCount);
-      return currentCount;
+      const resolvedCount = mergeWithCachedCount(currentCount, cachedCount);
+      writeStoredCount(localStorage, LIVE_VIEW_COUNT_CACHE_KEY, resolvedCount);
+      return resolvedCount;
     } catch {
       if (cachedCount !== null) {
         return cachedCount;

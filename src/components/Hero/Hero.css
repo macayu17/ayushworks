@@ -10,6 +10,7 @@
 .hero-left {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .hero-right {
@@ -29,7 +30,7 @@
 
 .hero-name {
   font-family: "Doto", sans-serif;
-  font-size: 4rem;
+  font-size: clamp(2.8rem, 14vw, 4rem);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.05em;
@@ -71,7 +72,9 @@
   color: var(--zinc-400);
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 2px;
+  line-height: 1.45;
 }
 
 .hero-subtitle .cursor {
@@ -155,6 +158,65 @@
 .hero-contact-icon {
   width: 12px;
   height: 12px;
+}
+
+@media (max-width: 639px) {
+  .hero {
+    gap: 18px;
+    padding-bottom: 18px;
+  }
+
+  .hero-left {
+    width: 100%;
+  }
+
+  .hero-right {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 0;
+  }
+
+  .hero-greeting {
+    margin-bottom: 10px;
+    font-size: 0.78rem;
+  }
+
+  .hero-name {
+    margin-bottom: 12px;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-subtitle {
+    max-width: 100%;
+    min-height: 1.45em;
+    font-size: clamp(0.84rem, 3.9vw, 0.96rem);
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  .hero-subtitle .cursor {
+    height: 1.05em;
+    margin-top: 0;
+  }
+
+  .hero-contact-box {
+    margin-top: 14px;
+    padding: 7px 11px;
+    font-size: 0.62rem;
+  }
+
+  .hero-social-box {
+    gap: 14px;
+    padding: 10px 14px;
+  }
+
+  .hero-views-box {
+    padding: 8px 12px;
+    font-size: 0.7rem;
+  }
 }
 
 @keyframes pulse-green {

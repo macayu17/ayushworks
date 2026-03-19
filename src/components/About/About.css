@@ -292,3 +292,80 @@
   font-size: 0.75rem;
   color: var(--zinc-500);
 }
+
+@media (max-width: 639px) {
+  .about {
+    padding: 24px 0 40px;
+  }
+
+  .about-identity {
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .identity-image-wrapper {
+    width: 170px;
+  }
+
+  .stats-divider {
+    margin-bottom: 18px;
+    font-size: 0.74rem;
+  }
+
+  .stat-row {
+    font-size: 0.72rem;
+    margin-bottom: 12px;
+  }
+
+  .stat-label-wrap {
+    gap: 10px;
+  }
+
+  .about-desc-block {
+    padding: 18px 16px;
+    margin-bottom: 32px;
+  }
+
+  .desc-title {
+    font-size: 0.98rem;
+  }
+
+  .desc-text {
+    font-size: 0.78rem;
+    line-height: 1.72;
+  }
+
+  .quick-reach-row {
+    margin-bottom: 20px;
+  }
+
+  .about-cards {
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .about-card {
+    padding: 16px;
+  }
+
+  .ac-top {
+    margin-bottom: 18px;
+  }
+
+  .ac-title {
+    font-size: 0.92rem;
+  }
+
+  .ac-desc,
+  .hobby-desc {
+    font-size: 0.72rem;
+  }
+
+  .hobbies-header {
+    margin-bottom: 20px;
+  }
+
+  .hobbies-list {
+    gap: 18px;
+  }
+}

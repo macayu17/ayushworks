@@ -29,6 +29,13 @@
   margin-top: 16px;
 }
 
+.custom-total-contributions.overlay {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  margin: 0;
+}
+
 .custom-total-number {
   font-family: var(--font-doto);
   font-size: 1rem;
@@ -47,7 +54,9 @@
 }
 
 .calendar-wrapper {
+  position: relative;
   padding: 8px 0;
+  overflow-x: auto;
 }
 
 .calendar-inner {
@@ -96,7 +105,70 @@
   justify-content: flex-end; /* Pushes the 'Less / More' legend to the right */
 }
 
-/* Hide the first child of the footer (which contains the total count) */
-.calendar-inner .react-activity-calendar footer > *:first-child {
-  display: none !important;
+@media (max-width: 639px) {
+  .github-contributions {
+    padding: 18px 0;
+  }
+
+  .contributions-header {
+    margin-bottom: 14px;
+  }
+
+  .contributions-title {
+    font-size: 0.68rem;
+  }
+
+  .calendar-wrapper {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 4px 0 0;
+    overflow: hidden;
+  }
+
+  .calendar-inner {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: 0;
+  }
+
+  .calendar-inner .react-activity-calendar {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .calendar-inner .react-activity-calendar__scroll-container {
+    overflow: hidden !important;
+  }
+
+  .calendar-inner .react-activity-calendar__calendar {
+    width: 100% !important;
+    height: auto;
+  }
+
+  .calendar-inner .react-activity-calendar footer {
+    width: 100%;
+  }
+
+  .calendar-inner text {
+    font-size: 9px !important;
+  }
+
+  .custom-total-contributions {
+    margin-top: 12px;
+    gap: 10px;
+  }
+
+  .custom-total-contributions.mobile {
+    position: static;
+  }
+
+  .custom-total-number {
+    font-size: 0.9rem;
+  }
+
+  .custom-total-label {
+    font-size: 0.68rem;
+  }
 }

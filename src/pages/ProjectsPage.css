@@ -51,3 +51,28 @@
     padding: 28px;
   }
 }
+
+@media (max-width: 639px) {
+  .projects-page {
+    padding: 18px 0;
+  }
+
+  .projects-page-hero {
+    margin-bottom: 22px;
+  }
+
+  .projects-page-title {
+    margin-bottom: 12px;
+    font-size: clamp(1.8rem, 10vw, 2.45rem);
+  }
+
+  .projects-page-copy {
+    font-size: 0.84rem;
+    line-height: 1.7;
+  }
+
+  .projects-page-shell {
+    padding: 16px 14px;
+    border-radius: 14px;
+  }
+}

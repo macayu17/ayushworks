@@ -178,3 +178,24 @@
 .mobile-nav-item.active .nav-label {
   color: var(--zinc-300);
 }
+
+@media (max-width: 639px) {
+  .mobile-nav-inner {
+    height: 58px;
+    padding: 0 2px;
+  }
+
+  .mobile-nav-item {
+    gap: 1px;
+    padding: 3px 1px;
+    font-size: 18px;
+  }
+
+  .mobile-nav-item .icon-wrap {
+    padding: 5px;
+  }
+
+  .mobile-nav-item .nav-label {
+    font-size: 7px;
+  }
+}

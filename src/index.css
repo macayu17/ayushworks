@@ -156,6 +156,24 @@ button {
   }
 }
 
+@media (max-width: 639px) {
+  .main-wrapper {
+    padding: 16px 10px 84px;
+  }
+
+  .content-border {
+    min-height: auto;
+    padding: 30px 14px;
+  }
+
+  .section-header {
+    margin-bottom: 22px;
+    padding-bottom: 12px;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+  }
+}
+
 /* ===== DOT MATRIX FONT ===== */
 .dot-matrix {
   font-family: "Doto", sans-serif;

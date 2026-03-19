@@ -7,6 +7,9 @@ import 'react-tooltip/dist/react-tooltip.css';
 const GitHubContributions = ({ username = 'macayu17' }) => {
     const calendarWrapperRef = useRef(null);
     const [totalContributions, setTotalContributions] = useState(0);
+    const [isCompactMobile, setIsCompactMobile] = useState(() =>
+        typeof window !== 'undefined' ? window.innerWidth < 640 : false
+    );
 
     const customTheme = {
         // White/Grayscale theme matching screenshot
@@ -14,6 +17,13 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
     };
 
     useEffect(() => {
+        const updateCompactMode = () => {
+            setIsCompactMobile(window.innerWidth < 640);
+        };
+
+        updateCompactMode();
+        window.addEventListener('resize', updateCompactMode);
+
         const fetchContributions = async () => {
             try {
                 const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
@@ -29,27 +39,38 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
             }
         };
         fetchContributions();
+        return () => {
+            window.removeEventListener('resize', updateCompactMode);
+        };
+    }, [username]);
+
+    useEffect(() => {
+        if (!calendarWrapperRef.current) {
+            return undefined;
+        }
+
+        if (isCompactMobile) {
+            calendarWrapperRef.current.scrollLeft = 0;
+            return undefined;
+        }
 
         const timer = setTimeout(() => {
             if (calendarWrapperRef.current) {
                 calendarWrapperRef.current.scrollLeft = calendarWrapperRef.current.scrollWidth;
             }
         }, 500);
-        return () => clearTimeout(timer);
-    }, [username]);
 
-    // Function to ensure we always show a full year (365 days)
-    const selectLastHalfYear = (contributions) => {
-        const currentYear = new Date().getFullYear();
-        
+        return () => clearTimeout(timer);
+    }, [isCompactMobile]);
+
+    const selectVisibleRange = (contributions) => {
+        const cutoffDate = new Date();
+        cutoffDate.setHours(0, 0, 0, 0);
+        cutoffDate.setMonth(cutoffDate.getMonth() - (isCompactMobile ? 10 : 12));
+
         return contributions.filter(activity => {
             const date = new Date(activity.date);
-
-            // Calculate exact 365 days back
-            const oneYearAgo = new Date();
-            oneYearAgo.setFullYear(currentYear - 1);
-            
-            return date >= oneYearAgo;
+            return date >= cutoffDate;
         });
     };
 
@@ -60,20 +81,20 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                     GitHub <span className="contributions-username">@{username}</span>
                 </h3>
             </div>
-            <div className="calendar-wrapper" ref={calendarWrapperRef} style={{ position: 'relative' }}>
+            <div className="calendar-wrapper" ref={calendarWrapperRef}>
                 <div className="calendar-inner">
                     <GitHubCalendar
                         username={username}
                         theme={customTheme}
                         colorScheme="dark"
-                        blockSize={9}
-                        blockMargin={2}
-                        fontSize={12}
-                        hideColorLegend={false}
-                        hideMonthLabels={false}
-                        hideTotalCount={true}
+                        blockSize={isCompactMobile ? 6 : 9}
+                        blockMargin={isCompactMobile ? 1 : 2}
+                        fontSize={isCompactMobile ? 9 : 12}
+                        showColorLegend={true}
+                        showMonthLabels={true}
+                        showTotalCount={false}
                         labels={{ totalCount: '' }}
-                        transformData={selectLastHalfYear}
+                        transformData={selectVisibleRange}
                         renderBlock={(block, activity) => 
                             cloneElement(block, {
                                 'data-tooltip-id': 'github-tooltip',
@@ -84,9 +105,13 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                         style={{ margin: '0', color: 'var(--zinc-300)' }}
                         errorMessage="Failed to load GitHub contributions"
                     />
-                    <Tooltip id="github-tooltip" style={{ backgroundColor: '#18181b', border: '1px dashed #3f3f46', borderRadius: '4px', fontSize: '0.75rem', fontFamily: 'var(--font-jetbrains)', color: '#fff', zIndex: 999 }} />
+                    <Tooltip
+                        id="github-tooltip"
+                        border="1px dashed #3f3f46"
+                        style={{ backgroundColor: '#18181b', borderRadius: '4px', fontSize: '0.75rem', fontFamily: 'var(--font-jetbrains)', color: '#fff', zIndex: 999 }}
+                    />
                 </div>
-                <div className="custom-total-contributions" style={{ position: 'absolute', bottom: '8px', left: '0', margin: '0' }}>
+                <div className={`custom-total-contributions ${isCompactMobile ? 'mobile' : 'overlay'}`}>
                     <span className="custom-total-number">{totalContributions > 0 ? totalContributions : '...'}</span>
                     <span className="custom-total-label">CONTRIBUTIONS</span>
                 </div>

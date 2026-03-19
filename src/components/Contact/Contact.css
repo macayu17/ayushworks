@@ -286,3 +286,57 @@ textarea.term-input:focus {
   color: var(--zinc-500);
   margin-right: 8px;
 }
+
+@media (max-width: 639px) {
+  .contact {
+    padding: 28px 0;
+  }
+
+  .contact-content {
+    gap: 22px;
+  }
+
+  .contact-text-box {
+    padding: 14px;
+  }
+
+  .contact-text {
+    font-size: 0.8rem;
+    line-height: 1.65;
+  }
+
+  .contact-actions {
+    gap: 12px;
+  }
+
+  .contact-action-btn {
+    min-width: 0;
+    width: 100%;
+    font-size: 0.74rem;
+    padding: 9px 14px;
+  }
+
+  .contact-social-link {
+    width: 40px;
+    height: 40px;
+  }
+
+  .term-body {
+    padding: 14px;
+    font-size: 0.74rem;
+  }
+
+  .term-line {
+    margin-bottom: 12px;
+  }
+
+  .term-form {
+    gap: 10px;
+  }
+
+  .term-input,
+  .term-submit,
+  .term-status {
+    font-size: 0.74rem;
+  }
+}

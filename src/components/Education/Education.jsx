@@ -24,18 +24,18 @@ const Education = () => {
           <div key={index} className="education-item">
             <div className="edu-content">
               <div className="edu-header">
-                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                <div className="edu-identity">
                   {item.logo && (
                     <img 
                       src={item.logo} 
                       alt="Institution Logo" 
-                      style={{ width: '40px', height: '40px', objectFit: 'contain', borderRadius: '4px', backgroundColor: 'white', padding: '2px' }}
+                      className="edu-logo"
                     />
                   )}
-                  <div>
+                  <div className="edu-meta">
                     <h3 className="edu-degree">{item.degree}</h3>
                     <div className="edu-institution">{item.institution}</div>
-                    <div className="edu-period" style={{ marginTop: '4px' }}>{item.period}</div>
+                    <div className="edu-period edu-period-inline">{item.period}</div>
                   </div>
                 </div>
               </div>

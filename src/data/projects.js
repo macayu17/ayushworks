@@ -3,8 +3,9 @@ import gridPulseImage from '../assets/images/f1.png';
 import equityFlowImage from '../assets/images/equityflow.png';
 import attendlyImage from '../assets/images/attendly.png';
 import vectorImage from '../assets/images/vector.png';
+import sentinelImage from '../assets/images/Sentinel.png';
 
-export const projectCatalog = [
+const rawProjectCatalog = [
   {
     slug: 'occasio',
     title: 'Occasio',
@@ -90,7 +91,7 @@ export const projectCatalog = [
     tags: ['Python', 'FastAPI', 'Next.js', 'TypeScript', 'WebSockets', 'XGBoost'],
     github: 'https://github.com/macayu17/SENTINEL',
     live: 'https://sentinel.ayushh.in/',
-    image: null,
+    image: sentinelImage,
     accent: '#f97316'
   },
   {
@@ -182,6 +183,23 @@ export const projectCatalog = [
     accent: '#60a5fa'
   }
 ];
+
+const projectDisplayOrder = [
+  'sentinel',
+  'equityflow',
+  'gridpulse',
+  'occasio',
+  'attendly',
+  'parkinsons-screening',
+  'vector',
+  'multimodal-sentiment'
+];
+
+const projectLookup = new Map(rawProjectCatalog.map((project) => [project.slug, project]));
+
+export const projectCatalog = projectDisplayOrder
+  .map((slug) => projectLookup.get(slug))
+  .filter(Boolean);
 
 export const featuredProjects = projectCatalog.slice(0, 4);
 

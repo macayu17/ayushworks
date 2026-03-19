@@ -33,6 +33,14 @@ const writeStoredCount = (storage, key, count) => {
   storage.setItem(key, String(count));
 };
 
+const readSafeLiveCachedCount = (storage) => {
+  const cachedCount = readStoredCount(storage, LIVE_VIEW_COUNT_CACHE_KEY);
+
+  // A persisted zero usually means we cached an old fallback value before the
+  // live counter was reachable. Ignore it so production can self-heal.
+  return cachedCount > 0 ? cachedCount : null;
+};
+
 const mergeWithCachedCount = (count, cachedCount) => {
   if (!Number.isFinite(count) || count < 0) {
     return cachedCount;
@@ -82,14 +90,22 @@ export const getDevelopmentViewCount = () => {
 export const getLiveViewCount = async () => {
   const localStorage = getStorage('local');
   const sessionStorage = getStorage('session');
-  const cachedCount = readStoredCount(localStorage, LIVE_VIEW_COUNT_CACHE_KEY);
+  const cachedCount = readSafeLiveCachedCount(localStorage);
   const hasCountedThisSession = sessionStorage?.getItem(LIVE_VIEW_COUNT_SESSION_KEY) === 'true';
 
   if (hasCountedThisSession) {
-    const currentCount = await fetchCounterCount('/');
-    const resolvedCount = mergeWithCachedCount(currentCount, cachedCount);
-    writeStoredCount(localStorage, LIVE_VIEW_COUNT_CACHE_KEY, resolvedCount);
-    return resolvedCount;
+    try {
+      const currentCount = await fetchCounterCount('/');
+      const resolvedCount = mergeWithCachedCount(currentCount, cachedCount);
+      writeStoredCount(localStorage, LIVE_VIEW_COUNT_CACHE_KEY, resolvedCount);
+      return resolvedCount;
+    } catch (currentCountError) {
+      if (cachedCount !== null) {
+        return cachedCount;
+      }
+
+      throw currentCountError;
+    }
   }
 
   try {

@@ -1,199 +1,112 @@
-# 🚀 Portfolio Website - Ayush Kumar
+# Ayush Kumar Portfolio Website
 
-A modern, minimalist portfolio website built with React and Vite, showcasing my projects, skills, and experience as a Computer Science student at RV Institute of Technology, Bangalore.
+This repository contains my personal portfolio website built with React and Vite.
+It is a route-based single-page experience with sections for projects, skills, about, and contact.
 
-![Portfolio Preview](https://img.shields.io/badge/React-19.1.1-61DAFB?style=flat&logo=react&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-7.1.14-646CFF?style=flat&logo=vite&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
+## What This Project Includes
 
-## ✨ Features
+- A custom portfolio UI with animated transitions and responsive layouts
+- Project archive and individual project detail pages
+- GitHub contribution heatmap section
+- Contact form integration (Formspree)
+- View counter flow with a serverless API proxy
 
-- **🎨 Modern Design**: Clean, minimalist dark-themed interface with smooth animations
-- **📱 Fully Responsive**: Optimized for all screen sizes and devices
-- **⚡ Fast Performance**: Built with Vite for lightning-fast development and build times
-- **🎯 Single Page Application**: Smooth scrolling navigation between sections
-- **🔄 Animated Tech Stack**: Dynamic marquee showcasing technologies and tools
-- **💼 Project Showcase**: Display of academic and personal projects with live links
-- **📧 Contact Form**: Easy way for visitors to get in touch
-- **🎓 Education Timeline**: Clean presentation of academic background
-- **🛠️ Skills Display**: Organized categorization of technical skills
+## Tech Stack
 
-## 🛠️ Tech Stack
+- React 19
+- Vite 7 (rolldown-vite)
+- React Router
+- Framer Motion
+- React Icons
+- Three.js related packages for visual components
+- Plain CSS modules/files per component
 
-### Frontend
-- **React** - UI library for building interactive interfaces
-- **Vite** - Next-generation frontend build tool
-- **JavaScript (ES6+)** - Modern JavaScript features
-- **CSS3** - Custom styling with CSS variables for theming
-- **Space Grotesk & JetBrains Mono** - Modern typography
-
-### Tools & Libraries
-- **DevIcons** - Technology icons via CDN
-- **ESLint** - Code quality and consistency
-- **Git** - Version control
-
-## 📂 Project Structure
-
-```
-portfolio/
-├── public/              # Static assets
-├── src/
-│   ├── components/      # React components
-│   │   ├── About/       # About section
-│   │   ├── Contact/     # Contact form
-│   │   ├── Education/   # Education timeline
-│   │   ├── Footer/      # Footer component
-│   │   ├── Hero/        # Landing section
-│   │   ├── Loader/      # Loading animation
-│   │   ├── Navbar/      # Navigation bar
-│   │   ├── Projects/    # Projects showcase
-│   │   └── Skills/      # Skills display
-│   ├── assets/          # Images and media
-│   ├── App.jsx          # Main app component
-│   ├── App.css          # Global app styles
-│   ├── main.jsx         # Entry point
-│   └── index.css        # Global CSS variables
-├── index.html           # HTML template
-├── package.json         # Dependencies
-├── vite.config.js       # Vite configuration
-└── README.md            # Project documentation
-```
-
-## 🚀 Getting Started
+## Run Locally
 
 ### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
 
-### Installation
+- Node.js 20.19+ (or 22.12+)
+- npm
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/macayu17/ayushworks.git
-   cd ayushworks
-   ```
+### Setup
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/macayu17/ayushworks.git
+cd ayushworks
+npm install
+```
 
-3. **Start development server**
-   ```bash
-   npm run dev
-   ```
+### Start Development Server
 
-4. **Open in browser**
-   ```
-   Navigate to http://localhost:5173
-   ```
+```bash
+npm run dev
+```
 
-### Build for Production
+Open `http://localhost:5173`.
+
+## Run as a Production Build Locally
+
+Build the app:
 
 ```bash
 npm run build
 ```
 
-The optimized production build will be in the `dist` folder.
-
-### Preview Production Build
+Then preview it:
 
 ```bash
 npm run preview
 ```
 
-## 📋 Available Scripts
+Vite will print the local preview URL (default is usually `http://localhost:4173`).
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
+## Scripts
 
-## 🎨 Customization
+- `npm run dev` - start local development server
+- `npm run build` - create production build in `dist/`
+- `npm run preview` - preview the production build locally
+- `npm run lint` - run ESLint checks
 
-### Color Scheme
-Edit CSS variables in `src/index.css`:
+## Project Layout
 
-```css
-:root {
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-tertiary: #1a1a1a;
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0a0;
-  --accent: #3b82f6;
-  --border: #333333;
-}
+```text
+api/
+  portfolio-meta.js        # Serverless endpoint used by live view counter
+src/
+  main.jsx                 # React bootstrap with BrowserRouter
+  App.jsx                  # App shell and route definitions
+  pages/                   # Route-level pages
+  components/              # Reusable UI sections/components
+  data/projects.js         # Project content source of truth
+  utils/viewCounter.js     # View counting logic (dev and live modes)
+public/                    # Static files
 ```
 
-### Content
-- **Hero Section**: Edit `src/components/Hero/Hero.jsx`
-- **About Section**: Edit `src/components/About/About.jsx`
-- **Projects**: Edit `src/components/Projects/Projects.jsx`
-- **Skills**: Edit `src/components/Skills/Skills.jsx`
-- **Education**: Edit `src/components/Education/Education.jsx`
-- **Contact**: Edit `src/components/Contact/Contact.jsx`
+## Routes
 
-## 📱 Sections
+- `/` - Home
+- `/about` - About
+- `/projects` - Project archive
+- `/projects/:slug` - Project detail page
+- `/skill` - Skills
+- `/contact` - Contact
 
-1. **Hero** - Landing section with name and introduction
-2. **About** - Personal info, interests, and tech stack marquee
-3. **Skills** - Categorized display of technical skills
-4. **Projects** - Portfolio of projects with links
-5. **Education** - Academic background
-6. **Contact** - Get in touch section with form
-7. **Footer** - Social links and copyright
+## Content Editing Guide
 
-## 🌟 Key Features Breakdown
+- Update project cards and project details in `src/data/projects.js`
+- Update personal info in `src/components/About/About.jsx`
+- Update skills in `src/components/Skills/Skills.jsx`
+- Update contact text and form behavior in `src/components/Contact/Contact.jsx`
 
-### Animated Tech Marquee
-- Dual-direction scrolling animation
-- Badge-style items with icons
-- Hover to pause
-- 28+ technologies displayed
+## Integration Notes
 
-### Responsive Navigation
-- Smooth scroll to sections
-- Active section highlighting
-- Mobile-friendly design
-- Compact minimalist styling
+- The contact form currently posts to Formspree from `src/components/Contact/Contact.jsx`.
+- The live view counter calls `/api/portfolio-meta`, which proxies CounterAPI.
+- In development, a local/session storage fallback counter is used.
 
-### Project Cards
-- Hover effects and animations
-- Technology tags
-- Live demo and GitHub links
-- Responsive grid layout
+If you deploy this as static-only hosting without serverless functions, the live counter endpoint will not be available unless you provide an equivalent backend route.
 
-## 🤝 Contributing
+## Author
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/macayu17/ayushworks/issues).
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👤 Author
-
-**Ayush Kumar**
-- USN: 1RF23CS041
-- Institution: RV Institute of Technology, Bangalore
-- Email: ayush.kumar.1rf23cs041@rvit.ac.in
-- GitHub: [@macayu17](https://github.com/macayu17)
-
-## 🙏 Acknowledgments
-
-- Design inspiration from [ayushworks.com](https://ayushworks.com) and [watt-x.vercel.app](https://watt-x.vercel.app)
-- Icons from [DevIcons](https://devicon.dev/)
-- Fonts from [Google Fonts](https://fonts.google.com/)
-
-## 📸 Screenshots
-
-*Add screenshots of your portfolio here*
-
----
-
-⭐ **Star this repo if you find it helpful!**
-
-Made with ❤️ by Ayush Kumar
+Ayush Kumar  
+GitHub: https://github.com/macayu17

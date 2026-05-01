@@ -35,7 +35,7 @@ const About = () => {
               <span className="stat-num">01</span>
               <span>AGE</span>
             </div>
-            <div className="stat-value">20</div>
+            <div className="stat-value">22</div>
           </div>
           
           <div className="stat-row">

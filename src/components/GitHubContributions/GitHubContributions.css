@@ -6,10 +6,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 14px;
   margin-bottom: 20px;
 }
 
 .contributions-title {
+  min-width: 0;
   font-family: var(--font-jetbrains);
   font-size: 0.75rem;
   font-weight: 500;
@@ -20,6 +22,82 @@
 
 .contributions-username {
   color: var(--zinc-400);
+}
+
+.contributions-page-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-jetbrains);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--zinc-300);
+  border: 1px dashed var(--zinc-700);
+  border-radius: 999px;
+  padding: 8px 12px;
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 0 rgba(212, 212, 216, 0);
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  animation: contributions-link-glow 2.2s ease-in-out infinite;
+}
+
+.contributions-page-link:hover {
+  border-color: var(--zinc-500);
+  color: var(--zinc-100);
+  background-color: rgba(63, 63, 70, 0.25);
+  box-shadow: 0 0 18px rgba(212, 212, 216, 0.22);
+}
+
+.contributions-page-link::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 48%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.28) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: contributions-link-sheen 2.8s ease-in-out infinite;
+}
+
+@keyframes contributions-link-glow {
+  0% {
+    border-color: var(--zinc-700);
+    box-shadow: 0 0 0 rgba(212, 212, 216, 0);
+  }
+  50% {
+    border-color: var(--zinc-500);
+    box-shadow: 0 0 14px rgba(212, 212, 216, 0.2);
+  }
+  100% {
+    border-color: var(--zinc-700);
+    box-shadow: 0 0 0 rgba(212, 212, 216, 0);
+  }
+}
+
+@keyframes contributions-link-sheen {
+  0% {
+    left: -120%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  60% {
+    left: 140%;
+    opacity: 0;
+  }
+  100% {
+    left: 140%;
+    opacity: 0;
+  }
 }
 
 .custom-total-contributions {
@@ -116,6 +194,12 @@
 
   .contributions-title {
     font-size: 0.68rem;
+  }
+
+  .contributions-page-link {
+    font-size: 0.54rem;
+    padding: 7px 8px;
+    gap: 6px;
   }
 
   .calendar-wrapper {

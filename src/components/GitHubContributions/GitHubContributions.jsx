@@ -2,6 +2,8 @@ import { GitHubCalendar } from 'react-github-calendar';
 import './GitHubContributions.css';
 import { useRef, useEffect, useState, cloneElement } from 'react';
 import { Tooltip } from 'react-tooltip';
+import { Link } from 'react-router-dom';
+import { FaArrowRight } from 'react-icons/fa';
 import 'react-tooltip/dist/react-tooltip.css';
 
 const GitHubContributions = ({ username = 'macayu17' }) => {
@@ -75,6 +77,10 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                 <h3 className="contributions-title">
                     GitHub <span className="contributions-username">@{username}</span>
                 </h3>
+                <Link to="/open-source" className="contributions-page-link">
+                    Open source contributions
+                    <FaArrowRight size={10} />
+                </Link>
             </div>
             <div className="calendar-wrapper" ref={calendarWrapperRef}>
                 <div className="calendar-inner">

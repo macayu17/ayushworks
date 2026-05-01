@@ -15,6 +15,7 @@ import Skills from './pages/Skills';
 import Contact from './pages/Contact';
 import ProjectsPage from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
+import OpenSourcePage from './pages/OpenSource';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -39,8 +40,10 @@ class ErrorBoundary extends React.Component {
 
 function App() {
   const location = useLocation();
-  const isProjectsRoute =
-    location.pathname === '/projects' || location.pathname.startsWith('/projects/');
+  const isWideRoute =
+    location.pathname === '/projects' ||
+    location.pathname.startsWith('/projects/') ||
+    location.pathname === '/open-source';
   const [isBooting, setIsBooting] = useState(() => {
     return !sessionStorage.getItem('hasBooted');
   });
@@ -73,7 +76,7 @@ function App() {
 
         {/* Main content */}
         <div className="main-wrapper" style={{ opacity: isBooting ? 0 : 1, transition: 'opacity 0.8s ease-in' }}>
-          <main className={`main-content${isProjectsRoute ? ' main-content-wide' : ''}`}>
+          <main className={`main-content${isWideRoute ? ' main-content-wide' : ''}`}>
             <div className="content-border">
               <AnimatePresence mode="wait">
                 <Routes location={location} key={location.pathname}>
@@ -81,6 +84,7 @@ function App() {
                   <Route path="/about" element={<About />} />
                   <Route path="/projects" element={<ProjectsPage />} />
                   <Route path="/projects/:slug" element={<ProjectDetail />} />
+                  <Route path="/open-source" element={<OpenSourcePage />} />
                   <Route path="/skill" element={<Skills />} />
                   <Route path="/contact" element={<Contact />} />
                 </Routes>

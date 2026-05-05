@@ -10,6 +10,8 @@ const MatrixRain = () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let animationFrame = 0;
     let lastFrame = 0;
+    let isScrolling = false;
+    let scrollTimer;
 
     const handleResize = () => {
       canvas.width = window.innerWidth;
@@ -57,7 +59,7 @@ const MatrixRain = () => {
     };
 
     const animate = (timestamp) => {
-      if (timestamp - lastFrame > 42) {
+      if (!isScrolling && timestamp - lastFrame > 66) {
         draw();
         lastFrame = timestamp;
       }
@@ -74,13 +76,24 @@ const MatrixRain = () => {
       initRain();
     };
 
+    const handleScroll = () => {
+      isScrolling = true;
+      window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => {
+        isScrolling = false;
+      }, 120);
+    };
+
     window.addEventListener('resize', handleWindowResize);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       if (animationFrame) {
         window.cancelAnimationFrame(animationFrame);
       }
+      window.clearTimeout(scrollTimer);
       window.removeEventListener('resize', handleWindowResize);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

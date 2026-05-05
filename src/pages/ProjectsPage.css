@@ -43,7 +43,7 @@
   padding: 22px 20px;
   background:
     radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), transparent 34%),
-    rgba(9, 9, 11, 0.28);
+    var(--surface-low);
 }
 
 @media (min-width: 640px) {

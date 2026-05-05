@@ -85,7 +85,13 @@ const Projects = ({
               {showThumbnail && (
                 <div className={`project-cover ${project.image ? 'has-image' : 'is-fallback'}`}>
                   {project.image ? (
-                    <img src={project.image} alt={`${project.title} preview`} className="project-cover-image" />
+                    <img
+                      src={project.image}
+                      alt={`${project.title} preview`}
+                      className="project-cover-image"
+                      loading="lazy"
+                      decoding="async"
+                    />
                   ) : (
                     <div className="project-cover-fallback">
                       <span className="project-cover-label">{project.category}</span>

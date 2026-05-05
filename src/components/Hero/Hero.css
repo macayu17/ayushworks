@@ -151,7 +151,7 @@
 .hero-contact-box:hover {
   color: var(--zinc-100);
   border-color: var(--zinc-600);
-  background: rgba(39, 39, 42, 0.28);
+  background: var(--surface-hover);
   transform: translateY(-2px);
 }
 

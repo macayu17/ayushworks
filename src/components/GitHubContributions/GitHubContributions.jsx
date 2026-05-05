@@ -9,22 +9,31 @@ import 'react-tooltip/dist/react-tooltip.css';
 const GitHubContributions = ({ username = 'macayu17' }) => {
     const calendarWrapperRef = useRef(null);
     const [totalContributions, setTotalContributions] = useState(0);
+    const [siteTheme, setSiteTheme] = useState(() =>
+        typeof document !== 'undefined' && document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'
+    );
     const [isCompactMobile, setIsCompactMobile] = useState(() =>
         typeof window !== 'undefined' ? window.innerWidth < 640 : false
     );
 
     const customTheme = {
-        // White/Grayscale theme matching screenshot
-        dark: ['#18181b', '#3f3f46', '#71717a', '#a1a1aa', '#f4f4f5']
+        dark: ['#18181b', '#3f3f46', '#71717a', '#a1a1aa', '#f4f4f5'],
+        light: ['#efe7d9', '#d4c5ad', '#a99572', '#6f675b', '#151412']
     };
 
     useEffect(() => {
+        const updateTheme = () => {
+            setSiteTheme(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+        };
         const updateCompactMode = () => {
             setIsCompactMobile(window.innerWidth < 640);
         };
 
+        updateTheme();
         updateCompactMode();
         window.addEventListener('resize', updateCompactMode);
+        const themeObserver = new MutationObserver(updateTheme);
+        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
         const fetchContributions = async () => {
             try {
@@ -43,6 +52,7 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
         fetchContributions();
         return () => {
             window.removeEventListener('resize', updateCompactMode);
+            themeObserver.disconnect();
         };
     }, [username]);
 
@@ -87,7 +97,7 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                     <GitHubCalendar
                         username={username}
                         theme={customTheme}
-                        colorScheme="dark"
+                        colorScheme={siteTheme}
                         blockSize={isCompactMobile ? 6 : 9}
                         blockMargin={isCompactMobile ? 1 : 2}
                         fontSize={isCompactMobile ? 9 : 12}
@@ -108,8 +118,8 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                     />
                     <Tooltip
                         id="github-tooltip"
-                        border="1px dashed #3f3f46"
-                        style={{ backgroundColor: '#18181b', borderRadius: '4px', fontSize: '0.75rem', fontFamily: 'var(--font-jetbrains)', color: '#fff', zIndex: 999 }}
+                        border="1px dashed var(--zinc-700)"
+                        style={{ backgroundColor: 'var(--surface-panel-strong)', borderRadius: '4px', fontSize: '0.75rem', fontFamily: 'var(--font-jetbrains)', color: 'var(--zinc-100)', zIndex: 999 }}
                     />
                 </div>
                 <div className={`custom-total-contributions ${isCompactMobile ? 'mobile' : 'overlay'}`}>

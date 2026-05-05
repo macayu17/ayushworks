@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { FaMoon, FaSun } from 'react-icons/fa';
 import './index.css';
 import Sidebar from './components/Sidebar/Sidebar';
 import CustomCursor from './components/CustomCursor/CustomCursor';
@@ -16,6 +18,29 @@ import Contact from './pages/Contact';
 import ProjectsPage from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
 import OpenSourcePage from './pages/OpenSource';
+
+const getInitialTheme = () => {
+  if (typeof window === 'undefined') {
+    return 'dark';
+  }
+
+  const savedTheme = localStorage.getItem('site-theme');
+  if (savedTheme === 'light' || savedTheme === 'dark') {
+    return savedTheme;
+  }
+
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+};
+
+const applyThemeToDocument = (nextTheme) => {
+  document.documentElement.dataset.theme = nextTheme;
+  localStorage.setItem('site-theme', nextTheme);
+
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeMeta) {
+    themeMeta.setAttribute('content', nextTheme === 'light' ? '#f5f1e8' : '#18181b');
+  }
+};
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -47,10 +72,161 @@ function App() {
   const [isBooting, setIsBooting] = useState(() => {
     return !sessionStorage.getItem('hasBooted');
   });
+  const [theme, setTheme] = useState(getInitialTheme);
+  const [themeWave, setThemeWave] = useState(null);
+
+  useEffect(() => {
+    applyThemeToDocument(theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const usesFinePointer = window.matchMedia('(pointer: fine)');
+    if (prefersReducedMotion.matches || !usesFinePointer.matches) {
+      return undefined;
+    }
+
+    let animationFrame = 0;
+    let currentScroll = window.scrollY;
+    let targetScroll = window.scrollY;
+
+    const maxScroll = () =>
+      Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+
+    const animateScroll = () => {
+      currentScroll += (targetScroll - currentScroll) * 0.16;
+
+      if (Math.abs(targetScroll - currentScroll) < 0.5) {
+        window.scrollTo(0, targetScroll);
+        animationFrame = 0;
+        return;
+      }
+
+      window.scrollTo(0, currentScroll);
+      animationFrame = window.requestAnimationFrame(animateScroll);
+    };
+
+    const shouldUseNativeScroll = (event) => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || Math.abs(event.deltaY) < 4) {
+        return true;
+      }
+
+      return Boolean(
+        event.target?.closest?.('input, textarea, select, [data-native-scroll], .calendar-wrapper'),
+      );
+    };
+
+    const handleWheel = (event) => {
+      if (shouldUseNativeScroll(event)) {
+        return;
+      }
+
+      event.preventDefault();
+      targetScroll = Math.min(Math.max(targetScroll + event.deltaY * 0.9, 0), maxScroll());
+
+      if (!animationFrame) {
+        currentScroll = window.scrollY;
+        animationFrame = window.requestAnimationFrame(animateScroll);
+      }
+    };
+
+    const syncScrollPosition = () => {
+      if (!animationFrame) {
+        currentScroll = window.scrollY;
+        targetScroll = currentScroll;
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('scroll', syncScrollPosition, { passive: true });
+    window.addEventListener('resize', syncScrollPosition, { passive: true });
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('scroll', syncScrollPosition);
+      window.removeEventListener('resize', syncScrollPosition);
+      if (animationFrame) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, []);
 
   const handleBootComplete = () => {
     setIsBooting(false);
     sessionStorage.setItem('hasBooted', 'true');
+  };
+
+  const commitTheme = (nextTheme, sync = false) => {
+    applyThemeToDocument(nextTheme);
+    const updateThemeState = () => setTheme(nextTheme);
+
+    if (sync) {
+      flushSync(updateThemeState);
+      return;
+    }
+
+    updateThemeState();
+  };
+
+  const getThemeWave = (target) => {
+    const rect = target.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    const radius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    );
+
+    return { x, y, radius };
+  };
+
+  const runFallbackThemeWave = (wave, nextTheme) => {
+    const waveId = window.crypto?.randomUUID?.() ?? `${Date.now()}`;
+    setThemeWave({ ...wave, id: waveId, theme: nextTheme });
+    window.setTimeout(() => commitTheme(nextTheme), 180);
+    window.setTimeout(() => {
+      setThemeWave((currentWave) => (currentWave?.id === waveId ? null : currentWave));
+    }, 820);
+  };
+
+  const toggleTheme = (event) => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    const wave = getThemeWave(event.currentTarget);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion || !document.startViewTransition) {
+      if (prefersReducedMotion) {
+        commitTheme(nextTheme);
+        return;
+      }
+
+      runFallbackThemeWave(wave, nextTheme);
+      return;
+    }
+
+    const transition = document.startViewTransition(() => {
+      commitTheme(nextTheme, true);
+    });
+
+    transition.ready
+      .then(() => {
+        document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${wave.x}px ${wave.y}px)`,
+              `circle(${wave.radius}px at ${wave.x}px ${wave.y}px)`,
+            ],
+          },
+          {
+            duration: 760,
+            easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+            pseudoElement: '::view-transition-new(root)',
+          },
+        );
+      })
+      .catch(() => {
+        commitTheme(nextTheme);
+      });
   };
 
   return (
@@ -73,6 +249,32 @@ function App() {
 
         {/* Sidebar */}
         <Sidebar />
+
+        {!isBooting && (
+          <button
+            type="button"
+            className="theme-toggle-button"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            {theme === 'light' ? <FaMoon size={12} /> : <FaSun size={12} />}
+            <span>{theme === 'light' ? 'Dark' : 'Light'}</span>
+          </button>
+        )}
+
+        {themeWave && (
+          <span
+            key={themeWave.id}
+            className={`theme-wave theme-wave-${themeWave.theme}`}
+            aria-hidden="true"
+            style={{
+              '--wave-x': `${themeWave.x}px`,
+              '--wave-y': `${themeWave.y}px`,
+              '--wave-size': `${themeWave.radius * 2}px`,
+            }}
+          />
+        )}
 
         {/* Main content */}
         <div className="main-wrapper" style={{ opacity: isBooting ? 0 : 1, transition: 'opacity 0.8s ease-in' }}>

@@ -106,7 +106,11 @@ const ProjectDetail = () => {
 
           <div className={`project-detail-visual ${project.image ? 'has-image' : 'is-fallback'}`}>
             {project.image ? (
-              <img src={project.image} alt={`${project.title} interface preview`} />
+              <img
+                src={project.image}
+                alt={`${project.title} interface preview`}
+                decoding="async"
+              />
             ) : (
               <div className="project-detail-visual-fallback">
                 <span>{project.category}</span>

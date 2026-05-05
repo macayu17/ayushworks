@@ -7,6 +7,9 @@ const MatrixRain = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let animationFrame = 0;
+    let lastFrame = 0;
 
     const handleResize = () => {
       canvas.width = window.innerWidth;
@@ -53,16 +56,31 @@ const MatrixRain = () => {
       }
     };
 
-    const interval = setInterval(draw, 30);
+    const animate = (timestamp) => {
+      if (timestamp - lastFrame > 42) {
+        draw();
+        lastFrame = timestamp;
+      }
 
-    window.addEventListener('resize', () => {
+      animationFrame = window.requestAnimationFrame(animate);
+    };
+
+    if (!prefersReducedMotion.matches) {
+      animationFrame = window.requestAnimationFrame(animate);
+    }
+
+    const handleWindowResize = () => {
       handleResize();
       initRain();
-    });
+    };
+
+    window.addEventListener('resize', handleWindowResize);
 
     return () => {
-      clearInterval(interval);
-      window.removeEventListener('resize', handleResize);
+      if (animationFrame) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+      window.removeEventListener('resize', handleWindowResize);
     };
   }, []);
 

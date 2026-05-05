@@ -55,7 +55,7 @@
   border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
-  background: rgba(9, 9, 11, 0.4);
+  background: var(--surface-card);
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -64,7 +64,7 @@
 
 .project-card:hover {
   border-color: var(--zinc-600);
-  background: rgba(24, 24, 27, 0.4);
+  background: var(--surface-card-hover);
   transform: translateY(-2px);
 }
 
@@ -104,10 +104,10 @@
   position: relative;
   margin: 14px 20px 0;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--image-border);
   overflow: hidden;
   min-height: 160px;
-  background: rgba(24, 24, 27, 0.7);
+  background: var(--surface-panel-strong);
 }
 
 .project-cover-image {
@@ -126,7 +126,7 @@
   padding: 16px;
   background:
     radial-gradient(circle at top right, color-mix(in srgb, var(--project-accent) 32%, transparent), transparent 42%),
-    linear-gradient(135deg, rgba(9, 9, 11, 0.95), rgba(24, 24, 27, 0.72));
+    linear-gradient(135deg, var(--fallback-gradient-start), var(--fallback-gradient-end));
 }
 
 .project-cover-fallback::before {
@@ -134,8 +134,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 28px 28px;
   opacity: 0.35;
 }

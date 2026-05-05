@@ -3,6 +3,10 @@ html, body {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
 html::-webkit-scrollbar,
 body::-webkit-scrollbar,
 *::-webkit-scrollbar {
@@ -13,6 +17,8 @@ body::-webkit-scrollbar,
 
 /* ===== CSS VARIABLES ===== */
 :root {
+  color-scheme: dark;
+  --zinc-50: #fafafa;
   --zinc-950: #09090b;
   --zinc-900: #18181b;
   --zinc-800: #27272a;
@@ -27,6 +33,75 @@ body::-webkit-scrollbar,
   --font-jetbrains: "JetBrains Mono", monospace;
   --font-geist: "Geist", sans-serif;
   --font-doto: "Doto", sans-serif;
+
+  --bg-secondary: var(--zinc-900);
+  --border: var(--zinc-800);
+  --text-muted: var(--zinc-500);
+  --surface-low: rgba(9, 9, 11, 0.28);
+  --surface-card: rgba(9, 9, 11, 0.4);
+  --surface-card-hover: rgba(24, 24, 27, 0.42);
+  --surface-panel: rgba(24, 24, 27, 0.4);
+  --surface-panel-strong: rgba(24, 24, 27, 0.78);
+  --surface-hover: rgba(39, 39, 42, 0.3);
+  --terminal-bg: #0d0d0d;
+  --soft-border: rgba(255, 255, 255, 0.08);
+  --image-border: rgba(255, 255, 255, 0.05);
+  --grid-line: rgba(255, 255, 255, 0.04);
+  --scanline-a: rgba(18, 16, 16, 0);
+  --scanline-b: rgba(0, 0, 0, 0.25);
+  --scanline-r: rgba(255, 0, 0, 0.06);
+  --scanline-g: rgba(0, 255, 0, 0.02);
+  --scanline-bc: rgba(0, 0, 255, 0.06);
+  --pattern-line: rgba(82, 82, 91, 0.3);
+  --shadow-soft: rgba(0, 0, 0, 0.35);
+  --fallback-gradient-start: rgba(9, 9, 11, 0.95);
+  --fallback-gradient-end: rgba(24, 24, 27, 0.72);
+  --theme-toggle-bg: rgba(9, 9, 11, 0.72);
+  --theme-toggle-hover: rgba(24, 24, 27, 0.92);
+  --theme-wave-light: #f5f1e8;
+  --theme-wave-dark: #18181b;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --zinc-50: #050505;
+  --zinc-950: #fffdf8;
+  --zinc-900: #f5f1e8;
+  --zinc-800: #ddd5c7;
+  --zinc-700: #c5b9a6;
+  --zinc-600: #9b8f7c;
+  --zinc-500: #6f675b;
+  --zinc-400: #4c463d;
+  --zinc-300: #34312c;
+  --zinc-200: #24221f;
+  --zinc-100: #151412;
+
+  --bg-secondary: #f1eadf;
+  --border: #d8ccba;
+  --text-muted: #6f675b;
+  --surface-low: rgba(255, 253, 248, 0.48);
+  --surface-card: rgba(255, 253, 248, 0.62);
+  --surface-card-hover: rgba(255, 253, 248, 0.9);
+  --surface-panel: rgba(255, 253, 248, 0.56);
+  --surface-panel-strong: rgba(255, 253, 248, 0.88);
+  --surface-hover: rgba(222, 213, 199, 0.55);
+  --terminal-bg: #fffaf1;
+  --soft-border: rgba(21, 20, 18, 0.1);
+  --image-border: rgba(21, 20, 18, 0.08);
+  --grid-line: rgba(21, 20, 18, 0.06);
+  --scanline-a: rgba(255, 255, 255, 0);
+  --scanline-b: rgba(93, 80, 61, 0.08);
+  --scanline-r: rgba(163, 101, 25, 0.03);
+  --scanline-g: rgba(21, 20, 18, 0.02);
+  --scanline-bc: rgba(53, 65, 90, 0.03);
+  --pattern-line: rgba(111, 103, 91, 0.18);
+  --shadow-soft: rgba(82, 67, 44, 0.13);
+  --fallback-gradient-start: rgba(255, 253, 248, 0.98);
+  --fallback-gradient-end: rgba(232, 222, 207, 0.78);
+  --theme-toggle-bg: rgba(255, 253, 248, 0.82);
+  --theme-toggle-hover: rgba(255, 253, 248, 0.98);
+  --theme-wave-light: #f5f1e8;
+  --theme-wave-dark: #18181b;
 }
 
 * {
@@ -43,6 +118,8 @@ body {
   background-color: var(--zinc-900);
   font-family: var(--font-geist);
   overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  text-rendering: optimizeLegibility;
 }
 
 
@@ -61,8 +138,8 @@ button {
 }
 
 ::selection {
-  background-color: var(--zinc-800);
-  color: var(--zinc-200);
+  background-color: var(--zinc-200);
+  color: var(--zinc-900);
 }
 
 /* ===== SCANLINE OVERLAY ===== */
@@ -73,8 +150,8 @@ button {
   z-index: 40;
   opacity: 0.03;
   background: 
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    linear-gradient(var(--scanline-a) 50%, var(--scanline-b) 50%),
+    linear-gradient(90deg, var(--scanline-r), var(--scanline-g), var(--scanline-bc));
   background-size: 100% 2px, 3px 100%;
 }
 
@@ -107,8 +184,8 @@ button {
   opacity: 0.5;
   background-image: repeating-linear-gradient(
     315deg,
-    rgba(82, 82, 91, 0.3) 0px,
-    rgba(82, 82, 91, 0.3) 1px,
+    var(--pattern-line) 0px,
+    var(--pattern-line) 1px,
     transparent 1px,
     transparent 10px
   );
@@ -129,6 +206,96 @@ button {
   padding: 32px 16px 96px;
   position: relative;
   z-index: 10;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.theme-toggle-button {
+  position: fixed;
+  right: 18px;
+  top: 18px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1px dashed var(--zinc-700);
+  border-radius: 999px;
+  background: var(--theme-toggle-bg);
+  color: var(--zinc-300);
+  font-family: var(--font-jetbrains);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px var(--shadow-soft);
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.theme-toggle-button:hover {
+  color: var(--zinc-100);
+  border-color: var(--zinc-500);
+  background: var(--theme-toggle-hover);
+  transform: translateY(-1px);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9998;
+}
+
+.theme-wave {
+  position: fixed;
+  left: var(--wave-x);
+  top: var(--wave-y);
+  width: var(--wave-size);
+  height: var(--wave-size);
+  pointer-events: none;
+  z-index: 9998;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%) scale(0);
+  animation: theme-wave-spread 0.78s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.theme-wave-light {
+  background: var(--theme-wave-light);
+}
+
+.theme-wave-dark {
+  background: var(--theme-wave-dark);
+}
+
+@keyframes theme-wave-spread {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (max-width: 639px) {
+  .theme-toggle-button {
+    top: 12px;
+    right: 12px;
+    padding: 8px 10px;
+    font-size: 0.6rem;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -241,4 +408,19 @@ button {
 .scroll-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
 }

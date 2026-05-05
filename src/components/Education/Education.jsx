@@ -30,6 +30,8 @@ const Education = () => {
                       src={item.logo} 
                       alt="Institution Logo" 
                       className="edu-logo"
+                      loading="lazy"
+                      decoding="async"
                     />
                   )}
                   <div className="edu-meta">

@@ -125,7 +125,7 @@
 /* Description Block */
 .about-desc-block {
   position: relative;
-  background: rgba(24, 24, 27, 0.3);
+  background: var(--surface-panel);
   padding: 24px 32px;
   margin-bottom: 48px;
 }
@@ -192,7 +192,7 @@
 }
 .qr-btn:hover {
   color: var(--zinc-200);
-  background: rgba(39, 39, 42, 0.3);
+  background: var(--surface-hover);
 }
 .qr-btn-brackets::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
 .qr-btn-brackets::after { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
@@ -210,12 +210,12 @@
 
 .about-card {
   position: relative;
-  background: rgba(24, 24, 27, 0.2);
+  background: var(--surface-low);
   padding: 20px;
   transition: background 0.2s;
 }
 .about-card:hover {
-  background: rgba(24, 24, 27, 0.5);
+  background: var(--surface-card-hover);
 }
 .about-card::before { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
 .about-card::after { top: 0; right: 0; border-width: 1px 1px 0 0; }

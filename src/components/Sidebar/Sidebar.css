@@ -11,8 +11,9 @@
   padding: 8px;
   border-radius: 16px;
   border: 1px dashed var(--zinc-800);
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--theme-toggle-bg);
   backdrop-filter: blur(12px);
+  box-shadow: 0 12px 28px var(--shadow-soft);
 }
 
 @media (min-width: 1024px) {
@@ -26,8 +27,8 @@
 .sidebar-logo {
   width: 40px;
   height: 40px;
-  background: rgba(24, 24, 27, 0.8);
-  border: 1px solid rgba(63, 63, 70, 0.5);
+  background: var(--surface-panel-strong);
+  border: 1px solid var(--soft-border);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -73,7 +74,7 @@
 
 .sidebar-nav-item:hover {
   color: var(--zinc-300);
-  background: rgba(39, 39, 42, 0.5);
+  background: var(--surface-hover);
 }
 
 .sidebar-nav-item.active {
@@ -110,9 +111,9 @@
   right: 0;
   z-index: 50;
   display: flex;
-  background: rgba(0, 0, 0, 0.9);
+  background: var(--theme-toggle-hover);
   backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(39, 39, 42, 0.5);
+  border-top: 1px solid var(--soft-border);
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 

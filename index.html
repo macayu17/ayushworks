@@ -7,7 +7,19 @@
     <meta name="description" content="Ayush Kumar - Computer Science Student at RV Institute of Technology. Portfolio showcasing projects, skills, and experience." />
     <meta name="author" content="Ayush Kumar" />
     <meta name="theme-color" content="#18181b" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem('site-theme');
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        document.documentElement.dataset.theme =
+          savedTheme === 'light' || savedTheme === 'dark'
+            ? savedTheme
+            : prefersLight
+              ? 'light'
+              : 'dark';
+      })();
+    </script>
     <title>Ayush</title>
 
     <!-- Preconnect to critical origins -->

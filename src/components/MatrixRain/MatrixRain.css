@@ -7,4 +7,12 @@
   z-index: 0;
   pointer-events: none;
   opacity: 0.15;
+  contain: strict;
+  transform: translateZ(0);
+}
+
+:root[data-theme="light"] .matrix-canvas {
+  opacity: 0.08;
+  filter: contrast(0.72) sepia(0.14);
+  mix-blend-mode: multiply;
 }

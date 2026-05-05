@@ -11,7 +11,7 @@
 .contact-text-box {
   position: relative;
   padding: 16px;
-  background: rgba(24, 24, 27, 0.4); /* subtle dark backing for text */
+  background: var(--surface-panel);
 }
 
 .contact-text-box::before, .contact-text-box::after {
@@ -70,7 +70,7 @@
   border-color: var(--zinc-500);
   color: var(--zinc-50);
   transform: translateY(-2px);
-  background: rgba(39, 39, 42, 0.3);
+  background: var(--surface-hover);
 }
 
 .contact-action-btn.copied {
@@ -114,7 +114,7 @@
 .contact-social-link:hover {
   color: var(--zinc-100);
   border-color: var(--zinc-500);
-  background: rgba(63, 63, 70, 0.3);
+  background: var(--surface-hover);
   transform: translateY(-2px);
 }
 
@@ -122,10 +122,10 @@
 .contact-terminal {
   border: 1px solid var(--zinc-800);
   border-radius: 8px;
-  background: #0d0d0d;
+  background: var(--terminal-bg);
   overflow: hidden;
   margin: 8px 0;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px var(--shadow-soft);
 }
 
 .term-header {
@@ -237,7 +237,7 @@ body.sudo-glitch {
 textarea.term-input {
   border: 1px dashed transparent;
   resize: vertical;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface-low);
   padding: 8px;
 }
 textarea.term-input:focus {

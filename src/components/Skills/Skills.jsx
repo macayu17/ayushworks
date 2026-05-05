@@ -15,6 +15,7 @@ const Skills = () => {
     'PostgreSQL': { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
     'Git': { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
     'Python': { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+    'Go': { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg' },
     'Java': { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
     'C++': { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' },
     'C': { src: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg' },
@@ -39,7 +40,7 @@ const Skills = () => {
   const categories = [
     {
       title: 'Languages',
-      skills: ['Python', 'C++', 'C', 'Java', 'JavaScript', 'TypeScript']
+      skills: ['Python', 'Go', 'C++', 'C', 'Java', 'JavaScript', 'TypeScript']
     },
     {
       title: 'ML & Data',
@@ -91,6 +92,8 @@ const Skills = () => {
                       src={skillIcon.src}
                       alt={skill}
                       className={skillIcon.invert ? 'invert-logo' : ''}
+                      loading="lazy"
+                      decoding="async"
                       onError={(e) => { e.currentTarget.style.display = 'none'; }}
                     />
                   )}

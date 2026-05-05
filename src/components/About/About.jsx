@@ -1,5 +1,5 @@
 import './About.css';
-import { FaRegEnvelope, FaTwitter, FaCalendarAlt, FaChevronRight } from 'react-icons/fa';
+import { FaRegEnvelope, FaChevronRight } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import ayushImg from '../../assets/images/AyushBW11.png';
 
@@ -14,6 +14,7 @@ const About = () => {
             src={ayushImg} 
             alt="Ayush Kumar" 
             className="identity-image"
+            decoding="async"
           />
           <div className="bracket-box bracket-corners-bottom" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}></div>
           <div className="identity-label">FIG.01 // IDENTITY</div>
@@ -90,11 +91,6 @@ const About = () => {
             </a>
             <a href="https://x.com/ayush_174_" target="_blank" rel="noopener noreferrer" className="qr-btn bracket-box qr-btn-brackets">
               <FaXTwitter /> DM me
-            </a>
-          </div>
-          <div className="qr-group">
-            <a href="/skill" className="qr-btn bracket-box qr-btn-brackets">
-              &gt;_ Toolbox
             </a>
           </div>
         </div>

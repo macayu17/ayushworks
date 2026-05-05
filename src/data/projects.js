@@ -4,6 +4,7 @@ import equityFlowImage from '../assets/images/equityflow.png';
 import attendlyImage from '../assets/images/attendly.png';
 import vectorImage from '../assets/images/vector.png';
 import sentinelImage from '../assets/images/Sentinel.png';
+import iplAuctionImage from '../assets/images/iplauction.png';
 
 const rawProjectCatalog = [
   {
@@ -93,6 +94,40 @@ const rawProjectCatalog = [
     live: 'https://sentinel.ayushh.in/',
     image: sentinelImage,
     accent: '#f97316'
+  },
+  {
+    slug: 'ipl-auction-arena',
+    title: 'IPL Auction Arena',
+    status: 'Live',
+    category: 'Realtime auction platform for college events',
+    summary: 'IPL-style auction simulator with role-based admin and team consoles, live bid sync, and fullscreen event broadcasts.',
+    details: [
+      'IPL Auction Arena is a realtime auction platform for college mock auction events, combining an auctioneer control room, team bidding consoles, player nomination queues, squad-rule enforcement, and live slide broadcasts into one coordinated event surface.',
+      'The system uses Next.js, TypeScript, Supabase, PostgreSQL RPC flows, Redis-backed announcements, WebSockets, SSE, Cloudflare Workers, and R2-hosted player media to keep bidding state, purse validation, timer resets, and room updates consistent during concurrent live bidding.'
+    ],
+    highlights: [
+      'Dual-transport bid sync using Supabase Broadcast over WebSockets with polling fallback for connected team consoles',
+      'Atomic Postgres RPC bid placement covering inserts, purse validation, auction state updates, and timer resets',
+      'Role-based auctioneer, admin, and team consoles with quick bid controls, nomination queues, and squad-rule enforcement',
+      'Authenticated announcement stream with Redis pub/sub, short-lived JWTs, SSE delivery, and transport fallback',
+      'Cloudflare Workers deployment with player headshots served from Cloudflare R2 for global edge delivery'
+    ],
+    tags: [
+      'Next.js',
+      'TypeScript',
+      'Supabase',
+      'PostgreSQL',
+      'Redis',
+      'WebSockets',
+      'SSE',
+      'JWT',
+      'Cloudflare Workers',
+      'R2'
+    ],
+    github: 'https://github.com/macayu17/ipl-auction-arena',
+    live: 'https://iplauction.ayushh.in/',
+    image: iplAuctionImage,
+    accent: '#f59e0b'
   },
   {
     slug: 'equityflow',
@@ -186,9 +221,10 @@ const rawProjectCatalog = [
 
 const projectDisplayOrder = [
   'sentinel',
+  'ipl-auction-arena',
   'equityflow',
-  'gridpulse',
   'occasio',
+  'gridpulse',
   'attendly',
   'parkinsons-screening',
   'vector',

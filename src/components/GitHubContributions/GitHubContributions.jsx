@@ -5,6 +5,9 @@ import { Tooltip } from 'react-tooltip';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import 'react-tooltip/dist/react-tooltip.css';
+import { getContributionCubeProps } from '../../utils/contributionCube';
+import { getContributionCalendarLayout } from '../../utils/contributionCalendarLayout';
+import { getWeekPaddedContributionRange } from '../../utils/contributionCalendarData';
 
 const GitHubContributions = ({ username = 'macayu17' }) => {
     const calendarWrapperRef = useRef(null);
@@ -14,6 +17,12 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
     );
     const [isCompactMobile, setIsCompactMobile] = useState(() =>
         typeof window !== 'undefined' ? window.innerWidth < 640 : false
+    );
+    const [calendarLayout, setCalendarLayout] = useState(() =>
+        getContributionCalendarLayout({
+            containerWidth: typeof window !== 'undefined' ? window.innerWidth : 640,
+            compact: typeof window !== 'undefined' ? window.innerWidth < 640 : false
+        })
     );
 
     const customTheme = {
@@ -61,25 +70,41 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
             return undefined;
         }
 
+        const updateCalendarLayout = () => {
+            const nextLayout = getContributionCalendarLayout({
+                containerWidth: calendarWrapperRef.current?.clientWidth || 0,
+                compact: isCompactMobile
+            });
+
+            setCalendarLayout((currentLayout) => (
+                currentLayout.blockSize === nextLayout.blockSize &&
+                currentLayout.blockMargin === nextLayout.blockMargin &&
+                currentLayout.fontSize === nextLayout.fontSize
+                    ? currentLayout
+                    : nextLayout
+            ));
+        };
+
+        updateCalendarLayout();
+
+        const resizeObserver = new ResizeObserver(updateCalendarLayout);
+        resizeObserver.observe(calendarWrapperRef.current);
+
         const timer = setTimeout(() => {
             if (calendarWrapperRef.current) {
                 calendarWrapperRef.current.scrollLeft = 0;
             }
         }, 250);
 
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(timer);
+            resizeObserver.disconnect();
+        };
     }, [isCompactMobile]);
 
-    const selectVisibleRange = (contributions) => {
-        const cutoffDate = new Date();
-        cutoffDate.setHours(0, 0, 0, 0);
-        cutoffDate.setMonth(cutoffDate.getMonth() - (isCompactMobile ? 10 : 12));
-
-        return contributions.filter(activity => {
-            const date = new Date(activity.date);
-            return date >= cutoffDate;
-        });
-    };
+    const selectVisibleRange = (contributions) => getWeekPaddedContributionRange(contributions, {
+        monthsBack: isCompactMobile ? 10 : 12,
+    });
 
     return (
         <section className="github-contributions" id="contributions">
@@ -98,21 +123,29 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                         username={username}
                         theme={customTheme}
                         colorScheme={siteTheme}
-                        blockSize={isCompactMobile ? 6 : 9}
-                        blockMargin={isCompactMobile ? 1 : 2}
-                        fontSize={isCompactMobile ? 9 : 12}
+                        blockSize={calendarLayout.blockSize}
+                        blockMargin={calendarLayout.blockMargin}
+                        fontSize={calendarLayout.fontSize}
                         showColorLegend={true}
                         showMonthLabels={true}
                         showTotalCount={false}
                         labels={{ totalCount: '' }}
                         transformData={selectVisibleRange}
-                        renderBlock={(block, activity) => 
-                            cloneElement(block, {
+                        renderBlock={(block, activity) => {
+                            const cubeProps = getContributionCubeProps(activity, activity.index);
+
+                            return cloneElement(block, {
+                                ...cubeProps,
+                                className: [block.props.className, cubeProps.className].filter(Boolean).join(' '),
+                                style: {
+                                    ...block.props.style,
+                                    ...cubeProps.style,
+                                },
                                 'data-tooltip-id': 'github-tooltip',
                                 'data-tooltip-html': `<span style="color:var(--zinc-300)">[COMMIT_RECORD]</span><br/><strong>${activity.count} contributions</strong> on ${activity.date}`,
                                 title: null
-                            })
-                        }
+                            });
+                        }}
                         style={{ margin: '0', color: 'var(--zinc-300)' }}
                         errorMessage="Failed to load GitHub contributions"
                     />

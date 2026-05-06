@@ -134,12 +134,14 @@
 .calendar-wrapper {
   position: relative;
   padding: 8px 0;
-  overflow-x: auto;
+  overflow: visible;
 }
 
 .calendar-inner {
-  min-width: max-content; /* Dynamically sizes to fit all months */
-  padding-right: 16px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding-right: 0;
 }
 
 /* Base calendar styles */
@@ -155,6 +157,16 @@
 
 .calendar-inner .react-activity-calendar {
   color: var(--zinc-300) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.calendar-inner .react-activity-calendar__scroll-container {
+  overflow: visible !important;
+}
+
+.calendar-inner .react-activity-calendar svg {
+  overflow: visible;
 }
 
 .calendar-inner .react-activity-calendar div,
@@ -175,6 +187,90 @@
 .calendar-inner rect {
   rx: 2;
   ry: 2;
+}
+
+.calendar-inner .contribution-cube-cell {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform-style: preserve-3d;
+  transition: filter 0.18s ease;
+  animation:
+    contribution-cube-revolve 0.96s cubic-bezier(0.16, 1, 0.3, 1) both,
+    contribution-cube-glint 1.2s ease-out both;
+  animation-delay: var(--cube-delay), calc(var(--cube-delay) + 0.12s);
+  filter:
+    drop-shadow(0 0 calc(var(--cube-energy) * 2px) rgba(244, 244, 245, 0.28))
+    drop-shadow(2px 2px 0 rgba(9, 9, 11, 0.55));
+  will-change: transform, opacity, filter;
+}
+
+.calendar-inner .contribution-cube-cell:hover {
+  animation:
+    contribution-cube-hover 0.48s cubic-bezier(0.16, 1, 0.3, 1) both,
+    contribution-cube-hover-glow 0.48s ease-out both;
+  animation-delay: 0s, 0s;
+  cursor: pointer;
+}
+
+@keyframes contribution-cube-revolve {
+  0% {
+    opacity: 0;
+    transform: perspective(58px) rotateX(-78deg) rotateY(72deg) scale(0.44);
+  }
+  42% {
+    opacity: 1;
+    transform: perspective(58px) rotateX(18deg) rotateY(232deg) scale(1.16);
+  }
+  72% {
+    transform: perspective(58px) rotateX(-10deg) rotateY(338deg) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(58px) rotateX(0deg) rotateY(360deg) scale(1);
+  }
+}
+
+@keyframes contribution-cube-hover {
+  0% {
+    transform: perspective(58px) rotateX(0deg) rotateY(360deg) scale(1);
+  }
+  45% {
+    transform: perspective(58px) rotateX(-34deg) rotateY(418deg) scale(1.32);
+  }
+  100% {
+    transform: perspective(58px) rotateX(-12deg) rotateY(392deg) scale(1.16);
+  }
+}
+
+@keyframes contribution-cube-glint {
+  0% {
+    filter:
+      drop-shadow(0 0 0 rgba(244, 244, 245, 0))
+      drop-shadow(2px 2px 0 rgba(9, 9, 11, 0.55));
+  }
+  48% {
+    filter:
+      drop-shadow(0 0 calc(var(--cube-energy) * 3px) rgba(244, 244, 245, 0.48))
+      drop-shadow(3px 3px 0 rgba(9, 9, 11, 0.65));
+  }
+  100% {
+    filter:
+      drop-shadow(0 0 calc(var(--cube-energy) * 2px) rgba(244, 244, 245, 0.22))
+      drop-shadow(2px 2px 0 rgba(9, 9, 11, 0.55));
+  }
+}
+
+@keyframes contribution-cube-hover-glow {
+  0% {
+    filter:
+      drop-shadow(0 0 calc(var(--cube-energy) * 2px) rgba(244, 244, 245, 0.22))
+      drop-shadow(2px 2px 0 rgba(9, 9, 11, 0.55));
+  }
+  100% {
+    filter:
+      drop-shadow(0 0 calc(var(--cube-energy) * 4px) rgba(244, 244, 245, 0.62))
+      drop-shadow(4px 4px 0 rgba(9, 9, 11, 0.72));
+  }
 }
 
 /* Force hide the built-in total count wrapper to prevent duplicate "191 contributions" */
@@ -207,7 +303,7 @@
     width: 100%;
     max-width: 100%;
     padding: 4px 0 0;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .calendar-inner {
@@ -223,7 +319,7 @@
   }
 
   .calendar-inner .react-activity-calendar__scroll-container {
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   .calendar-inner .react-activity-calendar__calendar {
@@ -254,5 +350,12 @@
 
   .custom-total-label {
     font-size: 0.68rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calendar-inner .contribution-cube-cell {
+    animation: none;
+    filter: none;
   }
 }

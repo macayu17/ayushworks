@@ -75,6 +75,7 @@
   flex-wrap: wrap;
   gap: 2px;
   line-height: 1.45;
+  min-height: 1.45em;
 }
 
 .hero-subtitle .cursor {

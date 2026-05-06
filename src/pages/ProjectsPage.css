@@ -97,6 +97,16 @@
   cursor: pointer;
 }
 
+.projects-select-field select option {
+  background: var(--zinc-900);
+  color: var(--zinc-100);
+}
+
+.projects-select-field select option:checked {
+  background: var(--zinc-700);
+  color: var(--zinc-50);
+}
+
 .projects-clear-filters {
   display: inline-flex;
   align-items: center;

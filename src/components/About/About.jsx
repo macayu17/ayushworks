@@ -1,7 +1,7 @@
 import './About.css';
 import { FaRegEnvelope, FaChevronRight } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import ayushImg from '../../assets/images/AyushBW11.png';
+import ayushImg from '../../assets/images/AyushBW11.webp';
 
 const About = () => {
   return (

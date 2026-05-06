@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -9,15 +9,16 @@ import CustomCursor from './components/CustomCursor/CustomCursor';
 import Footer from './components/Footer/Footer';
 import BootScreen from './components/BootScreen/BootScreen';
 import MatrixRain from './components/MatrixRain/MatrixRain';
+import { applySeoMetadata, getSeoMetadataForPath } from './utils/seo';
 
 // Pages
-import Home from './pages/Home';
-import About from './pages/About';
-import Skills from './pages/Skills';
-import Contact from './pages/Contact';
-import ProjectsPage from './pages/Projects';
-import ProjectDetail from './pages/ProjectDetail';
-import OpenSourcePage from './pages/OpenSource';
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Skills = lazy(() => import('./pages/Skills'));
+const Contact = lazy(() => import('./pages/Contact'));
+const ProjectsPage = lazy(() => import('./pages/Projects'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
+const OpenSourcePage = lazy(() => import('./pages/OpenSource'));
 
 const getInitialTheme = () => {
   if (typeof window === 'undefined') {
@@ -63,8 +64,18 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+const PageFallback = () => (
+  <div className="page-loader" role="status" aria-live="polite">
+    <span>Loading route...</span>
+  </div>
+);
+
 function App() {
   const location = useLocation();
+  const seoMetadata = useMemo(
+    () => getSeoMetadataForPath(location.pathname),
+    [location.pathname],
+  );
   const isWideRoute =
     location.pathname === '/projects' ||
     location.pathname.startsWith('/projects/') ||
@@ -78,6 +89,10 @@ function App() {
   useEffect(() => {
     applyThemeToDocument(theme);
   }, [theme]);
+
+  useEffect(() => {
+    applySeoMetadata(seoMetadata);
+  }, [seoMetadata]);
 
   const handleBootComplete = () => {
     setIsBooting(false);
@@ -206,18 +221,23 @@ function App() {
 
         {/* Main content */}
         <div className="main-wrapper" style={{ opacity: isBooting ? 0 : 1, transition: 'opacity 0.8s ease-in' }}>
+          <a href="#main-content" className="skip-link">
+            Skip to content
+          </a>
           <main className={`main-content${isWideRoute ? ' main-content-wide' : ''}`}>
-            <div className="content-border">
+            <div className="content-border" id="main-content">
               <AnimatePresence mode="wait">
-                <Routes location={location} key={location.pathname}>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/projects" element={<ProjectsPage />} />
-                  <Route path="/projects/:slug" element={<ProjectDetail />} />
-                  <Route path="/open-source" element={<OpenSourcePage />} />
-                  <Route path="/skill" element={<Skills />} />
-                  <Route path="/contact" element={<Contact />} />
-                </Routes>
+                <Suspense fallback={<PageFallback />}>
+                  <Routes location={location} key={location.pathname}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/projects" element={<ProjectsPage />} />
+                    <Route path="/projects/:slug" element={<ProjectDetail />} />
+                    <Route path="/open-source" element={<OpenSourcePage />} />
+                    <Route path="/skill" element={<Skills />} />
+                    <Route path="/contact" element={<Contact />} />
+                  </Routes>
+                </Suspense>
               </AnimatePresence>
             </div>
             <Footer />

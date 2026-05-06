@@ -1,7 +1,8 @@
 /* ===== GLOBAL RESET & SCROLLBAR ===== */
 html, body {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--zinc-700) transparent;
+  -ms-overflow-style: auto;
 }
 html {
   scroll-behavior: smooth;
@@ -10,9 +11,15 @@ html {
 html::-webkit-scrollbar,
 body::-webkit-scrollbar,
 *::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
+  width: 8px;
+  height: 8px;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--zinc-700);
 }
 
 /* ===== CSS VARIABLES ===== */
@@ -137,6 +144,16 @@ button {
   font-family: inherit;
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="link"]:focus-visible {
+  outline: 2px solid var(--zinc-300);
+  outline-offset: 3px;
+}
+
 ::selection {
   background-color: var(--zinc-200);
   color: var(--zinc-900);
@@ -206,6 +223,28 @@ button {
   padding: 32px 16px 96px;
   position: relative;
   z-index: 10;
+}
+
+.skip-link {
+  position: fixed;
+  left: 18px;
+  top: 18px;
+  z-index: 10000;
+  padding: 10px 12px;
+  border: 1px dashed var(--zinc-700);
+  border-radius: 8px;
+  background: var(--surface-panel-strong);
+  color: var(--zinc-100);
+  font-family: var(--font-jetbrains);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: translateY(-160%);
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .theme-toggle-button {
@@ -319,6 +358,25 @@ button {
   border-left: 1px dashed var(--zinc-800);
   border-right: 1px dashed var(--zinc-800);
   padding: 48px 16px;
+}
+
+.page-loader {
+  display: flex;
+  min-height: 40vh;
+  align-items: center;
+  justify-content: center;
+  color: var(--zinc-500);
+  font-family: var(--font-jetbrains);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.page-loader span {
+  padding: 10px 12px;
+  border: 1px dashed var(--zinc-800);
+  border-radius: 8px;
+  background: var(--surface-low);
 }
 
 @media (min-width: 640px) {

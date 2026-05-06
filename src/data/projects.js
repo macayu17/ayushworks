@@ -1,10 +1,10 @@
-import occasioImage from '../assets/images/occasio.png';
-import gridPulseImage from '../assets/images/f1.png';
-import equityFlowImage from '../assets/images/equityflow.png';
-import attendlyImage from '../assets/images/attendly.png';
+import occasioImage from '../assets/images/occasio.webp';
+import gridPulseImage from '../assets/images/f1.webp';
+import equityFlowImage from '../assets/images/equityflow.webp';
+import attendlyImage from '../assets/images/attendly.webp';
 import vectorImage from '../assets/images/vector.png';
-import sentinelImage from '../assets/images/Sentinel.png';
-import iplAuctionImage from '../assets/images/iplauction.png';
+import sentinelImage from '../assets/images/Sentinel.webp';
+import iplAuctionImage from '../assets/images/iplauction.webp';
 
 const rawProjectCatalog = [
   {

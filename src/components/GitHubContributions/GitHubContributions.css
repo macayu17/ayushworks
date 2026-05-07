@@ -201,7 +201,6 @@
   filter:
     drop-shadow(0 0 calc(var(--cube-energy) * 2px) rgba(244, 244, 245, 0.28))
     drop-shadow(2px 2px 0 rgba(9, 9, 11, 0.55));
-  will-change: transform, opacity, filter;
 }
 
 .calendar-inner .contribution-cube-cell:hover {
@@ -351,11 +350,26 @@
   .custom-total-label {
     font-size: 0.68rem;
   }
+
+  .contributions-page-link,
+  .contributions-page-link::after,
+  .calendar-inner .contribution-cube-cell {
+    animation: none;
+  }
+
+  .calendar-inner .contribution-cube-cell {
+    filter: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .contributions-page-link,
+  .contributions-page-link::after,
   .calendar-inner .contribution-cube-cell {
     animation: none;
+  }
+
+  .calendar-inner .contribution-cube-cell {
     filter: none;
   }
 }

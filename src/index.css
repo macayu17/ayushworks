@@ -379,6 +379,16 @@ textarea:focus-visible,
   background: var(--surface-low);
 }
 
+.github-contributions-placeholder {
+  min-height: 248px;
+}
+
+@media (max-width: 639px) {
+  .github-contributions-placeholder {
+    min-height: 204px;
+  }
+}
+
 @media (min-width: 640px) {
   .content-border {
     padding: 48px 40px;

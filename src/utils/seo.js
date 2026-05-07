@@ -6,36 +6,42 @@ const DEFAULT_IMAGE = '/favicon.svg';
 const routeMetadata = {
   '/': {
     title: 'Ayush Kumar | Software Engineer',
+    browserTitle: 'Ayush',
     description:
       'Ayush Kumar is a full-stack software engineer building realtime web apps, ML systems, developer tools, and polished product interfaces.',
     canonicalPath: '/',
   },
   '/about': {
     title: 'About | Ayush Kumar',
+    browserTitle: 'Ayush',
     description:
       'Learn more about Ayush Kumar, a software engineer focused on full-stack development, ML systems, and practical product engineering.',
     canonicalPath: '/about',
   },
   '/projects': {
     title: 'Projects | Ayush Kumar',
+    browserTitle: 'Ayush',
     description:
       'Explore Ayush Kumar projects across realtime platforms, trading systems, event products, ML prototypes, and developer tooling.',
     canonicalPath: '/projects',
   },
   '/open-source': {
     title: 'Open Source | Ayush Kumar',
+    browserTitle: 'Ayush',
     description:
       'Public GitHub pull requests and GitLab merge requests contributed by Ayush Kumar across external repositories.',
     canonicalPath: '/open-source',
   },
   '/skill': {
     title: 'Skills | Ayush Kumar',
+    browserTitle: 'Ayush',
     description:
       'Technical skills used by Ayush Kumar across frontend, backend, machine learning, infrastructure, databases, and cloud systems.',
     canonicalPath: '/skill',
   },
   '/contact': {
     title: 'Contact | Ayush Kumar',
+    browserTitle: 'Ayush',
     description:
       'Contact Ayush Kumar for internships, full-time roles, freelance work, collaborations, and software engineering opportunities.',
     canonicalPath: '/contact',
@@ -68,6 +74,7 @@ export const getSeoMetadataForPath = (pathname = '/') => {
     if (project) {
       return {
         title: `${project.title} | Ayush Kumar`,
+        browserTitle: 'Ayush',
         description: project.summary,
         canonicalPath: `/projects/${project.slug}`,
         image: project.image || DEFAULT_IMAGE,
@@ -105,7 +112,7 @@ export const applySeoMetadata = (metadata) => {
   const absoluteUrl = toAbsoluteUrl(metadata.canonicalPath);
   const absoluteImage = toAbsoluteUrl(metadata.image);
 
-  document.title = metadata.title;
+  document.title = metadata.browserTitle || metadata.title;
   setMetaTag('meta[name="description"]', 'content', metadata.description, {
     name: 'description',
   });

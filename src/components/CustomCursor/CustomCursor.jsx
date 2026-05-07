@@ -1,103 +1,64 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import './CustomCursor.css';
+import { readVisualEffectsProfile } from '../../utils/visualEffects';
 
 const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const cursorRef = useRef(null);
   const rafId = useRef(null);
-  const boundElementsRef = useRef(new Set());
-  const observerRef = useRef(null);
-
-  const updatePosition = useCallback((e) => {
-    if (rafId.current) {
-      cancelAnimationFrame(rafId.current);
-    }
-    rafId.current = requestAnimationFrame(() => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      setIsVisible(true);
-    });
-  }, []);
-
-  const handleMouseEnter = useCallback(() => setIsHovering(true), []);
-  const handleMouseLeave = useCallback(() => setIsHovering(false), []);
-
-  const bindElement = useCallback((el) => {
-    if (!boundElementsRef.current.has(el)) {
-      boundElementsRef.current.add(el);
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    }
-  }, [handleMouseEnter, handleMouseLeave]);
-
-  const unbindElement = useCallback((el) => {
-    if (boundElementsRef.current.has(el)) {
-      boundElementsRef.current.delete(el);
-      el.removeEventListener('mouseenter', handleMouseEnter);
-      el.removeEventListener('mouseleave', handleMouseLeave);
-    }
-  }, [handleMouseEnter, handleMouseLeave]);
+  const lastPosition = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    // Check if device supports hover (i.e., not touch-only)
-    const isTouchDevice = window.matchMedia('(hover: none)').matches;
-    if (isTouchDevice) return;
+    const cursor = cursorRef.current;
+    const profile = readVisualEffectsProfile();
 
-    window.addEventListener('mousemove', updatePosition, { passive: true });
+    if (!cursor || !profile.cursorEnabled) {
+      return undefined;
+    }
 
-    const bindAllClickables = () => {
-      const clickables = document.querySelectorAll('a, button, input, textarea, [role="button"], .skill-item');
-      clickables.forEach(bindElement);
+    const interactiveSelector = 'a, button, input, textarea, select, [role="button"], [role="link"], .skill-item';
+
+    const renderCursor = () => {
+      const { x, y } = lastPosition.current;
+      cursor.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+      cursor.dataset.visible = 'true';
+      rafId.current = null;
     };
 
-    const unbindAll = () => {
-      boundElementsRef.current.forEach(unbindElement);
-      boundElementsRef.current.clear();
+    const updatePosition = (event) => {
+      lastPosition.current = { x: event.clientX, y: event.clientY };
+      if (!rafId.current) {
+        rafId.current = requestAnimationFrame(renderCursor);
+      }
     };
 
-    bindAllClickables();
+    const handlePointerOver = (event) => {
+      if (event.target.closest?.(interactiveSelector)) {
+        cursor.dataset.hover = 'true';
+      }
+    };
 
-    let debounceTimer;
-    observerRef.current = new MutationObserver(() => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        unbindAll();
-        bindAllClickables();
-      }, 100);
-    });
-    observerRef.current.observe(document.body, { childList: true, subtree: true });
+    const handlePointerOut = (event) => {
+      const currentInteractive = event.target.closest?.(interactiveSelector);
+      const nextInteractive = event.relatedTarget?.closest?.(interactiveSelector);
+      if (currentInteractive && currentInteractive !== nextInteractive) {
+        cursor.dataset.hover = 'false';
+      }
+    };
 
+    window.addEventListener('pointermove', updatePosition, { passive: true });
+    document.addEventListener('pointerover', handlePointerOver);
+    document.addEventListener('pointerout', handlePointerOut);
     return () => {
-      window.removeEventListener('mousemove', updatePosition);
-      unbindAll();
-      observerRef.current?.disconnect();
-      clearTimeout(debounceTimer);
+      window.removeEventListener('pointermove', updatePosition);
+      document.removeEventListener('pointerover', handlePointerOver);
+      document.removeEventListener('pointerout', handlePointerOut);
       if (rafId.current) {
         cancelAnimationFrame(rafId.current);
       }
     };
-  }, [updatePosition, bindElement, unbindElement]);
+  }, []);
 
-  if (!isVisible) return null;
-
-  return (
-    <div
-      style={{
-        position: 'fixed',
-        pointerEvents: 'none',
-        zIndex: 9999,
-        borderRadius: '50%',
-        transition: 'width 0.2s cubic-bezier(0.16, 1, 0.3, 1), height 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease-out',
-        mixBlendMode: 'difference',
-        backgroundColor: '#ffffff',
-        left: position.x,
-        top: position.y,
-        width: isHovering ? '32px' : '16px',
-        height: isHovering ? '32px' : '16px',
-        transform: 'translate(-50%, -50%)',
-        opacity: 1
-      }}
-    />
-  );
+  return <div ref={cursorRef} className="custom-cursor" aria-hidden="true" />;
 };
 
 export default CustomCursor;

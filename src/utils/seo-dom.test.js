@@ -13,7 +13,7 @@ describe('SEO DOM updates', () => {
       browserTitle: 'Ayush',
       description: 'Portfolio',
       canonicalPath: '/',
-      image: '/favicon.svg',
+      image: '/favicon.png',
       type: 'website',
     });
 

@@ -3,6 +3,7 @@ const DEV_VIEW_COUNT_SESSION_KEY = 'portfolio-dev-view-count-session';
 const LIVE_VIEW_COUNT_CACHE_KEY = 'portfolio-live-view-count';
 const LIVE_VIEW_COUNT_SESSION_KEY = 'portfolio-live-view-count-session';
 const LIVE_VIEW_COUNT_ENDPOINT = '/api/portfolio-meta';
+const DIRECT_COUNTER_API_BASE_URL = 'https://api.counterapi.dev/v1/macayu17/portfolio';
 
 const getStorage = (type) => {
   if (typeof window === 'undefined') {
@@ -53,8 +54,23 @@ const mergeWithCachedCount = (count, cachedCount) => {
   return Math.max(count, cachedCount);
 };
 
-const fetchCounterCount = async (mode = 'current') => {
-  const response = await fetch(`${LIVE_VIEW_COUNT_ENDPOINT}?mode=${mode}`, {
+const getDirectCounterUrl = (mode) =>
+  `${DIRECT_COUNTER_API_BASE_URL}${mode === 'increment' ? '/up' : ''}`;
+
+const readCounterValue = (data) => {
+  if (typeof data?.views === 'number') {
+    return data.views;
+  }
+
+  if (typeof data?.count === 'number') {
+    return data.count;
+  }
+
+  throw new Error('View count response did not include a numeric count');
+};
+
+const fetchCounterUrl = async (url) => {
+  const response = await fetch(url, {
     cache: 'no-store',
   });
 
@@ -63,12 +79,15 @@ const fetchCounterCount = async (mode = 'current') => {
   }
 
   const data = await response.json();
+  return readCounterValue(data);
+};
 
-  if (typeof data?.views !== 'number') {
-    throw new Error('View count response did not include a numeric count');
+const fetchCounterCount = async (mode = 'current') => {
+  try {
+    return await fetchCounterUrl(`${LIVE_VIEW_COUNT_ENDPOINT}?mode=${mode}`);
+  } catch {
+    return fetchCounterUrl(getDirectCounterUrl(mode));
   }
-
-  return data.views;
 };
 
 export const getDevelopmentViewCount = () => {

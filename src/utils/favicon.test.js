@@ -6,18 +6,12 @@ import { cwd } from 'node:process';
 const rootPath = cwd();
 
 describe('favicon assets', () => {
-  test('uses compact cache-busted favicon assets that stay legible in browser tabs', () => {
+  test('uses the user-provided cache-busted PNG favicon', () => {
     const indexHtml = readFileSync(join(rootPath, 'index.html'), 'utf8');
-    const faviconSvg = readFileSync(join(rootPath, 'public', 'favicon.svg'), 'utf8');
-    const pngPath = join(rootPath, 'public', 'favicon-32x32.png');
+    const faviconPath = join(rootPath, 'public', 'favicon.png');
 
-    expect(indexHtml).toContain('<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />');
-    expect(indexHtml).toContain('<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3" />');
-    expect(faviconSvg).toContain('aria-label="Ayush"');
-    expect(faviconSvg).toContain('viewBox="0 0 64 64"');
-    expect(faviconSvg).toContain('M20 43 32 15l12 28');
-    expect(faviconSvg.length).toBeLessThan(4000);
-    expect(existsSync(pngPath)).toBe(true);
-    expect(statSync(pngPath).size).toBeGreaterThan(100);
+    expect(indexHtml).toContain('<link rel="icon" type="image/png" href="/favicon.png?v=4" />');
+    expect(existsSync(faviconPath)).toBe(true);
+    expect(statSync(faviconPath).size).toBeGreaterThan(1000);
   });
 });

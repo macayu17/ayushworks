@@ -1,7 +1,7 @@
 import { getProjectBySlug } from '../data/projects';
 
 const SITE_URL = 'https://ayushworks.com';
-const DEFAULT_IMAGE = '/favicon.svg';
+const DEFAULT_IMAGE = '/favicon.png';
 
 const routeMetadata = {
   '/': {

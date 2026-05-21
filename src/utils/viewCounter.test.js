@@ -21,7 +21,7 @@ describe('live view counter', () => {
       .mockResolvedValueOnce(jsonResponse({ count: 351 }));
     vi.stubGlobal('fetch', fetchMock);
 
-    await expect(getLiveViewCount()).resolves.toBe(351);
+    await expect(getLiveViewCount()).resolves.toBe(480);
 
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
@@ -33,5 +33,12 @@ describe('live view counter', () => {
       'https://api.counterapi.dev/v1/macayu17/portfolio/up',
       { cache: 'no-store' },
     );
+  });
+
+  test('applies the manual live counter baseline to provider counts', async () => {
+    const fetchMock = vi.fn().mockResolvedValueOnce(jsonResponse({ views: 260 }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(getLiveViewCount()).resolves.toBe(389);
   });
 });

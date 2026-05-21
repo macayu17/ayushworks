@@ -1,4 +1,4 @@
-const PUBLIC_SITE_ORIGIN = 'https://ayushworks.com';
+const PUBLIC_SITE_ORIGIN = 'https://ayushh.in';
 const GITHUB_PROFILE_URL = 'https://github.com/macayu17';
 const MAX_PAGE_TEXT_LENGTH = 3800;
 

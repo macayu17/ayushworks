@@ -4,7 +4,7 @@ import { FaEnvelope, FaGithub, FaLinkedinIn } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { FiEye } from 'react-icons/fi';
 import { NavLink } from 'react-router-dom';
-import { getDevelopmentViewCount, getLiveViewCount } from '../../utils/viewCounter';
+import { getPortfolioViewCount } from '../../utils/viewCounter';
 
 const texts = ['Based in Bengaluru, India', 'Undergrad pursuing CSE'];
 
@@ -20,9 +20,9 @@ const Hero = () => {
 
     const fetchViews = async () => {
       try {
-        const nextViews = import.meta.env.DEV
-          ? getDevelopmentViewCount()
-          : await getLiveViewCount();
+        const nextViews = await getPortfolioViewCount({
+          isViteDev: import.meta.env.DEV,
+        });
 
         if (isActive) {
           setViews(nextViews);

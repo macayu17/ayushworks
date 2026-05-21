@@ -38,6 +38,26 @@ const writeStoredCount = (storage, key, count) => {
   storage.setItem(key, String(count));
 };
 
+const getCurrentHostname = () => {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  return window.location.hostname;
+};
+
+export const shouldUseDevelopmentCounter = ({
+  isViteDev = false,
+  hostname = getCurrentHostname(),
+} = {}) =>
+  Boolean(
+    isViteDev &&
+      (hostname === 'localhost' ||
+        hostname === '127.0.0.1' ||
+        hostname === '0.0.0.0' ||
+        hostname.endsWith('.localhost')),
+  );
+
 const readSafeLiveCachedCount = (storage) => {
   const cachedCount = readStoredCount(storage, LIVE_VIEW_COUNT_CACHE_KEY);
 
@@ -151,4 +171,12 @@ export const getLiveViewCount = async () => {
       throw incrementError;
     }
   }
+};
+
+export const getPortfolioViewCount = ({ isViteDev = false, hostname } = {}) => {
+  if (shouldUseDevelopmentCounter({ isViteDev, hostname })) {
+    return getDevelopmentViewCount();
+  }
+
+  return getLiveViewCount();
 };

@@ -1,5 +1,9 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { getLiveViewCount } from './viewCounter';
+import {
+  getLiveViewCount,
+  getPortfolioViewCount,
+  shouldUseDevelopmentCounter,
+} from './viewCounter';
 
 const jsonResponse = (body, ok = true, status = ok ? 200 : 500) => ({
   ok,
@@ -40,5 +44,24 @@ describe('live view counter', () => {
     vi.stubGlobal('fetch', fetchMock);
 
     await expect(getLiveViewCount()).resolves.toBe(389);
+  });
+
+  test('does not use the development counter on production domains even with a dev build flag', () => {
+    expect(shouldUseDevelopmentCounter({
+      isViteDev: true,
+      hostname: 'ayushh.in',
+    })).toBe(false);
+  });
+
+  test('uses the live counter on production domains even with a dev build flag', async () => {
+    const fetchMock = vi.fn().mockResolvedValueOnce(jsonResponse({ views: 260 }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    await expect(getPortfolioViewCount({
+      isViteDev: true,
+      hostname: 'ayushh.in',
+    })).resolves.toBe(389);
+
+    expect(localStorage.getItem('portfolio-dev-view-count')).toBeNull();
   });
 });

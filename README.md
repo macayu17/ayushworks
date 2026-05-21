@@ -2,7 +2,7 @@
 
 Personal portfolio website built with React and Vite.
 
-Live site: https://ayushworks.com
+Live site: https://ayushh.in
 
 ## Run Locally
 

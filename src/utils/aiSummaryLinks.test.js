@@ -10,7 +10,7 @@ describe('AI summary links', () => {
       pageText: 'Sentinel Market microstructure simulator Hidden institutional order detection',
     });
 
-    expect(prompt).toContain('https://ayushworks.com/projects/sentinel?ref=test');
+    expect(prompt).toContain('https://ayushh.in/projects/sentinel?ref=test');
     expect(prompt).toContain('https://github.com/macayu17');
     expect(prompt).toContain('Sentinel | Ayush Kumar');
     expect(prompt).toContain('Open the Page URL directly');
@@ -29,7 +29,7 @@ describe('AI summary links', () => {
   });
 
   test('creates encoded provider links for each AI surface', () => {
-    const links = getAiSummaryLinks('Summarize this page: https://ayushworks.com/');
+    const links = getAiSummaryLinks('Summarize this page: https://ayushh.in/');
 
     expect(links.map((link) => link.id)).toEqual([
       'chatgpt',

@@ -4,10 +4,10 @@ const LIVE_VIEW_COUNT_CACHE_KEY = 'portfolio-live-view-count';
 const LIVE_VIEW_COUNT_SESSION_KEY = 'portfolio-live-view-count-session';
 const LIVE_VIEW_COUNT_ENDPOINT = '/api/portfolio-meta';
 const DIRECT_COUNTER_API_BASE_URL = 'https://api.counterapi.dev/v1/macayu17/portfolio';
-const LIVE_VIEW_COUNT_PROVIDER_BASELINE = 260;
+const LIVE_VIEW_COUNT_PROVIDER_BASELINE = 269;
 const LIVE_VIEW_COUNT_MANUAL_BASELINE = 389;
 const LIVE_VIEW_COUNT_DISPLAY_OFFSET =
-  LIVE_VIEW_COUNT_MANUAL_BASELINE - LIVE_VIEW_COUNT_PROVIDER_BASELINE;
+  LIVE_VIEW_COUNT_MANUAL_BASELINE - (LIVE_VIEW_COUNT_PROVIDER_BASELINE + 1);
 
 const getStorage = (type) => {
   if (typeof window === 'undefined') {
@@ -83,11 +83,17 @@ const getDirectCounterUrl = (mode) =>
 
 const readCounterValue = (data) => {
   if (typeof data?.views === 'number') {
-    return data.views + LIVE_VIEW_COUNT_DISPLAY_OFFSET;
+    return Math.max(
+      data.views + LIVE_VIEW_COUNT_DISPLAY_OFFSET,
+      LIVE_VIEW_COUNT_MANUAL_BASELINE,
+    );
   }
 
   if (typeof data?.count === 'number') {
-    return data.count + LIVE_VIEW_COUNT_DISPLAY_OFFSET;
+    return Math.max(
+      data.count + LIVE_VIEW_COUNT_DISPLAY_OFFSET,
+      LIVE_VIEW_COUNT_MANUAL_BASELINE,
+    );
   }
 
   throw new Error('View count response did not include a numeric count');

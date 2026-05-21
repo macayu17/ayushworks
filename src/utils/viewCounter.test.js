@@ -25,7 +25,7 @@ describe('live view counter', () => {
       .mockResolvedValueOnce(jsonResponse({ count: 351 }));
     vi.stubGlobal('fetch', fetchMock);
 
-    await expect(getLiveViewCount()).resolves.toBe(480);
+    await expect(getLiveViewCount()).resolves.toBe(470);
 
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
@@ -40,7 +40,7 @@ describe('live view counter', () => {
   });
 
   test('applies the manual live counter baseline to provider counts', async () => {
-    const fetchMock = vi.fn().mockResolvedValueOnce(jsonResponse({ views: 260 }));
+    const fetchMock = vi.fn().mockResolvedValueOnce(jsonResponse({ views: 269 }));
     vi.stubGlobal('fetch', fetchMock);
 
     await expect(getLiveViewCount()).resolves.toBe(389);
@@ -54,7 +54,7 @@ describe('live view counter', () => {
   });
 
   test('uses the live counter on production domains even with a dev build flag', async () => {
-    const fetchMock = vi.fn().mockResolvedValueOnce(jsonResponse({ views: 260 }));
+    const fetchMock = vi.fn().mockResolvedValueOnce(jsonResponse({ views: 270 }));
     vi.stubGlobal('fetch', fetchMock);
 
     await expect(getPortfolioViewCount({

@@ -5,6 +5,7 @@ import attendlyImage from '../assets/images/attendly.webp';
 import vectorImage from '../assets/images/vector.png';
 import sentinelImage from '../assets/images/Sentinel.webp';
 import iplAuctionImage from '../assets/images/iplauction.webp';
+import engramImage from '../assets/images/Engram.png';
 
 const rawProjectCatalog = [
   {
@@ -94,6 +95,29 @@ const rawProjectCatalog = [
     live: 'https://sentinel.ayushh.in/',
     image: sentinelImage,
     accent: '#f97316'
+  },
+  {
+    slug: 'engram',
+    title: 'Engram',
+    status: 'Live',
+    category: 'Self-hostable AI memory infrastructure',
+    summary: 'Self-hostable AI memory layer that syncs durable user context across LLM clients, agents, and provider calls.',
+    details: [
+      'Engram is an open-source memory layer for LLM applications, designed to sit between apps and model providers so stateless AI products can retrieve, inject, extract, and sync durable user context across sessions.',
+      'The stack combines a FastAPI proxy and REST API, PostgreSQL with pgvector, async extraction and deduplication, a TypeScript MCP server, and a Next.js dashboard for inspecting memories, retrieval logs, API keys, and sync behavior.'
+    ],
+    highlights: [
+      'FastAPI proxy injects relevant pgvector memories into OpenAI-style chat requests before forwarding to providers',
+      'Async extraction captures durable user facts after conversations and deduplicates repeated memories',
+      'Semantic search, confidence scoring, access tracking, retrieval logs, and per-user memory controls',
+      'TypeScript MCP server exposes memory tools for Claude Desktop, VS Code Agent Mode, Cursor-style clients, and agent tools',
+      'Next.js dashboard supports memory inspection, search, edit, delete, logs, settings, and key management'
+    ],
+    tags: ['Python', 'FastAPI', 'PostgreSQL', 'pgvector', 'Next.js', 'TypeScript', 'MCP', 'Docker'],
+    github: 'https://github.com/macayu17/Engram',
+    live: 'https://engram.ayushh.in',
+    image: engramImage,
+    accent: '#14b8a6'
   },
   {
     slug: 'ipl-auction-arena',
@@ -221,12 +245,20 @@ const rawProjectCatalog = [
 
 const projectDisplayOrder = [
   'sentinel',
-  'ipl-auction-arena',
+  'engram',
   'equityflow',
+  'ipl-auction-arena',
   'occasio',
   'gridpulse',
-  'attendly',
   'parkinsons-screening',
+  'attendly',
+  'vector',
+  'multimodal-sentiment'
+];
+
+const funProjectSlugs = [
+  'gridpulse',
+  'attendly',
   'vector',
   'multimodal-sentiment'
 ];
@@ -237,7 +269,14 @@ export const projectCatalog = projectDisplayOrder
   .map((slug) => projectLookup.get(slug))
   .filter(Boolean);
 
-export const featuredProjects = projectCatalog.slice(0, 4);
+export const funProjectCatalog = funProjectSlugs
+  .map((slug) => projectLookup.get(slug))
+  .filter(Boolean);
+
+export const coreProjectCatalog = projectCatalog
+  .filter((project) => !funProjectSlugs.includes(project.slug));
+
+export const featuredProjects = coreProjectCatalog.slice(0, 4);
 
 export const getProjectBySlug = (slug) =>
   projectCatalog.find((project) => project.slug === slug);

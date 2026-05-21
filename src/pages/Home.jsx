@@ -4,7 +4,8 @@ import Education from '../components/Education/Education';
 import Separator from '../components/Separator/Separator';
 import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { projectCatalog } from '../data/projects';
+import { coreProjectCatalog, funProjectCatalog } from '../data/projects';
+import './Home.css';
 
 const MotionDiv = motion.div;
 const GitHubContributions = lazy(() => import('../components/GitHubContributions/GitHubContributions'));
@@ -93,11 +94,28 @@ const Home = () => {
       <Education />
       <Separator />
       <Projects
-        items={projectCatalog}
+        items={coreProjectCatalog}
         intro="A few things I've built and spent real time on. Open any project to see the full story."
         showArchiveLink
         showThumbnail={false}
       />
+      <details className="fun-projects-dropdown">
+        <summary className="fun-projects-summary">
+          <span className="fun-projects-kicker">// FUN PROJECTS</span>
+          <span className="fun-projects-count">
+            {String(funProjectCatalog.length).padStart(2, '0')} experiments
+          </span>
+        </summary>
+        <p className="fun-projects-intro">
+          Smaller builds and focused experiments that still deserve a quick look.
+        </p>
+        <Projects
+          items={funProjectCatalog}
+          showHeader={false}
+          showThumbnail={false}
+          sectionId={null}
+        />
+      </details>
     </MotionDiv>
   );
 };

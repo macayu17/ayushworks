@@ -1,0 +1,135 @@
+.ai-summary-dock {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 58;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  max-width: calc(100vw - 36px);
+  padding: 10px 12px;
+  border: 1px dashed var(--zinc-700);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(244, 244, 245, 0.08), transparent 42%),
+    var(--theme-toggle-bg);
+  color: var(--zinc-300);
+  box-shadow: 0 14px 34px var(--shadow-soft);
+  backdrop-filter: blur(16px);
+}
+
+.ai-summary-label {
+  white-space: nowrap;
+  font-family: var(--font-jetbrains);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--zinc-300);
+}
+
+.ai-summary-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ai-summary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--zinc-400);
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.ai-summary-button:hover {
+  color: var(--zinc-100);
+  border-color: var(--soft-border);
+  background: var(--surface-hover);
+  transform: translateY(-1px);
+}
+
+.ai-summary-button:focus-visible {
+  outline: 2px solid var(--zinc-300);
+  outline-offset: 3px;
+}
+
+.ai-summary-button-chatgpt:hover {
+  color: #f4f4f5;
+}
+
+.ai-summary-button-perplexity:hover {
+  color: #7dd3fc;
+}
+
+.ai-summary-button-claude:hover {
+  color: #f0c7a7;
+}
+
+.ai-summary-button-gemini:hover {
+  color: #a5b4fc;
+}
+
+:root[data-theme="light"] .ai-summary-dock {
+  background:
+    linear-gradient(135deg, rgba(21, 20, 18, 0.06), transparent 46%),
+    var(--theme-toggle-bg);
+  border-color: var(--zinc-700);
+}
+
+:root[data-theme="light"] .ai-summary-button-chatgpt:hover {
+  color: #151412;
+}
+
+:root[data-theme="light"] .ai-summary-button-perplexity:hover {
+  color: #047c89;
+}
+
+:root[data-theme="light"] .ai-summary-button-claude:hover {
+  color: #9a3412;
+}
+
+:root[data-theme="light"] .ai-summary-button-gemini:hover {
+  color: #4f46e5;
+}
+
+@media (max-width: 639px) {
+  .ai-summary-dock {
+    right: 10px;
+    bottom: 76px;
+    gap: 8px;
+    padding: 8px 9px;
+  }
+
+  .ai-summary-label {
+    font-size: 0.58rem;
+  }
+
+  .ai-summary-actions {
+    gap: 3px;
+  }
+
+  .ai-summary-button {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 390px) {
+  .ai-summary-dock {
+    left: 10px;
+    justify-content: space-between;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-summary-button {
+    transition: none;
+  }
+}

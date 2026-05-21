@@ -9,6 +9,7 @@ import CustomCursor from './components/CustomCursor/CustomCursor';
 import Footer from './components/Footer/Footer';
 import BootScreen from './components/BootScreen/BootScreen';
 import MatrixRain from './components/MatrixRain/MatrixRain';
+import AiSummaryDock from './components/AiSummaryDock/AiSummaryDock';
 import { applySeoMetadata, getSeoMetadataForPath } from './utils/seo';
 
 // Pages
@@ -244,6 +245,7 @@ function App() {
           </main>
         </div>
 
+        {!isBooting && <AiSummaryDock />}
         {!isBooting && <CustomCursor />}
       </ErrorBoundary>
     </div>

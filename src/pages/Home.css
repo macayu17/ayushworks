@@ -1,0 +1,117 @@
+.fun-projects-dropdown {
+  margin: 8px 0 24px;
+  border: 1px dashed var(--zinc-800);
+  border-radius: 10px;
+  background: var(--surface-low);
+  overflow: hidden;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.fun-projects-dropdown[open] {
+  border-color: var(--zinc-700);
+  background: var(--surface-card);
+}
+
+.fun-projects-summary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  padding: 0 46px 0 18px;
+  color: var(--zinc-400);
+  cursor: pointer;
+  list-style: none;
+}
+
+.fun-projects-summary::-webkit-details-marker {
+  display: none;
+}
+
+.fun-projects-summary::after {
+  content: '+';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--zinc-500);
+  font-family: var(--font-jetbrains);
+  font-size: 1rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.fun-projects-dropdown[open] .fun-projects-summary::after {
+  color: var(--zinc-200);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.fun-projects-summary:hover {
+  color: var(--zinc-100);
+}
+
+.fun-projects-kicker,
+.fun-projects-count {
+  font-family: var(--font-jetbrains);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fun-projects-kicker {
+  color: var(--zinc-300);
+}
+
+.fun-projects-count {
+  color: var(--zinc-500);
+  white-space: nowrap;
+}
+
+.fun-projects-intro {
+  margin: 0;
+  padding: 0 18px 4px;
+  color: var(--zinc-500);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.fun-projects-dropdown .projects {
+  padding: 16px 18px 18px;
+}
+
+.fun-projects-dropdown .projects-grid {
+  gap: 16px;
+}
+
+@media (max-width: 639px) {
+  .fun-projects-dropdown {
+    margin-bottom: 18px;
+  }
+
+  .fun-projects-summary {
+    align-items: flex-start;
+    flex-direction: column;
+    min-height: auto;
+    padding: 14px 42px 14px 16px;
+    gap: 6px;
+  }
+
+  .fun-projects-summary::after {
+    right: 16px;
+    top: 18px;
+    transform: none;
+  }
+
+  .fun-projects-dropdown[open] .fun-projects-summary::after {
+    transform: rotate(45deg);
+  }
+
+  .fun-projects-intro {
+    padding: 0 16px 2px;
+    font-size: 0.8rem;
+  }
+
+  .fun-projects-dropdown .projects {
+    padding: 14px 14px 16px;
+  }
+}

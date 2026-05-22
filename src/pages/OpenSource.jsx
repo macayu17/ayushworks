@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FaChevronDown, FaCodeBranch, FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import { FaGitlab } from 'react-icons/fa6';
 import { loadOpenSourcePRs, OPEN_SOURCE_CACHE_TTL } from '../utils/openSourcePRs';
+import { getOpenSourceMetricCards } from '../utils/openSourceMetrics';
 import './OpenSourcePage.css';
 
 const MotionDiv = motion.div;
@@ -169,15 +170,10 @@ const OpenSource = () => {
     };
   }, []);
 
-  const repositoryCount = useMemo(
-    () => new Set(prs.map((entry) => entry.repository)).size,
-    [prs],
-  );
-
   const orderedContributions = useMemo(() => sortContributions(prs), [prs]);
 
-  const mergedCount = useMemo(
-    () => prs.filter((entry) => entry.status === 'Merged').length,
+  const metricCards = useMemo(
+    () => getOpenSourceMetricCards(prs),
     [prs],
   );
 
@@ -244,22 +240,12 @@ const OpenSource = () => {
         </div>
 
         <div className="open-source-metrics">
-          <article className="open-source-metric">
-            <span className="open-source-metric-label">Tracked PRs / MRs</span>
-            <strong>{String(prs.length).padStart(2, '0')}</strong>
-          </article>
-          <article className="open-source-metric">
-            <span className="open-source-metric-label">Merged</span>
-            <strong>{String(mergedCount).padStart(2, '0')}</strong>
-          </article>
-          <article className="open-source-metric">
-            <span className="open-source-metric-label">Repositories</span>
-            <strong>{String(repositoryCount).padStart(2, '0')}</strong>
-          </article>
-          <article className="open-source-metric">
-            <span className="open-source-metric-label">Closed</span>
-            <strong>{String(closedCount).padStart(2, '0')}</strong>
-          </article>
+          {metricCards.map((metric) => (
+            <article className="open-source-metric" key={metric.label}>
+              <span className="open-source-metric-label">{metric.label}</span>
+              <strong>{String(metric.value).padStart(2, '0')}</strong>
+            </article>
+          ))}
         </div>
 
         <div className="open-source-refresh-note">

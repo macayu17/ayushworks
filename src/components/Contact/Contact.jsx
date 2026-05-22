@@ -93,7 +93,7 @@ const Contact = () => {
           </button>
           
           <a 
-            href="https://drive.google.com/file/d/1WiHjIdP0DWW610RW8krwHSivLe5qilUP/view?usp=sharing" 
+            href="https://drive.google.com/file/d/1ZTOkMCdRPItP7UQhPIlFogsYbIAUGu9p/view?usp=sharing"
             target="_blank" 
             rel="noopener noreferrer" 
             className="contact-action-btn"

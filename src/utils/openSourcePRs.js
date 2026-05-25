@@ -1,6 +1,6 @@
 const CACHE_KEY = 'portfolio-open-source-contributions-v3';
 const OPEN_SOURCE_ENDPOINT = '/api/open-source';
-export const OPEN_SOURCE_CACHE_TTL = 24 * 60 * 60 * 1000;
+export const OPEN_SOURCE_CACHE_TTL = 12 * 60 * 60 * 1000;
 
 const getStorage = () => {
   if (typeof window === 'undefined') {

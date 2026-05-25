@@ -1,0 +1,26 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { cwd } from 'node:process';
+import { describe, expect, test } from 'vitest';
+
+describe('contribution refresh workflow', () => {
+  const workflow = readFileSync(
+    join(cwd(), '.github/workflows/refresh-contributions.yml'),
+    'utf8',
+  );
+  const openSourceApi = readFileSync(join(cwd(), 'api/open-source.js'), 'utf8');
+
+  test('warms the production contribution API every 12 hours', () => {
+    expect(workflow).toContain('cron: "0 */12 * * *"');
+    expect(workflow).toContain('CONTRIBUTIONS_ENDPOINT: https://ayushh.in/api/open-source');
+    expect(workflow).toContain('--header "Cache-Control: no-cache"');
+  });
+
+  test('can be triggered manually from GitHub Actions', () => {
+    expect(workflow).toContain('workflow_dispatch:');
+  });
+
+  test('keeps the production API cache on the same 12-hour cadence', () => {
+    expect(openSourceApi).toContain('s-maxage=43200, stale-while-revalidate=43200');
+  });
+});

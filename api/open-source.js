@@ -5,7 +5,7 @@ const sendJson = (response, statusCode, body) => {
   response.setHeader(
     'Cache-Control',
     statusCode === 200
-      ? 's-maxage=86400, stale-while-revalidate=43200'
+      ? 's-maxage=43200, stale-while-revalidate=43200'
       : 'no-store, max-age=0',
   );
   response.status(statusCode).send(JSON.stringify(body));

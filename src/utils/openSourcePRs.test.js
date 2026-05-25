@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { loadOpenSourcePRs } from './openSourcePRs';
+import { loadOpenSourcePRs, OPEN_SOURCE_CACHE_TTL } from './openSourcePRs';
 
 const apiPayload = {
   prs: [
@@ -42,6 +42,10 @@ describe('open source PR loader', () => {
       isStale: false,
       updatedAt: apiPayload.updatedAt,
     });
+  });
+
+  test('expires local contribution data every 12 hours', () => {
+    expect(OPEN_SOURCE_CACHE_TTL).toBe(12 * 60 * 60 * 1000);
   });
 
   test('uses a fresh local cache without calling the API', async () => {

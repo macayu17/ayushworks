@@ -1,0 +1,43 @@
+name: Refresh contributions
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: refresh-contributions
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Warm open-source contribution API cache
+        env:
+          CONTRIBUTIONS_ENDPOINT: https://ayushh.in/api/open-source
+        run: |
+          curl --fail --show-error --silent --location --retry 3 --retry-delay 10 \
+            --header "Cache-Control: no-cache" \
+            --header "Pragma: no-cache" \
+            "$CONTRIBUTIONS_ENDPOINT" \
+            --output /tmp/open-source-contributions.json
+
+          node - <<'NODE'
+          const fs = require('fs');
+          const payload = JSON.parse(fs.readFileSync('/tmp/open-source-contributions.json', 'utf8'));
+
+          if (!Array.isArray(payload.prs)) {
+            throw new Error('Open-source contribution response is missing a prs array');
+          }
+
+          const updatedAt = Number.isFinite(payload.updatedAt)
+            ? new Date(payload.updatedAt).toISOString()
+            : 'unknown';
+
+          console.log(`Refreshed ${payload.prs.length} contributions. updatedAt=${updatedAt}`);
+          NODE

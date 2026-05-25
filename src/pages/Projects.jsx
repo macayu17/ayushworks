@@ -1,18 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import { FaFilter, FaSearch, FaTimes } from 'react-icons/fa';
 import ProjectsSection from '../components/Projects/Projects';
 import { projectCatalog } from '../data/projects';
 import { filterProjects, getProjectFilterOptions } from '../utils/projectFilters';
 import './ProjectsPage.css';
-
-const MotionDiv = motion.div;
-
-const pageVariants = {
-  initial: { opacity: 0, y: 15 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
-  exit: { opacity: 0, y: -15, transition: { duration: 0.3, ease: 'easeIn' } }
-};
 
 const Projects = () => {
   const [query, setQuery] = useState('');
@@ -36,13 +27,7 @@ const Projects = () => {
   };
 
   return (
-    <MotionDiv
-      className="page-transition"
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageVariants}
-    >
+    <div className="page-transition">
       <section className="projects-page">
         <div className="section-header">
           <span>// PROJECT ARCHIVE</span>
@@ -127,7 +112,7 @@ const Projects = () => {
           )}
         </div>
       </section>
-    </MotionDiv>
+    </div>
   );
 };
 

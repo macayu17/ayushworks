@@ -379,6 +379,22 @@ textarea:focus-visible,
   background: var(--surface-low);
 }
 
+.page-transition {
+  animation: page-enter 0.32s ease-out both;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 .github-contributions-placeholder {
   min-height: 248px;
 }

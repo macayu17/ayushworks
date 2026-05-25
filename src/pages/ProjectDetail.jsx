@@ -1,17 +1,8 @@
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { FaArrowLeft, FaArrowRight, FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import { getProjectBySlug, projectCatalog } from '../data/projects';
 import './ProjectDetail.css';
-
-const MotionDiv = motion.div;
-
-const pageVariants = {
-  initial: { opacity: 0, y: 15 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
-  exit: { opacity: 0, y: -15, transition: { duration: 0.3, ease: 'easeIn' } }
-};
 
 const ProjectDetail = () => {
   const { slug } = useParams();
@@ -28,13 +19,7 @@ const ProjectDetail = () => {
 
   if (!project) {
     return (
-      <MotionDiv
-        className="page-transition"
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={pageVariants}
-      >
+      <div className="page-transition">
         <section className="project-detail project-detail-missing">
           <div className="section-header">
             <span>// PROJECT DETAIL</span>
@@ -48,18 +33,12 @@ const ProjectDetail = () => {
             Back to projects
           </Link>
         </section>
-      </MotionDiv>
+      </div>
     );
   }
 
   return (
-    <MotionDiv
-      className="page-transition"
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageVariants}
-    >
+    <div className="page-transition">
       <section className="project-detail" style={{ '--project-accent': project.accent }}>
         <Link to="/projects" className="project-detail-back">
           <FaArrowLeft size={12} />
@@ -185,7 +164,7 @@ const ProjectDetail = () => {
           )}
         </nav>
       </section>
-    </MotionDiv>
+    </div>
   );
 };
 

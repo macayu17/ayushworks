@@ -3,18 +3,10 @@ import Projects from '../components/Projects/Projects';
 import Education from '../components/Education/Education';
 import Separator from '../components/Separator/Separator';
 import { Suspense, lazy, useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import { coreProjectCatalog, funProjectCatalog } from '../data/projects';
 import './Home.css';
 
-const MotionDiv = motion.div;
 const GitHubContributions = lazy(() => import('../components/GitHubContributions/GitHubContributions'));
-
-const pageVariants = {
-  initial: { opacity: 0, y: 15 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-  exit: { opacity: 0, y: -15, transition: { duration: 0.3, ease: "easeIn" } }
-};
 
 const ContributionsPlaceholder = () => (
   <div className="github-contributions-placeholder" aria-hidden="true" />
@@ -80,13 +72,7 @@ const Home = () => {
   }, []);
 
   return (
-    <MotionDiv 
-      className="page-transition"
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageVariants}
-    >
+    <div className="page-transition">
       <Hero />
       <Separator />
       <DeferredGitHubContributions username="macayu17" />
@@ -116,7 +102,7 @@ const Home = () => {
           sectionId={null}
         />
       </details>
-    </MotionDiv>
+    </div>
   );
 };
 

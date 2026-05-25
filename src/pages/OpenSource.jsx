@@ -1,18 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import { FaChevronDown, FaCodeBranch, FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import { FaGitlab } from 'react-icons/fa6';
 import { loadOpenSourcePRs, OPEN_SOURCE_CACHE_TTL } from '../utils/openSourcePRs';
 import { getOpenSourceMetricCards } from '../utils/openSourceMetrics';
 import './OpenSourcePage.css';
-
-const MotionDiv = motion.div;
-
-const pageVariants = {
-  initial: { opacity: 0, y: 15 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
-  exit: { opacity: 0, y: -15, transition: { duration: 0.3, ease: 'easeIn' } }
-};
 
 const formatDate = (dateValue) => {
   const parsed = new Date(dateValue);
@@ -192,13 +183,7 @@ const OpenSource = () => {
   const closedCount = closedContributions.length;
 
   return (
-    <MotionDiv
-      className="page-transition"
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageVariants}
-    >
+    <div className="page-transition">
       <section className="open-source-page">
         <div className="section-header">
           <span>// OPEN SOURCE CONTRIBUTIONS</span>
@@ -291,7 +276,7 @@ const OpenSource = () => {
           </details>
         )}
       </section>
-    </MotionDiv>
+    </div>
   );
 };
 

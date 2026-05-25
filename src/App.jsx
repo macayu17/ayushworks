@@ -1,7 +1,6 @@
 import React, { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import './index.css';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -9,7 +8,6 @@ import CustomCursor from './components/CustomCursor/CustomCursor';
 import Footer from './components/Footer/Footer';
 import BootScreen from './components/BootScreen/BootScreen';
 import MatrixRain from './components/MatrixRain/MatrixRain';
-import AiSummaryDock from './components/AiSummaryDock/AiSummaryDock';
 import { applySeoMetadata, getSeoMetadataForPath } from './utils/seo';
 
 // Pages
@@ -20,6 +18,7 @@ const Contact = lazy(() => import('./pages/Contact'));
 const ProjectsPage = lazy(() => import('./pages/Projects'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const OpenSourcePage = lazy(() => import('./pages/OpenSource'));
+const AiSummaryDock = lazy(() => import('./components/AiSummaryDock/AiSummaryDock'));
 
 const getInitialTheme = () => {
   if (typeof window === 'undefined') {
@@ -86,6 +85,7 @@ function App() {
   });
   const [theme, setTheme] = useState(getInitialTheme);
   const [themeWave, setThemeWave] = useState(null);
+  const [shouldLoadAiDock, setShouldLoadAiDock] = useState(false);
 
   useEffect(() => {
     applyThemeToDocument(theme);
@@ -94,6 +94,31 @@ function App() {
   useEffect(() => {
     applySeoMetadata(seoMetadata);
   }, [seoMetadata]);
+
+  useEffect(() => {
+    if (isBooting || shouldLoadAiDock) {
+      return undefined;
+    }
+
+    const loadDock = () => setShouldLoadAiDock(true);
+    let idleId = null;
+    let timerId = null;
+
+    if ('requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(loadDock, { timeout: 1600 });
+    } else {
+      timerId = window.setTimeout(loadDock, 900);
+    }
+
+    return () => {
+      if (idleId !== null) {
+        window.cancelIdleCallback?.(idleId);
+      }
+      if (timerId !== null) {
+        window.clearTimeout(timerId);
+      }
+    };
+  }, [isBooting, shouldLoadAiDock]);
 
   const handleBootComplete = () => {
     setIsBooting(false);
@@ -227,25 +252,27 @@ function App() {
           </a>
           <main className={`main-content${isWideRoute ? ' main-content-wide' : ''}`}>
             <div className="content-border" id="main-content">
-              <AnimatePresence mode="wait">
-                <Suspense fallback={<PageFallback />}>
-                  <Routes location={location} key={location.pathname}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/projects" element={<ProjectsPage />} />
-                    <Route path="/projects/:slug" element={<ProjectDetail />} />
-                    <Route path="/open-source" element={<OpenSourcePage />} />
-                    <Route path="/skill" element={<Skills />} />
-                    <Route path="/contact" element={<Contact />} />
-                  </Routes>
-                </Suspense>
-              </AnimatePresence>
+              <Suspense fallback={<PageFallback />}>
+                <Routes location={location} key={location.pathname}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/projects" element={<ProjectsPage />} />
+                  <Route path="/projects/:slug" element={<ProjectDetail />} />
+                  <Route path="/open-source" element={<OpenSourcePage />} />
+                  <Route path="/skill" element={<Skills />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </Suspense>
             </div>
             <Footer />
           </main>
         </div>
 
-        {!isBooting && <AiSummaryDock />}
+        {!isBooting && shouldLoadAiDock && (
+          <Suspense fallback={null}>
+            <AiSummaryDock />
+          </Suspense>
+        )}
         {!isBooting && <CustomCursor />}
       </ErrorBoundary>
     </div>

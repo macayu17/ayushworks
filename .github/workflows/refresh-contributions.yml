@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Warm open-source contribution API cache
         env:
-          CONTRIBUTIONS_ENDPOINT: https://ayushh.in/api/open-source
+          CONTRIBUTIONS_ENDPOINT: https://www.ayushh.in/api/open-source
         run: |
           curl --fail --show-error --silent --location --retry 3 --retry-delay 10 \
             --header "Cache-Control: no-cache" \

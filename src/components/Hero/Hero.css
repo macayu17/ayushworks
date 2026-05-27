@@ -194,8 +194,9 @@
     min-height: 1.45em;
     font-size: clamp(0.84rem, 3.9vw, 0.96rem);
     align-items: center;
-    flex-wrap: nowrap;
-    white-space: nowrap;
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
+    white-space: normal;
   }
 
   .hero-subtitle .cursor {
@@ -212,6 +213,12 @@
   .hero-social-box {
     gap: 14px;
     padding: 10px 14px;
+  }
+
+  .hero-social-link {
+    min-width: 36px;
+    min-height: 36px;
+    touch-action: manipulation;
   }
 
   .hero-views-box {

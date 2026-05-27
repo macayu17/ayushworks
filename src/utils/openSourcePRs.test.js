@@ -44,8 +44,8 @@ describe('open source PR loader', () => {
     });
   });
 
-  test('expires local contribution data every 12 hours', () => {
-    expect(OPEN_SOURCE_CACHE_TTL).toBe(12 * 60 * 60 * 1000);
+  test('expires local contribution data every 6 hours', () => {
+    expect(OPEN_SOURCE_CACHE_TTL).toBe(6 * 60 * 60 * 1000);
   });
 
   test('uses a fresh local cache without calling the API', async () => {
@@ -61,5 +61,26 @@ describe('open source PR loader', () => {
     expect(fetchMock).not.toHaveBeenCalled();
     expect(result.prs).toEqual(apiPayload.prs);
     expect(result.fromCache).toBe(true);
+  });
+
+  test('refreshes local contribution data after the 6-hour cache window', async () => {
+    localStorage.setItem(
+      'portfolio-open-source-contributions-v3',
+      JSON.stringify({
+        data: [],
+        updatedAt: Date.now() - OPEN_SOURCE_CACHE_TTL - 1,
+      }),
+    );
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => apiPayload,
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const result = await loadOpenSourcePRs();
+
+    expect(fetchMock).toHaveBeenCalledWith('/api/open-source', { cache: 'no-store' });
+    expect(result.prs).toEqual(apiPayload.prs);
+    expect(result.fromCache).toBe(false);
   });
 });

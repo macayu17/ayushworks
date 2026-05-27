@@ -1,4 +1,5 @@
 import './Projects.css';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaGithub, FaExternalLinkAlt, FaArrowRight } from 'react-icons/fa';
 import Tilt from 'react-parallax-tilt';
@@ -18,6 +19,23 @@ const Projects = ({
   sectionId = 'projects'
 }) => {
   const navigate = useNavigate();
+  const [enableCardTilt, setEnableCardTilt] = useState(false);
+
+  useEffect(() => {
+    if (!window.matchMedia) {
+      return undefined;
+    }
+
+    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const updateTilt = () => setEnableCardTilt(mediaQuery.matches);
+
+    updateTilt();
+    mediaQuery.addEventListener('change', updateTilt);
+
+    return () => {
+      mediaQuery.removeEventListener('change', updateTilt);
+    };
+  }, []);
 
   const openProject = (slug) => {
     navigate(`/projects/${slug}`);
@@ -60,7 +78,8 @@ const Projects = ({
             tiltMaxAngleY={4} 
             scale={1.01} 
             transitionSpeed={2500} 
-            glareEnable={true} 
+            tiltEnable={enableCardTilt}
+            glareEnable={enableCardTilt}
             glareMaxOpacity={0.05} 
             glareColor="#ffffff" 
             glarePosition="bottom" 

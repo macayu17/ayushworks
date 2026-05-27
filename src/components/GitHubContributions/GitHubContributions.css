@@ -284,6 +284,9 @@
   }
 
   .contributions-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
     margin-bottom: 14px;
   }
 
@@ -292,9 +295,12 @@
   }
 
   .contributions-page-link {
+    justify-content: space-between;
     font-size: 0.54rem;
     padding: 7px 8px;
     gap: 6px;
+    width: 100%;
+    white-space: normal;
   }
 
   .calendar-wrapper {
@@ -302,7 +308,13 @@
     width: 100%;
     max-width: 100%;
     padding: 4px 0 0;
-    overflow: visible;
+    overflow-x: auto;
+    overflow-y: visible;
+    scrollbar-width: none;
+  }
+
+  .calendar-wrapper::-webkit-scrollbar {
+    display: none;
   }
 
   .calendar-inner {

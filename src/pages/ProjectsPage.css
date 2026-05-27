@@ -187,7 +187,9 @@
   }
 
   .projects-page-shell {
-    padding: 16px 14px;
-    border-radius: 14px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
   }
 }

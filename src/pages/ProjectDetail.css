@@ -256,7 +256,10 @@
 .project-detail-nav-link {
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   color: var(--zinc-400);
   font-family: var(--font-jetbrains);
   font-size: 0.72rem;
@@ -343,8 +346,10 @@
   }
 
   .project-detail-link {
+    justify-content: center;
     padding: 10px 12px;
     font-size: 0.66rem;
+    width: 100%;
   }
 
   .project-detail-visual,

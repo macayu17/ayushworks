@@ -99,14 +99,20 @@
   color: #4f46e5;
 }
 
-@media (max-width: 639px) {
+@media (max-width: 1023px) {
   .ai-summary-dock {
     right: 10px;
-    bottom: 76px;
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
     gap: 8px;
     padding: 8px 9px;
   }
 
+  .ai-summary-label {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
   .ai-summary-label {
     font-size: 0.58rem;
   }
@@ -123,8 +129,8 @@
 
 @media (max-width: 390px) {
   .ai-summary-dock {
-    left: 10px;
-    justify-content: space-between;
+    left: auto;
+    justify-content: center;
   }
 }
 

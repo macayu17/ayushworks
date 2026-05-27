@@ -199,7 +199,7 @@ const OpenSource = () => {
         <div className="open-source-hero">
           <h1 className="open-source-title">Open source PRs and merge requests.</h1>
           <p className="open-source-copy">
-            This page refreshes public GitHub pull requests and GitLab merge requests every 24 hours,
+            This page refreshes public GitHub pull requests and GitLab merge requests every 6 hours,
             using the same username on both platforms.
           </p>
           <div className="open-source-profile-links">

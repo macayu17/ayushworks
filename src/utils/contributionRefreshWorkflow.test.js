@@ -10,8 +10,8 @@ describe('contribution refresh workflow', () => {
   );
   const openSourceApi = readFileSync(join(cwd(), 'api/open-source.js'), 'utf8');
 
-  test('warms the production contribution API every 12 hours', () => {
-    expect(workflow).toContain('cron: "0 */12 * * *"');
+  test('warms the production contribution API every 6 hours', () => {
+    expect(workflow).toContain('cron: "0 */6 * * *"');
     expect(workflow).toContain('CONTRIBUTIONS_ENDPOINT: https://www.ayushh.in/api/open-source');
     expect(workflow).toContain('--header "Cache-Control: no-cache"');
   });
@@ -20,7 +20,7 @@ describe('contribution refresh workflow', () => {
     expect(workflow).toContain('workflow_dispatch:');
   });
 
-  test('keeps the production API cache on the same 12-hour cadence', () => {
-    expect(openSourceApi).toContain('s-maxage=43200, stale-while-revalidate=43200');
+  test('keeps the production API cache on the same 6-hour cadence', () => {
+    expect(openSourceApi).toContain('s-maxage=21600, stale-while-revalidate=21600');
   });
 });

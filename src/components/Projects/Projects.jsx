@@ -4,9 +4,28 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaGithub, FaExternalLinkAlt, FaArrowRight } from 'react-icons/fa';
 import Tilt from 'react-parallax-tilt';
 import { projectCatalog } from '../../data/projects';
+import { getTechIcon } from '../../utils/techIcons';
 
 const stopCardNavigation = (event) => {
   event.stopPropagation();
+};
+
+const useSiteTheme = () => {
+  const [theme, setTheme] = useState(() =>
+    typeof document !== 'undefined' && document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'
+  );
+
+  useEffect(() => {
+    const update = () => {
+      setTheme(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
+    };
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
+
+  return theme;
 };
 
 const Projects = ({
@@ -20,6 +39,7 @@ const Projects = ({
 }) => {
   const navigate = useNavigate();
   const [enableCardTilt, setEnableCardTilt] = useState(false);
+  const siteTheme = useSiteTheme();
 
   useEffect(() => {
     if (!window.matchMedia) {
@@ -98,24 +118,32 @@ const Projects = ({
               <div className="project-header-dots">
                 <span className="traffic-dot"></span>
                 <span className="traffic-dot"></span>
-                <span className={`traffic-dot ${project.live ? 'pulse-live' : ''}`}></span>
+                <span className={`traffic-dot ${project.status === 'Building' ? 'pulse-building' : project.live ? 'pulse-live' : ''}`}></span>
               </div>
 
               {showThumbnail && (
-                <div className={`project-cover ${project.image ? 'has-image' : 'is-fallback'}`}>
-                  {project.image ? (
-                    <img
-                      src={project.image}
-                      alt={`${project.title} preview`}
-                      className="project-cover-image"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <div className="project-cover-fallback">
-                      <span className="project-cover-label">{project.category}</span>
-                    </div>
-                  )}
+                <div className={`project-cover ${project.image || project.imageDark || project.imageLight ? 'has-image' : 'is-fallback'}`}>
+                  {(() => {
+                    const themedImage = siteTheme === 'light'
+                      ? (project.imageLight || project.imageDark || project.image)
+                      : (project.imageDark || project.imageLight || project.image);
+                    if (themedImage) {
+                      return (
+                        <img
+                          src={themedImage}
+                          alt={`${project.title} preview`}
+                          className="project-cover-image"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      );
+                    }
+                    return (
+                      <div className="project-cover-fallback">
+                        <span className="project-cover-label">{project.category}</span>
+                      </div>
+                    );
+                  })()}
                 </div>
               )}
 
@@ -133,9 +161,22 @@ const Projects = ({
 
                 <div className="project-footer">
                   <div className="project-tags">
-                    {project.tags.slice(0, 4).map((tag) => (
-                      <span key={tag} className="project-tag">#{tag}</span>
-                    ))}
+                    {project.tags
+                      .map((tag) => ({ tag, icon: getTechIcon(tag) }))
+                      .filter((entry) => entry.icon)
+                      .slice(0, 6)
+                      .map(({ tag, icon }) => (
+                        <span key={tag} className="project-tag" title={tag}>
+                          <img
+                            src={icon}
+                            alt={tag}
+                            className="project-tag-icon"
+                            loading="lazy"
+                            decoding="async"
+                            onError={(e) => { e.currentTarget.parentElement.remove(); }}
+                          />
+                        </span>
+                      ))}
                   </div>
 
                   <div className="project-actions">
@@ -170,10 +211,11 @@ const Projects = ({
                     <Link
                       to={`/projects/${project.slug}`}
                       className="project-details-link"
+                      aria-label={`Open ${project.title} details`}
+                      title={`${project.title} details`}
                       onClick={stopCardNavigation}
                     >
-                      Details
-                      <FaArrowRight size={12} />
+                      <FaArrowRight size={13} />
                     </Link>
                   </div>
                 </div>

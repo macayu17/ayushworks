@@ -12,16 +12,16 @@ describe('contribution calendar layout', () => {
 
   test('keeps larger blocks when there is enough room', () => {
     expect(getContributionCalendarLayout({ containerWidth: 720, compact: false })).toEqual({
-      blockSize: 9,
+      blockSize: 11,
       blockMargin: 2,
       fontSize: 10,
     });
   });
 
-  test('uses wider desktop spacing to avoid an awkward right-side gap', () => {
+  test('uses larger desktop blocks to avoid an awkward right-side gap', () => {
     expect(getContributionCalendarLayout({ containerWidth: 590, compact: false })).toEqual({
-      blockSize: 9,
-      blockMargin: 2,
+      blockSize: 10,
+      blockMargin: 1,
       fontSize: 10,
     });
   });

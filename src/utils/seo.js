@@ -46,6 +46,13 @@ const routeMetadata = {
       'Contact Ayush Kumar for internships, full-time roles, freelance work, collaborations, and software engineering opportunities.',
     canonicalPath: '/contact',
   },
+  '/resume': {
+    title: 'Resume | Ayush Kumar',
+    browserTitle: 'Ayush',
+    description:
+      'View and download the resume of Ayush Kumar, a software engineer focused on full-stack development, ML systems, and product engineering.',
+    canonicalPath: '/resume',
+  },
 };
 
 const getProjectSlug = (pathname) => {

@@ -50,7 +50,7 @@
   align-items: center;
   gap: 8px;
   padding: 9px 14px;
-  border: 1px dashed var(--zinc-700);
+  border: 1px solid var(--soft-border);
   border-radius: 999px;
   font-family: var(--font-jetbrains);
   font-size: 0.68rem;

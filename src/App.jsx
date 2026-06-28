@@ -1,9 +1,9 @@
 import React, { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { FaMoon, FaSun } from 'react-icons/fa';
 import './index.css';
 import Sidebar from './components/Sidebar/Sidebar';
+import SectionIndex from './components/SectionIndex/SectionIndex';
 import CustomCursor from './components/CustomCursor/CustomCursor';
 import Footer from './components/Footer/Footer';
 import BootScreen from './components/BootScreen/BootScreen';
@@ -18,28 +18,31 @@ const Contact = lazy(() => import('./pages/Contact'));
 const ProjectsPage = lazy(() => import('./pages/Projects'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const OpenSourcePage = lazy(() => import('./pages/OpenSource'));
+const Resume = lazy(() => import('./pages/Resume'));
 const AiSummaryDock = lazy(() => import('./components/AiSummaryDock/AiSummaryDock'));
+const CommandPalette = lazy(() => import('./components/CommandPalette/CommandPalette'));
+const THEME_STORAGE_KEY = 'site-theme-revamp';
 
 const getInitialTheme = () => {
   if (typeof window === 'undefined') {
     return 'dark';
   }
 
-  const savedTheme = localStorage.getItem('site-theme');
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
   if (savedTheme === 'light' || savedTheme === 'dark') {
     return savedTheme;
   }
 
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  return 'dark';
 };
 
 const applyThemeToDocument = (nextTheme) => {
   document.documentElement.dataset.theme = nextTheme;
-  localStorage.setItem('site-theme', nextTheme);
+  localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
 
   const themeMeta = document.querySelector('meta[name="theme-color"]');
   if (themeMeta) {
-    themeMeta.setAttribute('content', nextTheme === 'light' ? '#f5f1e8' : '#18181b');
+    themeMeta.setAttribute('content', nextTheme === 'light' ? '#f5f1e8' : '#000000');
   }
 };
 
@@ -79,13 +82,16 @@ function App() {
   const isWideRoute =
     location.pathname === '/projects' ||
     location.pathname.startsWith('/projects/') ||
-    location.pathname === '/open-source';
+    location.pathname === '/open-source' ||
+    location.pathname === '/resume';
+  const showSectionIndex = location.pathname === '/';
   const [isBooting, setIsBooting] = useState(() => {
     return !sessionStorage.getItem('hasBooted');
   });
   const [theme, setTheme] = useState(getInitialTheme);
   const [themeWave, setThemeWave] = useState(null);
   const [shouldLoadAiDock, setShouldLoadAiDock] = useState(false);
+  const [cmdkOpen, setCmdkOpen] = useState(false);
 
   useEffect(() => {
     applyThemeToDocument(theme);
@@ -94,6 +100,17 @@ function App() {
   useEffect(() => {
     applySeoMetadata(seoMetadata);
   }, [seoMetadata]);
+
+  useEffect(() => {
+    const handleCmdK = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setCmdkOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleCmdK);
+    return () => window.removeEventListener('keydown', handleCmdK);
+  }, []);
 
   useEffect(() => {
     if (isBooting || shouldLoadAiDock) {
@@ -137,31 +154,37 @@ function App() {
     updateThemeState();
   };
 
-  const getThemeWave = (target) => {
-    const rect = target.getBoundingClientRect();
-    const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
-    const radius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y),
-    );
-
-    return { x, y, radius };
-  };
-
   const runFallbackThemeWave = (wave, nextTheme) => {
     const waveId = window.crypto?.randomUUID?.() ?? `${Date.now()}`;
     setThemeWave({ ...wave, id: waveId, theme: nextTheme });
     window.setTimeout(() => commitTheme(nextTheme), 180);
     window.setTimeout(() => {
       setThemeWave((currentWave) => (currentWave?.id === waveId ? null : currentWave));
-    }, 820);
+    }, 740);
+  };
+
+  const playThemeSound = () => {
+    try {
+      const audio = new Audio('/paper-slide.wav');
+      audio.volume = 0.32;
+      audio.play().catch(() => {});
+    } catch {
+      /* audio playback unavailable */
+    }
   };
 
   const toggleTheme = (event) => {
     const nextTheme = theme === 'light' ? 'dark' : 'light';
-    const wave = getThemeWave(event.currentTarget);
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    playThemeSound();
+
+    const cx = event?.currentTarget
+      ? event.currentTarget.getBoundingClientRect().left + event.currentTarget.getBoundingClientRect().width / 2
+      : window.innerWidth / 2;
+    const cy = event?.currentTarget
+      ? event.currentTarget.getBoundingClientRect().top + event.currentTarget.getBoundingClientRect().height / 2
+      : window.innerHeight / 2;
 
     if (prefersReducedMotion || !document.startViewTransition) {
       if (prefersReducedMotion) {
@@ -169,33 +192,22 @@ function App() {
         return;
       }
 
+      const wave = { x: cx, y: cy, radius: Math.hypot(Math.max(cx, window.innerWidth - cx), Math.max(cy, window.innerHeight - cy)) };
       runFallbackThemeWave(wave, nextTheme);
       return;
     }
 
-    const transition = document.startViewTransition(() => {
+    const radius = Math.hypot(
+      Math.max(cx, window.innerWidth - cx),
+      Math.max(cy, window.innerHeight - cy),
+    );
+    document.documentElement.style.setProperty('--vt-x', `${cx}px`);
+    document.documentElement.style.setProperty('--vt-y', `${cy}px`);
+    document.documentElement.style.setProperty('--vt-r', `${radius}px`);
+
+    document.startViewTransition(() => {
       commitTheme(nextTheme, true);
     });
-
-    transition.ready
-      .then(() => {
-        document.documentElement.animate(
-          {
-            clipPath: [
-              `circle(0px at ${wave.x}px ${wave.y}px)`,
-              `circle(${wave.radius}px at ${wave.x}px ${wave.y}px)`,
-            ],
-          },
-          {
-            duration: 760,
-            easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-            pseudoElement: '::view-transition-new(root)',
-          },
-        );
-      })
-      .catch(() => {
-        commitTheme(nextTheme);
-      });
   };
 
   return (
@@ -217,20 +229,8 @@ function App() {
         <div className="scanlines"></div>
 
         {/* Sidebar */}
-        <Sidebar />
-
-        {!isBooting && (
-          <button
-            type="button"
-            className="theme-toggle-button"
-            onClick={toggleTheme}
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          >
-            {theme === 'light' ? <FaMoon size={12} /> : <FaSun size={12} />}
-            <span>{theme === 'light' ? 'Dark' : 'Light'}</span>
-          </button>
-        )}
+        <Sidebar isWideRoute={isWideRoute} />
+        {showSectionIndex && <SectionIndex />}
 
         {themeWave && (
           <span
@@ -254,13 +254,14 @@ function App() {
             <div className="content-border" id="main-content">
               <Suspense fallback={<PageFallback />}>
                 <Routes location={location} key={location.pathname}>
-                  <Route path="/" element={<Home />} />
+                  <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} onOpenCmdk={() => setCmdkOpen(true)} />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/projects" element={<ProjectsPage />} />
                   <Route path="/projects/:slug" element={<ProjectDetail />} />
                   <Route path="/open-source" element={<OpenSourcePage />} />
                   <Route path="/skill" element={<Skills />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/resume" element={<Resume />} />
                 </Routes>
               </Suspense>
             </div>
@@ -271,6 +272,16 @@ function App() {
         {!isBooting && shouldLoadAiDock && (
           <Suspense fallback={null}>
             <AiSummaryDock />
+          </Suspense>
+        )}
+        {!isBooting && (
+          <Suspense fallback={null}>
+            <CommandPalette
+              isOpen={cmdkOpen}
+              onClose={() => setCmdkOpen(false)}
+              theme={theme}
+              toggleTheme={toggleTheme}
+            />
           </Suspense>
         )}
         {!isBooting && <CustomCursor />}

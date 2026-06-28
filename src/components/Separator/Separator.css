@@ -1,22 +1,15 @@
 .section-separator {
-  width: calc(100% + 32px);
-  margin: 8px -16px;
+  width: calc(100% + (var(--content-padding-x) * 2));
+  margin: 8px calc(var(--content-padding-x) * -1);
   height: 16px;
-  border-top: 1px dashed var(--zinc-800);
-  border-bottom: 1px dashed var(--zinc-800);
+  border-top: 1px dashed var(--zinc-700);
+  border-bottom: 1px dashed var(--zinc-700);
   background: repeating-linear-gradient(
     -45deg,
     transparent,
     transparent 8px,
-    var(--zinc-800) 8px,
-    var(--zinc-800) 9px
+    var(--zinc-700) 8px,
+    var(--zinc-700) 9px
   );
-  opacity: 0.5;
-}
-
-@media (min-width: 640px) {
-  .section-separator {
-    width: calc(100% + 80px);
-    margin: 8px -40px;
-  }
+  opacity: 0.65;
 }

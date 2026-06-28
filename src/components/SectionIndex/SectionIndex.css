@@ -1,0 +1,80 @@
+.section-index {
+  position: fixed;
+  right: calc(50% + 382px);
+  top: calc(50% - 148px);
+  z-index: 46;
+  display: none;
+  width: 130px;
+  color: var(--zinc-600);
+  text-align: right;
+  pointer-events: auto;
+}
+
+.section-index-title {
+  display: block;
+  margin-bottom: 16px;
+  font-family: var(--font-jetbrains);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--zinc-500);
+}
+
+.section-index-nav {
+  display: grid;
+  gap: 15px;
+}
+
+.section-index-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 18px;
+  padding-right: 18px;
+  font-family: var(--font-geist);
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--zinc-600);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.section-index-link::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 9px;
+  height: 1px;
+  background: var(--zinc-700);
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: right;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.section-index-link:hover {
+  color: var(--zinc-300);
+}
+
+.section-index-link.active {
+  color: var(--zinc-100);
+  font-weight: 600;
+}
+
+.section-index-link.active::after {
+  background: var(--zinc-300);
+  transform: translateY(-50%) scaleX(1);
+}
+
+@media (min-width: 1180px) {
+  .section-index {
+    display: block;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section-index {
+    right: calc(50% + 384px);
+  }
+}

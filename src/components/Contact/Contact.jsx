@@ -2,6 +2,8 @@ import './Contact.css';
 import { FaGithub, FaLinkedinIn, FaEnvelope, FaFileDownload, FaCheck } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import SocialHoverCard from '../SocialHoverCard/SocialHoverCard';
 
 const Contact = () => {
   const [copied, setCopied] = useState(false);
@@ -92,16 +94,14 @@ const Contact = () => {
             <span>{copied ? "Email Copied!" : email}</span>
           </button>
           
-          <a 
-            href="https://drive.google.com/file/d/1ZTOkMCdRPItP7UQhPIlFogsYbIAUGu9p/view?usp=sharing"
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <Link
+            to="/resume"
             className="contact-action-btn"
             aria-label="View Resume"
           >
             <FaFileDownload size={14} />
             <span>View Resume</span>
-          </a>
+          </Link>
         </div>
 
         <div className="contact-terminal">
@@ -178,15 +178,21 @@ const Contact = () => {
         <div className="contact-socials-wrapper">
           <span className="socials-label">// FIND ME ONLINE</span>
           <div className="contact-socials">
-            <a href="https://github.com/macayu17" target="_blank" rel="noopener noreferrer" className="contact-social-link" aria-label="GitHub">
-              <FaGithub size={20} />
-            </a>
-            <a href="https://www.linkedin.com/in/anayush14/" target="_blank" rel="noopener noreferrer" className="contact-social-link" aria-label="LinkedIn">
-              <FaLinkedinIn size={20} />
-            </a>
-            <a href="https://x.com/ayush_174_" target="_blank" rel="noopener noreferrer" className="contact-social-link" aria-label="X">
-              <FaXTwitter size={20} />
-            </a>
+            <SocialHoverCard socialName="GitHub">
+              <a href="https://github.com/macayu17" target="_blank" rel="noopener noreferrer" className="contact-social-link" aria-label="GitHub">
+                <FaGithub size={20} />
+              </a>
+            </SocialHoverCard>
+            <SocialHoverCard socialName="LinkedIn">
+              <a href="https://www.linkedin.com/in/anayush14/" target="_blank" rel="noopener noreferrer" className="contact-social-link" aria-label="LinkedIn">
+                <FaLinkedinIn size={20} />
+              </a>
+            </SocialHoverCard>
+            <SocialHoverCard socialName="X">
+              <a href="https://x.com/ayush_174_" target="_blank" rel="noopener noreferrer" className="contact-social-link" aria-label="X">
+                <FaXTwitter size={20} />
+              </a>
+            </SocialHoverCard>
           </div>
         </div>
       </div>

@@ -31,4 +31,15 @@ describe('contribution calendar data', () => {
     expect(result[0].date).toBe('2025-07-06');
     expect(result.at(-1).date).toBe('2026-05-09');
   });
+
+  test('clamps extendToEndOfMonth to today so no future weeks appear', () => {
+    const result = getWeekPaddedContributionRange([], {
+      monthsBack: 11,
+      now: new Date(2026, 5, 20),
+      extendToEndOfMonth: true,
+    });
+
+    expect(result[0].date).toBe('2025-07-20');
+    expect(result.at(-1).date).toBe('2026-06-20');
+  });
 });

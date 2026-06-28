@@ -5,7 +5,7 @@ const HORIZONTAL_SAFE_SPACE = 8;
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
 export const getContributionCalendarLayout = ({ containerWidth = 0, compact = false } = {}) => {
-  const maxBlockSize = compact ? 6 : 9;
+  const maxBlockSize = compact ? 6 : 11;
   const minBlockSize = compact ? 4 : 5;
   const weekColumns = compact ? MOBILE_WEEK_COLUMNS : DESKTOP_WEEK_COLUMNS;
   const usableWidth = Math.max(containerWidth - HORIZONTAL_SAFE_SPACE, 0);

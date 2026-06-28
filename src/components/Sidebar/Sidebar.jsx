@@ -4,25 +4,22 @@ import { FaHome, FaUser, FaCode, FaEnvelope, FaFolderOpen } from 'react-icons/fa
 import { GiOwl } from 'react-icons/gi';
 
 const navItems = [
-  { path: '/', icon: <FaHome size={20} />, label: 'Home' },
-  { path: '/projects', icon: <FaFolderOpen size={20} />, label: 'Projects' },
-  { path: '/about', icon: <FaUser size={20} />, label: 'About' },
-  { path: '/skill', icon: <FaCode size={20} />, label: 'Skills' },
-  { path: 'https://codolio.com/profile/anayush', icon: <GiOwl size={20} />, label: 'Codolio', external: true },
-  { path: '/contact', icon: <FaEnvelope size={20} />, label: 'Contact' },
+  { path: '/', icon: <FaHome size={15} />, label: 'Home' },
+  { path: '/projects', icon: <FaFolderOpen size={15} />, label: 'Projects' },
+  { path: '/about', icon: <FaUser size={15} />, label: 'About' },
+  { path: '/skill', icon: <FaCode size={15} />, label: 'Skills' },
+  { path: 'https://codolio.com/profile/anayush', icon: <GiOwl size={15} />, label: 'Codolio', external: true },
+  { path: '/contact', icon: <FaEnvelope size={15} />, label: 'Contact' },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isWideRoute = false }) {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="sidebar">
+      <aside className={`sidebar${isWideRoute ? ' sidebar-wide' : ''}`}>
         {/* Logo */}
-        <NavLink to="/" className="sidebar-logo">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="12" y="16" width="12" height="12" rx="5" />
-            <path d="M24 16v12" />
-          </svg>
+        <NavLink to="/" className="sidebar-logo" aria-label="Home">
+          <img src="/favicon.png" alt="Ayush" className="sidebar-logo-img" />
         </NavLink>
 
         {/* Nav Items */}

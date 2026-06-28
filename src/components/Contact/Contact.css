@@ -53,7 +53,7 @@
   font-size: 0.8rem;
   color: var(--zinc-300);
   background: transparent;
-  border: 1px dashed var(--zinc-700);
+  border: 1px solid var(--soft-border);
   padding: 10px 20px;
   border-radius: 6px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

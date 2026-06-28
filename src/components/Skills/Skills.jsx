@@ -44,19 +44,19 @@ const Skills = () => {
     },
     {
       title: 'ML & Data',
-      skills: ['PyTorch', 'Hugging Face Transformers', 'scikit-learn', 'NumPy', 'Pandas', 'Time-Series Modeling']
+      skills: ['PyTorch', 'Hugging Face Transformers', 'scikit-learn', 'NumPy', 'Pandas']
     },
     {
       title: 'Backend & APIs',
-      skills: ['FastAPI', 'Flask', 'Node.js', 'Express', 'REST APIs', 'WebSockets', 'Async Processing']
+      skills: ['FastAPI', 'Flask', 'Node.js', 'Express', 'REST APIs', 'WebSockets']
     },
     {
       title: 'Frontend',
-      skills: ['Next.js', 'React', 'Vite', 'D3.js', 'Tailwind CSS']
+      skills: ['Next.js', 'React', 'Vite', 'Tailwind CSS']
     },
     {
       title: 'Infra & DevOps',
-      skills: ['Docker', 'Linux', 'Git', 'CI/CD Pipelines']
+      skills: ['Docker', 'Linux', 'Git']
     },
     {
       title: 'Databases & Cloud',

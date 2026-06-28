@@ -20,6 +20,12 @@ const getStartOfWeek = (date) => addDays(startOfLocalDay(date), -startOfLocalDay
 
 const getEndOfWeek = (date) => addDays(getStartOfWeek(date), 6);
 
+const getEndOfMonth = (date) => new Date(
+  date.getFullYear(),
+  date.getMonth() + 1,
+  0,
+);
+
 const getCutoffDate = (now, monthsBack) => {
   const cutoffDate = startOfLocalDay(now);
   cutoffDate.setMonth(cutoffDate.getMonth() - monthsBack);
@@ -34,7 +40,7 @@ const createEmptyContributionDay = (date) => ({
 
 export const getWeekPaddedContributionRange = (
   contributions,
-  { monthsBack = 12, now = new Date() } = {},
+  { monthsBack = 12, now = new Date(), extendToEndOfMonth = false } = {},
 ) => {
   const contributionByDate = new Map(
     (Array.isArray(contributions) ? contributions : [])
@@ -42,8 +48,11 @@ export const getWeekPaddedContributionRange = (
       .map((contribution) => [contribution.date, contribution]),
   );
 
+  const today = startOfLocalDay(now);
   const startDate = getStartOfWeek(getCutoffDate(now, monthsBack));
-  const endDate = getEndOfWeek(startOfLocalDay(now));
+  const maxEndDate = getEndOfWeek(today);
+  const desiredEndDate = extendToEndOfMonth ? getEndOfMonth(today) : today;
+  const endDate = desiredEndDate > maxEndDate ? maxEndDate : getEndOfWeek(desiredEndDate);
   const paddedRange = [];
 
   for (let currentDate = startDate; currentDate <= endDate; currentDate = addDays(currentDate, 1)) {

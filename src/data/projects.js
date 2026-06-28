@@ -77,7 +77,7 @@ const rawProjectCatalog = [
   {
     slug: 'sentinel',
     title: 'Sentinel',
-    status: 'Ongoing',
+    status: 'Building',
     category: 'Market microstructure simulator',
     summary: 'Multi-agent market simulator with liquidity shock prediction and hidden institutional order detection.',
     details: [
@@ -117,6 +117,8 @@ const rawProjectCatalog = [
     github: 'https://github.com/macayu17/Engram',
     live: 'https://engram.ayushh.in',
     image: engramImage,
+    imageDark: '/ProjectPreviews/EngramDark.png',
+    imageLight: '/ProjectPreviews/EngramLight.png',
     accent: '#14b8a6'
   },
   {
@@ -173,6 +175,8 @@ const rawProjectCatalog = [
     github: 'https://github.com/macayu17/Equityflow',
     live: 'https://equityflow.ayushh.in',
     image: equityFlowImage,
+    imageDark: '/ProjectPreviews/EquityflowDark.png',
+    imageLight: '/ProjectPreviews/EquityflowLight.png',
     accent: '#eab308'
   },
   {
@@ -276,7 +280,16 @@ export const funProjectCatalog = funProjectSlugs
 export const coreProjectCatalog = projectCatalog
   .filter((project) => !funProjectSlugs.includes(project.slug));
 
-export const featuredProjects = coreProjectCatalog.slice(0, 4);
+export const featuredProjectSlugs = [
+  'sentinel',
+  'engram',
+  'equityflow',
+  'occasio',
+];
+
+export const featuredProjects = featuredProjectSlugs
+  .map((slug) => projectLookup.get(slug))
+  .filter(Boolean);
 
 export const getProjectBySlug = (slug) =>
   projectCatalog.find((project) => project.slug === slug);

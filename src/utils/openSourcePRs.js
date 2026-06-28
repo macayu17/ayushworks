@@ -1,5 +1,5 @@
-const CACHE_KEY = 'portfolio-open-source-contributions-v6';
-const OPEN_SOURCE_ENDPOINT = '/api/open-source?contributions=v6';
+const CACHE_KEY = 'portfolio-open-source-contributions-v7';
+const OPEN_SOURCE_ENDPOINT = '/api/open-source?contributions=v7';
 export const OPEN_SOURCE_CACHE_TTL = 6 * 60 * 60 * 1000;
 
 const getStorage = () => {

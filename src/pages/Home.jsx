@@ -2,7 +2,7 @@ import Hero from '../components/Hero/Hero';
 import Projects from '../components/Projects/Projects';
 import Education from '../components/Education/Education';
 import Separator from '../components/Separator/Separator';
-import { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaFlask } from 'react-icons/fa';
 import { featuredProjects, funProjectCatalog } from '../data/projects';
@@ -152,6 +152,15 @@ const OpenSourcePreview = () => {
   }, []);
 
   const tabs = ['Merged', 'Open', 'Closed'];
+  const activeTabIndex = tabs.indexOf(activeStatus);
+  const statusCounts = useMemo(
+    () =>
+      entries.reduce((counts, entry) => {
+        counts[entry.status] = (counts[entry.status] || 0) + 1;
+        return counts;
+      }, {}),
+    [entries],
+  );
   const visibleEntries = entries.filter((entry) => entry.status === activeStatus);
   const previewEntries = visibleEntries.slice(0, 4);
 
@@ -162,7 +171,13 @@ const OpenSourcePreview = () => {
           <span className="home-open-source-kicker">Open Source</span>
           <h2>Open Source Contributions</h2>
         </div>
-        <div className="home-open-source-tabs" role="tablist" aria-label="Contribution status">
+        <div
+          className="home-open-source-tabs"
+          role="tablist"
+          aria-label="Contribution status"
+          style={{ '--active-tab-index': activeTabIndex }}
+        >
+          <span className="home-open-source-tab-indicator" aria-hidden="true" />
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -172,13 +187,18 @@ const OpenSourcePreview = () => {
               aria-selected={activeStatus === tab}
               role="tab"
             >
-              {tab}
+              <span>{tab}</span>
+              {activeStatus === tab && (
+                <span className="home-open-source-tab-count">
+                  {status === 'loading' ? '-' : statusCounts[tab] || 0}
+                </span>
+              )}
             </button>
           ))}
         </div>
       </div>
 
-      <div className="home-open-source-list">
+      <div key={activeStatus} className="home-open-source-list">
         {status === 'loading' &&
           Array.from({ length: 4 }).map((_, index) => (
             <div key={index} className="home-open-source-row skeleton" />

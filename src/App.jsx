@@ -215,58 +215,60 @@ function App() {
       <ErrorBoundary>
         {isBooting && <BootScreen onComplete={handleBootComplete} />}
 
-        <MatrixRain />
+        <div className={`app-shell${isBooting ? ' app-shell-hidden' : ''}`}>
+          <MatrixRain />
 
-        {/* Side pattern strips */}
-        <div className="side-pattern left">
-          <div className="side-pattern-inner"></div>
-        </div>
-        <div className="side-pattern right">
-          <div className="side-pattern-inner"></div>
-        </div>
+          {/* Side pattern strips */}
+          <div className="side-pattern left">
+            <div className="side-pattern-inner"></div>
+          </div>
+          <div className="side-pattern right">
+            <div className="side-pattern-inner"></div>
+          </div>
 
-        {/* Global effects */}
-        <div className="scanlines"></div>
+          {/* Global effects */}
+          <div className="scanlines"></div>
 
-        {/* Sidebar */}
-        <Sidebar isWideRoute={isWideRoute} />
-        {showSectionIndex && <SectionIndex />}
+          {/* Sidebar */}
+          <Sidebar isWideRoute={isWideRoute} />
+          {showSectionIndex && <SectionIndex />}
 
-        {themeWave && (
-          <span
-            key={themeWave.id}
-            className={`theme-wave theme-wave-${themeWave.theme}`}
-            aria-hidden="true"
-            style={{
-              '--wave-x': `${themeWave.x}px`,
-              '--wave-y': `${themeWave.y}px`,
-              '--wave-size': `${themeWave.radius * 2}px`,
-            }}
-          />
-        )}
+          {themeWave && (
+            <span
+              key={themeWave.id}
+              className={`theme-wave theme-wave-${themeWave.theme}`}
+              aria-hidden="true"
+              style={{
+                '--wave-x': `${themeWave.x}px`,
+                '--wave-y': `${themeWave.y}px`,
+                '--wave-size': `${themeWave.radius * 2}px`,
+              }}
+            />
+          )}
 
-        {/* Main content */}
-        <div className="main-wrapper" style={{ opacity: isBooting ? 0 : 1, transition: 'opacity 0.8s ease-in' }}>
-          <a href="#main-content" className="skip-link">
-            Skip to content
-          </a>
-          <main className={`main-content${isWideRoute ? ' main-content-wide' : ''}`}>
-            <div className="content-border" id="main-content">
-              <Suspense fallback={<PageFallback />}>
-                <Routes location={location} key={location.pathname}>
-                  <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} onOpenCmdk={() => setCmdkOpen(true)} />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/projects" element={<ProjectsPage />} />
-                  <Route path="/projects/:slug" element={<ProjectDetail />} />
-                  <Route path="/open-source" element={<OpenSourcePage />} />
-                  <Route path="/skill" element={<Skills />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/resume" element={<Resume />} />
-                </Routes>
-              </Suspense>
-            </div>
-            <Footer />
-          </main>
+          {/* Main content */}
+          <div className="main-wrapper">
+            <a href="#main-content" className="skip-link">
+              Skip to content
+            </a>
+            <main className={`main-content${isWideRoute ? ' main-content-wide' : ''}`}>
+              <div className="content-border" id="main-content">
+                <Suspense fallback={<PageFallback />}>
+                  <Routes location={location} key={location.pathname}>
+                    <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} onOpenCmdk={() => setCmdkOpen(true)} />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/projects" element={<ProjectsPage />} />
+                    <Route path="/projects/:slug" element={<ProjectDetail />} />
+                    <Route path="/open-source" element={<OpenSourcePage />} />
+                    <Route path="/skill" element={<Skills />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/resume" element={<Resume />} />
+                  </Routes>
+                </Suspense>
+              </div>
+              <Footer />
+            </main>
+          </div>
         </div>
 
         {!isBooting && shouldLoadAiDock && (

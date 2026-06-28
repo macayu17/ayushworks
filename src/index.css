@@ -161,6 +161,16 @@ textarea:focus-visible,
 }
 
 /* ===== SCANLINE OVERLAY ===== */
+.app-shell {
+  opacity: 1;
+  transition: opacity 0.8s ease-in;
+}
+
+.app-shell-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .scanlines {
   position: fixed;
   inset: 0;

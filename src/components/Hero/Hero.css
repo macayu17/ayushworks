@@ -201,9 +201,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
+  width: 42px;
   height: 28px;
-  padding: 0;
+  padding: 0 10px;
   border: 1px solid var(--soft-border);
   border-radius: 8px;
   background: transparent;
@@ -217,8 +217,9 @@
 
 .hero-cmdk-btn kbd {
   font-family: var(--font-jetbrains);
-  font-size: 0.58rem;
+  font-size: 0.62rem;
   color: var(--zinc-500);
+  white-space: nowrap;
 }
 
 .hero-theme-btn {

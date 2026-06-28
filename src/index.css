@@ -163,7 +163,7 @@ textarea:focus-visible,
 /* ===== SCANLINE OVERLAY ===== */
 .app-shell {
   opacity: 1;
-  transition: opacity 0.8s ease-in;
+  transition: opacity 0.42s ease-out;
 }
 
 .app-shell-hidden {
@@ -413,7 +413,7 @@ textarea:focus-visible,
 }
 
 .page-transition {
-  animation: page-enter 0.32s ease-out both;
+  animation: page-enter 0.22s ease-out both;
 }
 
 @keyframes page-enter {

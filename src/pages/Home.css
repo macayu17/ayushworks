@@ -240,7 +240,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 7px;
   min-width: 68px;
   min-height: 34px;
   padding: 0 12px;
@@ -264,8 +264,13 @@
 }
 
 .home-open-source-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 1.35em;
   color: var(--zinc-500);
   font-size: 0.68rem;
+  line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 

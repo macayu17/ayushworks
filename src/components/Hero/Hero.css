@@ -175,7 +175,7 @@
   justify-content: center;
   gap: 8px;
   box-sizing: border-box;
-  width: 108px;
+  width: 118px;
   height: 32px;
   padding: 7px 12px;
   border: 1px solid var(--soft-border);
@@ -184,6 +184,7 @@
   font-size: 0.75rem;
   color: var(--zinc-500);
   background: transparent;
+  white-space: nowrap;
 }
 
 .hero-views-icon {

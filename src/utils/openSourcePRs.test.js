@@ -35,7 +35,7 @@ describe('open source PR loader', () => {
 
     const result = await loadOpenSourcePRs({ forceRefresh: true });
 
-    expect(fetchMock).toHaveBeenCalledWith('/api/open-source?contributions=v5', { cache: 'no-store' });
+    expect(fetchMock).toHaveBeenCalledWith('/api/open-source?contributions=v6', { cache: 'no-store' });
     expect(result).toMatchObject({
       prs: apiPayload.prs,
       fromCache: false,
@@ -50,7 +50,7 @@ describe('open source PR loader', () => {
 
   test('uses a fresh local cache without calling the API', async () => {
     localStorage.setItem(
-      'portfolio-open-source-contributions-v5',
+      'portfolio-open-source-contributions-v6',
       JSON.stringify({ data: apiPayload.prs, updatedAt: Date.now() }),
     );
     const fetchMock = vi.fn();
@@ -65,7 +65,7 @@ describe('open source PR loader', () => {
 
   test('refreshes local contribution data after the 6-hour cache window', async () => {
     localStorage.setItem(
-      'portfolio-open-source-contributions-v5',
+      'portfolio-open-source-contributions-v6',
       JSON.stringify({
         data: [],
         updatedAt: Date.now() - OPEN_SOURCE_CACHE_TTL - 1,
@@ -79,7 +79,7 @@ describe('open source PR loader', () => {
 
     const result = await loadOpenSourcePRs();
 
-    expect(fetchMock).toHaveBeenCalledWith('/api/open-source?contributions=v5', { cache: 'no-store' });
+    expect(fetchMock).toHaveBeenCalledWith('/api/open-source?contributions=v6', { cache: 'no-store' });
     expect(result.prs).toEqual(apiPayload.prs);
     expect(result.fromCache).toBe(false);
   });

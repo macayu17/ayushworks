@@ -154,7 +154,6 @@ const OpenSourcePreview = () => {
   const tabs = ['Merged', 'Open', 'Closed'];
   const visibleEntries = entries.filter((entry) => entry.status === activeStatus);
   const previewEntries = visibleEntries.slice(0, 4);
-  const remainingCount = Math.max(visibleEntries.length - previewEntries.length, 0);
 
   return (
     <section className="home-open-source" id="open-source-preview">
@@ -212,7 +211,7 @@ const OpenSourcePreview = () => {
 
       <div className="home-open-source-footer">
         <Link to="/open-source" className="home-open-source-view-all">
-          View All{remainingCount > 0 ? ` (${remainingCount} more)` : ''}
+          View All
           <FaArrowRight size={11} />
         </Link>
       </div>

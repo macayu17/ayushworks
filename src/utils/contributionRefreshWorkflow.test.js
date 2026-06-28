@@ -12,7 +12,7 @@ describe('contribution refresh workflow', () => {
 
   test('warms the production contribution API every 6 hours', () => {
     expect(workflow).toContain('cron: "0 */6 * * *"');
-    expect(workflow).toContain('CONTRIBUTIONS_ENDPOINT: https://www.ayushh.in/api/open-source?contributions=v5');
+    expect(workflow).toContain('CONTRIBUTIONS_ENDPOINT: https://www.ayushh.in/api/open-source?contributions=v6');
     expect(workflow).toContain('--header "Cache-Control: no-cache"');
   });
 

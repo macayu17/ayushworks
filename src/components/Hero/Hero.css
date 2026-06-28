@@ -1,9 +1,8 @@
 .hero {
   padding-bottom: 24px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: flex-start;
-  flex-wrap: wrap;
   gap: 24px;
 }
 
@@ -277,6 +276,8 @@
 
 @media (max-width: 639px) {
   .hero {
+    display: flex;
+    flex-direction: column;
     gap: 18px;
     padding-bottom: 18px;
   }

@@ -2,7 +2,7 @@ import Hero from '../components/Hero/Hero';
 import Projects from '../components/Projects/Projects';
 import Education from '../components/Education/Education';
 import Separator from '../components/Separator/Separator';
-import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaFlask } from 'react-icons/fa';
 import { featuredProjects, funProjectCatalog } from '../data/projects';
@@ -153,14 +153,6 @@ const OpenSourcePreview = () => {
 
   const tabs = ['Merged', 'Open', 'Closed'];
   const activeTabIndex = tabs.indexOf(activeStatus);
-  const statusCounts = useMemo(
-    () =>
-      entries.reduce((counts, entry) => {
-        counts[entry.status] = (counts[entry.status] || 0) + 1;
-        return counts;
-      }, {}),
-    [entries],
-  );
   const visibleEntries = entries.filter((entry) => entry.status === activeStatus);
   const previewEntries = visibleEntries.slice(0, 4);
 
@@ -188,11 +180,6 @@ const OpenSourcePreview = () => {
               role="tab"
             >
               <span>{tab}</span>
-              {activeStatus === tab && (
-                <span className="home-open-source-tab-count">
-                  {status === 'loading' ? '-' : statusCounts[tab] || 0}
-                </span>
-              )}
             </button>
           ))}
         </div>

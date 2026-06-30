@@ -251,6 +251,7 @@
   font-family: var(--font-geist);
   font-size: 0.74rem;
   font-weight: 650;
+  white-space: nowrap;
   cursor: pointer;
   transition: color 0.2s ease;
 }
@@ -261,17 +262,6 @@
 
 .home-open-source-tab.active {
   color: var(--zinc-100);
-}
-
-.home-open-source-tab-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-end;
-  min-width: 1.35em;
-  color: var(--zinc-500);
-  font-size: 0.68rem;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
 }
 
 .home-open-source-list {

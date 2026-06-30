@@ -309,7 +309,7 @@
   }
 
   .hero-name {
-    font-size: clamp(3.05rem, 16vw, 4rem);
+    font-size: clamp(2.35rem, 12vw, 3rem);
     letter-spacing: -0.04em;
   }
 

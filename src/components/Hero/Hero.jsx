@@ -91,7 +91,7 @@ const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
           <p>I build full-stack apps, AI tools, and backend systems.</p>
           <ul>
             <li>I like working on ideas that are just hard enough to be interesting.</li>
-            <li>Lately I've been deep into agents, memory, automation, infra, and product UX.</li>
+            <li>Lately: agents, memory, automation, infra, and product UX.</li>
             <li>
               Currently building <strong>Engram</strong>, <strong>Sentinel</strong>, and a few AI-native experiments.
             </li>

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useMemo, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
@@ -92,6 +92,14 @@ function App() {
   const [themeWave, setThemeWave] = useState(null);
   const [shouldLoadAiDock, setShouldLoadAiDock] = useState(false);
   const [cmdkOpen, setCmdkOpen] = useState(false);
+  // ponytail: one preloaded element, reused. Swap for WebAudio only if overlapping plays are needed.
+  const themeSoundRef = useRef(null);
+  if (themeSoundRef.current === null && typeof Audio !== 'undefined') {
+    themeSoundRef.current = new Audio('/paper-slide.wav');
+    themeSoundRef.current.volume = 0.32;
+    themeSoundRef.current.preload = 'auto';
+    themeSoundRef.current.load();
+  }
 
   useEffect(() => {
     applyThemeToDocument(theme);
@@ -165,8 +173,8 @@ function App() {
 
   const playThemeSound = () => {
     try {
-      const audio = new Audio('/paper-slide.wav');
-      audio.volume = 0.32;
+      const audio = themeSoundRef.current;
+      audio.currentTime = 0;
       audio.play().catch(() => {});
     } catch {
       /* audio playback unavailable */

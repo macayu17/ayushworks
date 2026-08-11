@@ -27,4 +27,14 @@ describe('performance-sensitive imports', () => {
     expect(appSource).toContain("const AiSummaryDock = lazy(() => import('./components/AiSummaryDock/AiSummaryDock'))");
     expect(appSource).not.toContain("import AiSummaryDock from './components/AiSummaryDock/AiSummaryDock'");
   });
+
+  test('reveals the sidebar and route content in the same startup fade', () => {
+    const appSource = source('src/App.jsx');
+    const cssSource = source('src/index.css');
+    const shellStart = appSource.indexOf('<div className="app-shell">');
+    const suspenseStart = appSource.lastIndexOf('<Suspense fallback={null}>', shellStart);
+
+    expect(suspenseStart).toBeGreaterThan(-1);
+    expect(cssSource).toMatch(/\.app-shell\s*\{[^}]*animation:\s*app-shell-enter/s);
+  });
 });

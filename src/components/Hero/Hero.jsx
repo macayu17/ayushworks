@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import './Hero.css';
 import { FaEnvelope, FaGithub, FaLinkedinIn, FaFileAlt, FaMoon, FaSun } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
@@ -8,6 +8,79 @@ import { getPortfolioViewCount } from '../../utils/viewCounter';
 import SocialHoverCard from '../SocialHoverCard/SocialHoverCard';
 
 const texts = ['22 • Bengaluru, India', 'CSE undergrad • AI + full-stack'];
+const INTRO_LOAD_MS = 600;
+const WORD_MS = 30;
+
+let introWordIndex = 0;
+const introLines = [
+  { parts: [{ text: 'I build full-stack apps, AI tools, and backend systems.' }] },
+  { parts: [{ text: 'I like working on ideas that are just hard enough to be interesting.' }] },
+  { parts: [{ text: 'Lately: agents, memory, automation, infra, and product UX.' }] },
+  {
+    parts: [
+      { text: 'Currently building' },
+      { text: 'Engram,', strong: true },
+      { text: 'Sentinel,', strong: true },
+      { text: 'and a few AI-native experiments.' },
+    ],
+  },
+].map((line) => ({
+  ...line,
+  parts: line.parts.map((part) => ({
+    ...part,
+    words: part.text.split(' ').map((text) => ({ text, index: introWordIndex++ })),
+  })),
+}));
+const INTRO_WORD_COUNT = introWordIndex;
+const pixelDelays = Array.from({ length: 9 }, (_, index) => {
+  const row = Math.floor(index / 3);
+  const column = index % 3;
+  return (column + Math.abs(row - 1)) * 90;
+});
+
+const StreamingParts = ({ parts }) => parts.map((part, partIndex) => {
+  const words = part.words.map(({ text, index }) => (
+    <Fragment key={`${text}-${index}`}>
+      <span
+        className="hero-intro-word"
+        style={{ '--word-delay': `${index * WORD_MS}ms` }}
+      >
+        {text}
+      </span>{' '}
+    </Fragment>
+  ));
+
+  return part.strong ? (
+    <strong key={partIndex}>{words}</strong>
+  ) : (
+    <Fragment key={partIndex}>{words}</Fragment>
+  );
+});
+
+const HeroLoadingState = () => {
+  const [deciseconds, setDeciseconds] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setDeciseconds((value) => value + 1), 100);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="hero-loading-state" role="status" aria-live="polite">
+      <span className="hero-loader-grid" aria-hidden="true">
+        {pixelDelays.map((delay, index) => (
+          <span
+            key={index}
+            className="hero-loader-cell"
+            style={{ '--pixel-delay': `${delay}ms` }}
+          />
+        ))}
+      </span>
+      <span className="hero-loader-label">Loading profile</span>
+      <span className="hero-loader-time">{(deciseconds / 10).toFixed(1)}s</span>
+    </div>
+  );
+};
 
 const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
   const [displayText, setDisplayText] = useState('');
@@ -15,6 +88,18 @@ const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
   const [views, setViews] = useState(null);
+  const [isIntroLoading, setIsIntroLoading] = useState(() => (
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ));
+
+  useEffect(() => {
+    if (!isIntroLoading) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => setIsIntroLoading(false), INTRO_LOAD_MS);
+    return () => window.clearTimeout(timer);
+  }, [isIntroLoading]);
 
   useEffect(() => {
     let isActive = true;
@@ -87,18 +172,25 @@ const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
           </div>
         </div>
 
-        <div className="hero-intro">
-          <p>I build full-stack apps, AI tools, and backend systems.</p>
-          <ul>
-            <li>I like working on ideas that are just hard enough to be interesting.</li>
-            <li>Lately: agents, memory, automation, infra, and product UX.</li>
-            <li>
-              Currently building <strong>Engram</strong>, <strong>Sentinel</strong>, and a few AI-native experiments.
-            </li>
-          </ul>
+        <div className="hero-intro" aria-busy={isIntroLoading}>
+          {isIntroLoading ? (
+            <HeroLoadingState />
+          ) : (
+            <>
+              <p><StreamingParts parts={introLines[0].parts} /></p>
+              <ul>
+                {introLines.slice(1).map((line, index) => (
+                  <li key={index}><StreamingParts parts={line.parts} /></li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
 
-        <div className="hero-social-box">
+        <div
+          className={`hero-social-box ${isIntroLoading ? 'hero-social-pending' : 'hero-social-ready'}`}
+          style={{ '--social-delay': `${INTRO_WORD_COUNT * WORD_MS + 250}ms` }}
+        >
           <SocialHoverCard socialName="GitHub">
             <a href="https://github.com/macayu17" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="GitHub">
               <FaGithub size={16} />

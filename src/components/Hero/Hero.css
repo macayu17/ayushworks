@@ -111,10 +111,55 @@
 
 .hero-intro {
   margin-top: 28px;
+  min-height: 106px;
   max-width: 720px;
   font-family: var(--font-jetbrains);
   color: var(--zinc-300);
   letter-spacing: -0.045em;
+}
+
+.hero-intro-word {
+  display: inline-block;
+  animation: hero-stream-in 420ms cubic-bezier(0.22, 0.61, 0.25, 1) var(--word-delay) both;
+}
+
+.hero-loading-state {
+  min-height: 106px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--zinc-500);
+}
+
+.hero-loader-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 4px);
+  gap: 2px;
+}
+
+.hero-loader-cell {
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: var(--zinc-200);
+  opacity: 0.15;
+  animation: hero-pixel-on 650ms ease-in-out var(--pixel-delay) infinite;
+}
+
+.hero-loader-label {
+  color: transparent;
+  background: linear-gradient(90deg, var(--zinc-600) 35%, var(--zinc-200) 50%, var(--zinc-600) 65%);
+  background-size: 200% 100%;
+  background-clip: text;
+  font-size: 0.78rem;
+  font-weight: 500;
+  animation: hero-shimmer 1.4s linear infinite;
+}
+
+.hero-loader-time {
+  color: var(--zinc-600);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .hero-intro p {
@@ -152,6 +197,14 @@
   border: 1px solid var(--soft-border);
   border-radius: 10px;
   background: transparent;
+}
+
+.hero-social-pending {
+  opacity: 0;
+}
+
+.hero-social-ready {
+  animation: hero-social-in 350ms ease-out var(--social-delay) both;
 }
 
 .hero-social-link {
@@ -336,7 +389,12 @@
 
   .hero-intro {
     margin-top: 22px;
+    min-height: 122px;
     max-width: 100%;
+  }
+
+  .hero-loading-state {
+    min-height: 122px;
   }
 
   .hero-intro p {
@@ -391,4 +449,48 @@
 @keyframes pulse-green {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
+}
+
+@keyframes hero-stream-in {
+  from {
+    opacity: 0;
+    filter: blur(7px);
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-pixel-on {
+  0%, 100% { opacity: 0.15; }
+  45% { opacity: 1; }
+}
+
+@keyframes hero-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@keyframes hero-social-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-intro-word,
+  .hero-social-ready {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    animation-delay: 0ms !important;
+  }
 }

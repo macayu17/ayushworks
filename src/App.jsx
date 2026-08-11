@@ -6,7 +6,6 @@ import Sidebar from './components/Sidebar/Sidebar';
 import SectionIndex from './components/SectionIndex/SectionIndex';
 import CustomCursor from './components/CustomCursor/CustomCursor';
 import Footer from './components/Footer/Footer';
-import BootScreen from './components/BootScreen/BootScreen';
 import MatrixRain from './components/MatrixRain/MatrixRain';
 import { applySeoMetadata, getSeoMetadataForPath } from './utils/seo';
 
@@ -67,12 +66,6 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-const PageFallback = () => (
-  <div className="page-loader" role="status" aria-live="polite">
-    <span>Loading route...</span>
-  </div>
-);
-
 function App() {
   const location = useLocation();
   const seoMetadata = useMemo(
@@ -85,9 +78,6 @@ function App() {
     location.pathname === '/open-source' ||
     location.pathname === '/resume';
   const showSectionIndex = location.pathname === '/';
-  const [isBooting, setIsBooting] = useState(() => {
-    return !sessionStorage.getItem('hasBooted');
-  });
   const [theme, setTheme] = useState(getInitialTheme);
   const [themeWave, setThemeWave] = useState(null);
   const [shouldLoadAiDock, setShouldLoadAiDock] = useState(false);
@@ -121,7 +111,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (isBooting || shouldLoadAiDock) {
+    if (shouldLoadAiDock) {
       return undefined;
     }
 
@@ -143,12 +133,7 @@ function App() {
         window.clearTimeout(timerId);
       }
     };
-  }, [isBooting, shouldLoadAiDock]);
-
-  const handleBootComplete = () => {
-    setIsBooting(false);
-    sessionStorage.setItem('hasBooted', 'true');
-  };
+  }, [shouldLoadAiDock]);
 
   const commitTheme = (nextTheme, sync = false) => {
     applyThemeToDocument(nextTheme);
@@ -219,49 +204,47 @@ function App() {
   };
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', color: 'var(--zinc-100)', fontFamily: 'var(--font-geist)', backgroundColor: 'var(--zinc-900)', overflow: isBooting ? 'hidden' : 'auto' }}>
+    <div style={{ position: 'relative', minHeight: '100vh', color: 'var(--zinc-100)', fontFamily: 'var(--font-geist)', backgroundColor: 'var(--zinc-900)' }}>
       <ErrorBoundary>
-        {isBooting && <BootScreen onComplete={handleBootComplete} />}
+        <Suspense fallback={null}>
+          <div className="app-shell">
+            <MatrixRain />
 
-        <div className={`app-shell${isBooting ? ' app-shell-hidden' : ''}`}>
-          <MatrixRain />
+            {/* Side pattern strips */}
+            <div className="side-pattern left">
+              <div className="side-pattern-inner"></div>
+            </div>
+            <div className="side-pattern right">
+              <div className="side-pattern-inner"></div>
+            </div>
 
-          {/* Side pattern strips */}
-          <div className="side-pattern left">
-            <div className="side-pattern-inner"></div>
-          </div>
-          <div className="side-pattern right">
-            <div className="side-pattern-inner"></div>
-          </div>
+            {/* Global effects */}
+            <div className="scanlines"></div>
 
-          {/* Global effects */}
-          <div className="scanlines"></div>
+            {/* Sidebar */}
+            <Sidebar isWideRoute={isWideRoute} />
+            {showSectionIndex && <SectionIndex />}
 
-          {/* Sidebar */}
-          <Sidebar isWideRoute={isWideRoute} />
-          {showSectionIndex && <SectionIndex />}
+            {themeWave && (
+              <span
+                key={themeWave.id}
+                className={`theme-wave theme-wave-${themeWave.theme}`}
+                aria-hidden="true"
+                style={{
+                  '--wave-x': `${themeWave.x}px`,
+                  '--wave-y': `${themeWave.y}px`,
+                  '--wave-size': `${themeWave.radius * 2}px`,
+                }}
+              />
+            )}
 
-          {themeWave && (
-            <span
-              key={themeWave.id}
-              className={`theme-wave theme-wave-${themeWave.theme}`}
-              aria-hidden="true"
-              style={{
-                '--wave-x': `${themeWave.x}px`,
-                '--wave-y': `${themeWave.y}px`,
-                '--wave-size': `${themeWave.radius * 2}px`,
-              }}
-            />
-          )}
-
-          {/* Main content */}
-          <div className="main-wrapper">
-            <a href="#main-content" className="skip-link">
-              Skip to content
-            </a>
-            <main className={`main-content${isWideRoute ? ' main-content-wide' : ''}`}>
-              <div className="content-border" id="main-content">
-                <Suspense fallback={<PageFallback />}>
+            {/* Main content */}
+            <div className="main-wrapper">
+              <a href="#main-content" className="skip-link">
+                Skip to content
+              </a>
+              <main className={`main-content${isWideRoute ? ' main-content-wide' : ''}`}>
+                <div className="content-border" id="main-content">
                   <Routes location={location} key={location.pathname}>
                     <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} onOpenCmdk={() => setCmdkOpen(true)} />} />
                     <Route path="/about" element={<About />} />
@@ -272,29 +255,27 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/resume" element={<Resume />} />
                   </Routes>
-                </Suspense>
-              </div>
-              <Footer />
-            </main>
+                </div>
+                <Footer />
+              </main>
+            </div>
           </div>
-        </div>
+        </Suspense>
 
-        {!isBooting && shouldLoadAiDock && (
+        {shouldLoadAiDock && (
           <Suspense fallback={null}>
             <AiSummaryDock />
           </Suspense>
         )}
-        {!isBooting && (
-          <Suspense fallback={null}>
-            <CommandPalette
-              isOpen={cmdkOpen}
-              onClose={() => setCmdkOpen(false)}
-              theme={theme}
-              toggleTheme={toggleTheme}
-            />
-          </Suspense>
-        )}
-        {!isBooting && <CustomCursor />}
+        <Suspense fallback={null}>
+          <CommandPalette
+            isOpen={cmdkOpen}
+            onClose={() => setCmdkOpen(false)}
+            theme={theme}
+            toggleTheme={toggleTheme}
+          />
+        </Suspense>
+        <CustomCursor />
       </ErrorBoundary>
     </div>
   );

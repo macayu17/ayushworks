@@ -122,6 +122,28 @@ const rawProjectCatalog = [
     accent: '#14b8a6'
   },
   {
+    slug: 'talon',
+    title: 'Talon',
+    status: 'Live',
+    category: 'Network intrusion detection and traffic analysis platform',
+    summary: 'Network intrusion detection platform that turns packet captures into flow telemetry, ML detections, and analyst-ready alerts.',
+    details: [
+      'Talon is a full-stack network intrusion detection and traffic-analysis platform that converts raw packets into flow-level security telemetry, evaluates flows with machine-learning detectors, and exposes results through a FastAPI API and Next.js analyst dashboard.',
+      'The system combines a multithreaded C++17 and libpcap capture pipeline, native XDP/eBPF packet inspection, PostgreSQL alert storage, Redis pub/sub, and Docker Compose orchestration for the complete local stack.'
+    ],
+    highlights: [
+      'C++17 packet-to-flow pipeline with bounded producer-consumer queues and five-tuple aggregation',
+      'Native XDP/eBPF packet parser using BPF maps and a ring buffer for kernel-to-userspace events',
+      'FastAPI detection service with Random Forest, Isolation Forest, Autoencoder, and GraphSAGE analysis',
+      'Next.js analyst dashboard with recent-flow telemetry, persisted alerts, metrics, and WebSocket updates'
+    ],
+    tags: ['C++17', 'eBPF/XDP', 'FastAPI', 'Python', 'Next.js', 'PostgreSQL', 'Redis', 'Docker'],
+    github: 'https://github.com/macayu17/Talon',
+    live: 'https://talon-ruby.vercel.app',
+    image: '/ProjectPreviews/Talon.png',
+    accent: '#22c55e'
+  },
+  {
     slug: 'ipl-auction-arena',
     title: 'IPL Auction Arena',
     status: 'Live',
@@ -250,6 +272,7 @@ const rawProjectCatalog = [
 const projectDisplayOrder = [
   'sentinel',
   'engram',
+  'talon',
   'equityflow',
   'ipl-auction-arena',
   'occasio',
@@ -283,7 +306,7 @@ export const coreProjectCatalog = projectCatalog
 export const featuredProjectSlugs = [
   'sentinel',
   'engram',
-  'equityflow',
+  'talon',
   'occasio',
 ];
 

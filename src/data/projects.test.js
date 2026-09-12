@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import {
   coreProjectCatalog,
+  featuredProjects,
   funProjectCatalog,
   getProjectBySlug,
   projectCatalog,
@@ -11,6 +12,7 @@ describe('portfolio project catalog', () => {
     expect(projectCatalog.map((project) => project.slug)).toEqual([
       'sentinel',
       'engram',
+      'talon',
       'equityflow',
       'ipl-auction-arena',
       'occasio',
@@ -26,6 +28,7 @@ describe('portfolio project catalog', () => {
     expect(coreProjectCatalog.map((project) => project.slug)).toEqual([
       'sentinel',
       'engram',
+      'talon',
       'equityflow',
       'ipl-auction-arena',
       'occasio',
@@ -50,5 +53,20 @@ describe('portfolio project catalog', () => {
     });
     expect(engram.summary).toContain('AI memory layer');
     expect(engram.tags).toEqual(expect.arrayContaining(['FastAPI', 'pgvector', 'MCP', 'Next.js']));
+  });
+
+  test('adds Talon with its local preview and promotes it on the home page', () => {
+    const talon = getProjectBySlug('talon');
+
+    expect(talon).toMatchObject({
+      title: 'Talon',
+      status: 'Live',
+      github: 'https://github.com/macayu17/Talon',
+      live: 'https://talon-ruby.vercel.app',
+      image: '/ProjectPreviews/Talon.png',
+    });
+    expect(talon.tags).toEqual(expect.arrayContaining(['C++17', 'eBPF/XDP', 'FastAPI', 'Next.js']));
+    expect(featuredProjects.map((project) => project.slug)).toContain('talon');
+    expect(featuredProjects.map((project) => project.slug)).not.toContain('equityflow');
   });
 });

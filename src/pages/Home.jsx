@@ -286,9 +286,8 @@ const HomeSkills = () => (
 const HomeQuote = () => (
   <figure className="home-quote" aria-label="Closing quote">
     <blockquote>
-      "The man on top of the mountain didn't fall there."
+      "Boring is not the opposite of brilliant, boring is simply brilliant when no one is watching."
     </blockquote>
-    <figcaption>Vince Lombardi</figcaption>
   </figure>
 );
 

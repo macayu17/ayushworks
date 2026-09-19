@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { FaChevronDown, FaCodeBranch, FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import { FaChevronDown, FaCodeBranch, FaGithub } from 'react-icons/fa';
 import { FaGitlab } from 'react-icons/fa6';
 import { loadOpenSourcePRs, OPEN_SOURCE_CACHE_TTL } from '../utils/openSourcePRs';
 import { getOpenSourceMetricCards } from '../utils/openSourceMetrics';
@@ -109,10 +109,6 @@ const ContributionCard = ({ entry }) => (
       </div>
     )}
 
-    <span className="open-source-card-link">
-      View contribution
-      <FaExternalLinkAlt size={11} />
-    </span>
   </a>
 );
 
@@ -228,7 +224,21 @@ const OpenSource = () => {
           {metricCards.map((metric) => (
             <article className="open-source-metric" key={metric.label}>
               <span className="open-source-metric-label">{metric.label}</span>
-              <strong>{String(metric.value).padStart(2, '0')}</strong>
+              {metric.logos ? (
+                <div className="open-source-organization-logos" aria-label="Contributing organizations">
+                  {metric.logos.map((organization) => (
+                    <img
+                      key={organization.name}
+                      src={organization.src}
+                      alt={`${organization.name} logo`}
+                      title={organization.name}
+                      loading="lazy"
+                    />
+                  ))}
+                </div>
+              ) : (
+                <strong>{String(metric.value).padStart(2, '0')}</strong>
+              )}
             </article>
           ))}
         </div>

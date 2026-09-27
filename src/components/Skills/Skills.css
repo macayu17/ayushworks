@@ -9,12 +9,6 @@
   margin-top: 32px;
 }
 
-@media (min-width: 640px) {
-  .skills-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 .skill-category-card {
   position: relative;
   background: var(--surface-low);

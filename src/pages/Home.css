@@ -30,18 +30,6 @@
   image-rendering: pixelated;
 }
 
-.home-banner-image-light {
-  opacity: 0;
-}
-
-:root[data-theme="light"] .home-banner-image-light {
-  opacity: 1;
-}
-
-:root[data-theme="light"] .home-banner-image-dark {
-  opacity: 0;
-}
-
 .home-banner-time {
   position: absolute;
   right: 18px;
@@ -435,7 +423,7 @@
   font-weight: 560;
   line-height: 1;
   white-space: nowrap;
-  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
 @keyframes home-skills-marquee {
@@ -467,7 +455,6 @@
   color: var(--zinc-100);
   border-color: var(--zinc-600);
   background: var(--surface-hover);
-  transform: translateY(-1px);
 }
 
 .home-skill-chip img {
@@ -517,26 +504,6 @@
   max-width: 460px;
   text-align: center;
   color: var(--zinc-500);
-}
-
-.home-end-fade {
-  height: 200px;
-  pointer-events: none;
-}
-
-.content-border:has(.home-end-fade) {
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    black 0%,
-    black calc(100% - 220px),
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    black 0%,
-    black calc(100% - 220px),
-    transparent 100%
-  );
 }
 
 .home-quote blockquote {
@@ -712,4 +679,82 @@
     font-size: 0.56rem;
     letter-spacing: 0.16em;
   }
+}
+
+.home-signature {
+  position: relative;
+  left: 50%;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  width: 100vw;
+  height: clamp(360px, 42vw, 560px);
+  margin: 70px 0 0;
+  padding: 0 20px;
+  overflow: hidden;
+  background: linear-gradient(180deg, transparent 25%, rgba(40, 40, 44, 0.45) 72%, rgba(112, 112, 118, 0.65) 100%);
+  transform: translateX(-50%);
+}
+
+.home-signature-word {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 0;
+  white-space: nowrap;
+  width: 100%;
+  line-height: 1;
+}
+
+.home-signature-letter {
+  display: inline-block;
+  color: transparent;
+  background: linear-gradient(180deg, var(--zinc-100) 43%, rgba(244, 244, 245, 0.78) 70%, transparent 100%);
+  background-clip: text;
+  font-family: var(--font-geist);
+  font-size: clamp(3rem, 15vw, 15rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(70%);
+}
+
+:root[data-theme="light"] .home-signature {
+  background: linear-gradient(180deg, transparent 25%, rgba(91, 87, 80, 0.06) 72%, rgba(91, 87, 80, 0.18) 100%);
+}
+
+:root[data-theme="light"] .home-signature-letter {
+  background: linear-gradient(180deg, #151412 43%, rgba(21, 20, 18, 0.78) 70%, transparent 100%);
+  background-clip: text;
+}
+
+.home-signature.is-visible .home-signature-letter {
+  animation: signature-rise 900ms cubic-bezier(0.22, 0.75, 0.2, 1) var(--signature-delay) both;
+}
+
+@keyframes signature-rise {
+  from { opacity: 0; transform: translateY(70%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 639px) {
+  .home-signature { height: 100svh; margin-top: 50px; padding-bottom: 110px; }
+  .home-signature-letter { font-size: 15vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-signature-letter,
+  .home-signature.is-visible .home-signature-letter {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+.main-wrapper:has(.home-signature) {
+  padding-bottom: 0;
+}
+
+.content-border:has(.home-signature) {
+  padding-bottom: 0;
 }

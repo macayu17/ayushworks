@@ -2,13 +2,14 @@ import './About.css';
 import { FaRegEnvelope, FaChevronRight } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import ayushImg from '../../assets/images/AyushBW11.webp';
+import Education from '../Education/Education';
 
 const About = () => {
   return (
     <section className="about" id="about">
       
       {/* Identity Grid */}
-      <div className="about-identity">
+      <div className="about-identity" id="about-identity" data-section-index="Identity">
         <div className="identity-image-wrapper bracket-box bracket-corners">
           <img 
             src={ayushImg} 
@@ -69,7 +70,7 @@ const About = () => {
       </div>
 
       {/* Description Block */}
-      <div className="about-desc-block bracket-box">
+      <div className="about-desc-block bracket-box" id="about-story" data-section-index="About Me">
         <h2 className="desc-title">
           <span className="desc-square"></span>
           I love what I do.
@@ -81,8 +82,10 @@ const About = () => {
         </p>
       </div>
 
+      <Education />
+
       {/* Quick Reach Out */}
-      <div className="quick-reach">
+      <div className="quick-reach" id="about-reach" data-section-index="Reach Out">
         <div className="quick-reach-title">QUICK REACH OUT</div>
         <div className="quick-reach-row">
           <div className="qr-group">
@@ -97,7 +100,7 @@ const About = () => {
       </div>
 
       {/* Cards */}
-      <div className="about-cards">
+      <div className="about-cards" id="about-toolbox">
         {/* Intentionally removed Timeline card per user request */}
         
         <a href="/skill" className="about-card bracket-box" style={{display: 'block'}}>
@@ -111,7 +114,7 @@ const About = () => {
       </div>
 
       {/* Hobbies & Interests */}
-      <div className="hobbies-section">
+      <div className="hobbies-section" id="about-interests" data-section-index="Interests">
         <div className="hobbies-header">Hobbies & Interests</div>
         
         <div className="hobbies-list">

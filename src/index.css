@@ -196,6 +196,8 @@ textarea:focus-visible,
   z-index: 12;
   display: none;
   pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%);
 }
 .side-pattern.left {
   left: 0;
@@ -289,27 +291,28 @@ textarea:focus-visible,
   transform: translateY(-1px);
 }
 
-::view-transition-group(root) {
-  animation-timing-function: var(--expo-out);
+@property --reveal-radius {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
 }
 
 ::view-transition-old(root) {
   animation: none;
-  z-index: -1;
+  z-index: 0;
 }
 
 ::view-transition-new(root) {
-  animation: view-transition-wave 0.7s;
+  z-index: 1;
+  -webkit-mask-image: radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 calc(var(--reveal-radius) - 100px), transparent var(--reveal-radius));
+  mask-image: radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 calc(var(--reveal-radius) - 100px), transparent var(--reveal-radius));
+  animation: view-transition-wave 320ms cubic-bezier(0.28, 0.12, 0.8, 0.58);
   animation-fill-mode: both;
 }
 
 @keyframes view-transition-wave {
-  from {
-    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 50%));
-  }
-  to {
-    clip-path: circle(var(--vt-r, 150%) at var(--vt-x, 50%) var(--vt-y, 50%));
-  }
+  from { --reveal-radius: 0px; }
+  to { --reveal-radius: var(--vt-r, 150vmax); }
 }
 
 .theme-wave {
@@ -321,8 +324,10 @@ textarea:focus-visible,
   pointer-events: none;
   z-index: 9998;
   border-radius: 9999px;
+  -webkit-mask-image: radial-gradient(circle, #000 calc(50% - 100px), transparent 50%);
+  mask-image: radial-gradient(circle, #000 calc(50% - 100px), transparent 50%);
   transform: translate(-50%, -50%) scale(0);
-  animation: theme-wave-spread 0.7s var(--expo-out) forwards;
+  animation: theme-wave-spread 320ms cubic-bezier(0.28, 0.12, 0.8, 0.58) forwards;
 }
 
 .theme-wave-light {
@@ -338,7 +343,7 @@ textarea:focus-visible,
     opacity: 1;
     transform: translate(-50%, -50%) scale(0);
   }
-  78% {
+  85% {
     opacity: 1;
   }
   100% {
@@ -379,6 +384,12 @@ textarea:focus-visible,
   }
 }
 
+@media (min-width: 1180px) {
+  .app-shell:has(.section-index-projects) .main-content-wide {
+    max-width: min(1060px, calc(100vw - 500px));
+  }
+}
+
 .content-border {
   position: relative;
   --content-padding-x: 14px;
@@ -386,10 +397,56 @@ textarea:focus-visible,
   min-height: 85vh;
   border-left: 1px dashed var(--soft-border);
   border-right: 1px dashed var(--soft-border);
+  transition: border-color 0.5s ease;
   padding: 44px 14px;
   background:
     linear-gradient(90deg, transparent, color-mix(in srgb, var(--zinc-100) 2%, transparent) 50%, transparent),
     var(--zinc-900);
+}
+
+.app-shell-home-end .sidebar,
+.app-shell-home-end .section-index {
+  pointer-events: none;
+}
+
+.app-shell:has(.home-signature) .sidebar,
+.app-shell:has(.home-signature) .section-index {
+  -webkit-mask-image: linear-gradient(to bottom, #000 var(--rail-fade-start), transparent var(--rail-fade-end));
+  mask-image: linear-gradient(to bottom, #000 var(--rail-fade-start), transparent var(--rail-fade-end));
+}
+
+.app-shell:has(.home-signature) .sidebar {
+  transform: translateY(calc(-50% + var(--home-sidebar-offset, 0px)));
+}
+
+.app-shell:has(.home-signature) .side-pattern {
+  -webkit-mask-image: linear-gradient(to bottom, #000 var(--rail-fade-start), transparent var(--rail-fade-end));
+  mask-image: linear-gradient(to bottom, #000 var(--rail-fade-start), transparent var(--rail-fade-end));
+}
+
+.app-shell:has(.home-signature) .content-border {
+  border-color: transparent;
+}
+
+.app-shell:has(.home-signature) .content-border::before,
+.app-shell:has(.home-signature) .content-border::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, var(--soft-border) 0 3px, transparent 3px 6px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 var(--rail-fade-start), transparent var(--rail-fade-end));
+  mask-image: linear-gradient(to bottom, #000 var(--rail-fade-start), transparent var(--rail-fade-end));
+}
+
+.app-shell:has(.home-signature) .content-border::before {
+  left: 0;
+}
+
+.app-shell:has(.home-signature) .content-border::after {
+  right: 0;
 }
 
 .page-transition {

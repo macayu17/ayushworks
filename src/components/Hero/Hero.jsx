@@ -1,4 +1,5 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect, useRef } from 'react';
+import ProfileIntro from './ProfileIntro';
 import './Hero.css';
 import { FaEnvelope, FaGithub, FaLinkedinIn, FaFileAlt, FaMoon, FaSun } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
@@ -8,7 +9,6 @@ import { getPortfolioViewCount } from '../../utils/viewCounter';
 import SocialHoverCard from '../SocialHoverCard/SocialHoverCard';
 
 const texts = ['22 • Bengaluru, India', 'CSE undergrad • AI + full-stack'];
-const INTRO_LOAD_MS = 600;
 const WORD_MS = 30;
 
 let introWordIndex = 0;
@@ -32,12 +32,6 @@ const introLines = [
   })),
 }));
 const INTRO_WORD_COUNT = introWordIndex;
-const pixelDelays = Array.from({ length: 9 }, (_, index) => {
-  const row = Math.floor(index / 3);
-  const column = index % 3;
-  return (column + Math.abs(row - 1)) * 90;
-});
-
 const StreamingParts = ({ parts }) => parts.map((part, partIndex) => {
   const words = part.words.map(({ text, index }) => (
     <Fragment key={`${text}-${index}`}>
@@ -57,49 +51,46 @@ const StreamingParts = ({ parts }) => parts.map((part, partIndex) => {
   );
 });
 
-const HeroLoadingState = () => {
-  const [deciseconds, setDeciseconds] = useState(0);
+const AnimatedSubtitle = () => {
+  const [displayText, setDisplayText] = useState('');
+  const [textIndex, setTextIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const timer = window.setInterval(() => setDeciseconds((value) => value + 1), 100);
-    return () => window.clearInterval(timer);
-  }, []);
+    const currentText = texts[textIndex];
+    let timeout;
+
+    if (isDeleting) {
+      timeout = setTimeout(() => {
+        setDisplayText(currentText.substring(0, displayText.length - 1));
+        if (displayText.length === 0) {
+          setIsDeleting(false);
+          setTextIndex((prev) => (prev + 1) % texts.length);
+        }
+      }, 30);
+    } else {
+      timeout = setTimeout(() => {
+        setDisplayText(currentText.substring(0, displayText.length + 1));
+        if (displayText.length === currentText.length) {
+          timeout = setTimeout(() => setIsDeleting(true), 2000);
+        }
+      }, 60);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, textIndex]);
 
   return (
-    <div className="hero-loading-state" role="status" aria-live="polite">
-      <span className="hero-loader-grid" aria-hidden="true">
-        {pixelDelays.map((delay, index) => (
-          <span
-            key={index}
-            className="hero-loader-cell"
-            style={{ '--pixel-delay': `${delay}ms` }}
-          />
-        ))}
-      </span>
-      <span className="hero-loader-label">Loading profile</span>
-      <span className="hero-loader-time">{(deciseconds / 10).toFixed(1)}s</span>
-    </div>
+    <p className="hero-subtitle">
+      {displayText}
+      <span className="cursor animate-blink" />
+    </p>
   );
 };
 
 const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
-  const [displayText, setDisplayText] = useState('');
-  const [textIndex, setTextIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [showCursor, setShowCursor] = useState(true);
   const [views, setViews] = useState(null);
-  const [isIntroLoading, setIsIntroLoading] = useState(() => (
-    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  ));
-
-  useEffect(() => {
-    if (!isIntroLoading) {
-      return undefined;
-    }
-
-    const timer = window.setTimeout(() => setIsIntroLoading(false), INTRO_LOAD_MS);
-    return () => window.clearTimeout(timer);
-  }, [isIntroLoading]);
+  const profileRef = useRef(null);
 
   useEffect(() => {
     let isActive = true;
@@ -125,72 +116,29 @@ const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
     };
   }, []);
 
-  useEffect(() => {
-    const currentText = texts[textIndex];
-    let timeout;
-    
-    if (isDeleting) {
-      timeout = setTimeout(() => {
-        setDisplayText(currentText.substring(0, displayText.length - 1));
-        if (displayText.length === 0) {
-          setIsDeleting(false);
-          setTextIndex((prev) => (prev + 1) % texts.length);
-        }
-      }, 30);
-    } else {
-      timeout = setTimeout(() => {
-        setDisplayText(currentText.substring(0, displayText.length + 1));
-        if (displayText.length === currentText.length) {
-          timeout = setTimeout(() => setIsDeleting(true), 2000);
-        }
-      }, 60);
-    }
-    
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, textIndex]);
-
-  useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setShowCursor(prev => !prev);
-    }, 530);
-    return () => clearInterval(cursorInterval);
-  }, []);
-
   return (
     <section className="hero" id="home">
       <div className="hero-left">
         <div className="hero-identity-row">
-          <div className="hero-profile-box">
+          <div className="hero-profile-box" ref={profileRef}>
             <img src="/favicon.png" alt="Ayush Kumar" className="hero-profile-img" />
           </div>
           <div className="hero-name-block">
             <h1 className="hero-name">AYUSH</h1>
-            <p className="hero-subtitle">
-              {displayText}
-              <span className="cursor" style={{ opacity: showCursor ? 1 : 0 }}></span>
-            </p>
+            <AnimatedSubtitle />
           </div>
         </div>
 
-        <div className="hero-intro" aria-busy={isIntroLoading}>
-          {isIntroLoading ? (
-            <HeroLoadingState />
-          ) : (
-            <>
-              <p><StreamingParts parts={introLines[0].parts} /></p>
-              <ul>
-                {introLines.slice(1).map((line, index) => (
-                  <li key={index}><StreamingParts parts={line.parts} /></li>
-                ))}
-              </ul>
-            </>
-          )}
+        <div className="hero-intro">
+          <p><StreamingParts parts={introLines[0].parts} /></p>
+          <ul>
+            {introLines.slice(1).map((line, index) => (
+              <li key={index}><StreamingParts parts={line.parts} /></li>
+            ))}
+          </ul>
         </div>
 
-        <div
-          className={`hero-social-box ${isIntroLoading ? 'hero-social-pending' : 'hero-social-ready'}`}
-          style={{ '--social-delay': `${INTRO_WORD_COUNT * WORD_MS + 250}ms` }}
-        >
+        <div className="hero-social-box hero-social-ready" style={{ '--social-delay': `${INTRO_WORD_COUNT * WORD_MS + 250}ms` }}>
           <SocialHoverCard socialName="GitHub">
             <a href="https://github.com/macayu17" target="_blank" rel="noopener noreferrer" className="hero-social-link" aria-label="GitHub">
               <FaGithub size={16} />
@@ -230,6 +178,7 @@ const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
           <span>{typeof views === 'number' ? views.toLocaleString() : '...'} views</span>
         </div>
       </div>
+      <ProfileIntro targetRef={profileRef} />
     </section>
   );
 };

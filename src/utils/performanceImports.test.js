@@ -21,17 +21,10 @@ describe('performance-sensitive imports', () => {
     });
   });
 
-  test('loads the AI summary dock outside the initial app module', () => {
-    const appSource = source('src/App.jsx');
-
-    expect(appSource).toContain("const AiSummaryDock = lazy(() => import('./components/AiSummaryDock/AiSummaryDock'))");
-    expect(appSource).not.toContain("import AiSummaryDock from './components/AiSummaryDock/AiSummaryDock'");
-  });
-
   test('reveals the sidebar and route content in the same startup fade', () => {
     const appSource = source('src/App.jsx');
     const cssSource = source('src/index.css');
-    const shellStart = appSource.indexOf('<div className="app-shell">');
+    const shellStart = appSource.indexOf('className={`app-shell');
     const suspenseStart = appSource.lastIndexOf('<Suspense fallback={null}>', shellStart);
 
     expect(suspenseStart).toBeGreaterThan(-1);

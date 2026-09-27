@@ -4,7 +4,6 @@ import { Tooltip } from 'react-tooltip';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import 'react-tooltip/dist/react-tooltip.css';
-import { getContributionCubeProps } from '../../utils/contributionCube';
 import { getContributionCalendarLayout } from '../../utils/contributionCalendarLayout';
 import { getWeekPaddedContributionRange } from '../../utils/contributionCalendarData';
 
@@ -27,7 +26,7 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
 
     const themeColors = useMemo(() => ({
         dark: ['#18181b', '#3f3f46', '#71717a', '#a1a1aa', '#f4f4f5'],
-        light: ['#efe7d9', '#d4c5ad', '#a99572', '#6f675b', '#151412']
+        light: ['#d9cebd', '#cdb395', '#a58564', '#6f5846', '#24211e']
     }), []);
 
     useEffect(() => {
@@ -132,7 +131,7 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
 
     const calendarColors = themeColors[siteTheme];
     return (
-        <section className="github-contributions" id="contributions">
+        <section className="github-contributions">
             <div className="contributions-header">
                 <h3 className="contributions-title">
                     GitHub <span className="contributions-username">@{username}</span>
@@ -164,23 +163,17 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                     <div className="calendar-grid" aria-label={`${username} GitHub contribution calendar`}>
                         {weeks.map((week, weekIndex) => (
                             <div className="calendar-week" key={`week-${weekIndex}`}>
-                                {week.map((activity, dayIndex) => {
-                                    const activityWithIndex = {
-                                        ...activity,
-                                        index: (weekIndex * 7) + dayIndex,
-                                    };
-                                    const cubeProps = getContributionCubeProps(activityWithIndex, activityWithIndex.index);
+                                {week.map((activity) => {
                                     const isEmpty = !activity.level;
 
                                     return (
                                         <span
                                             key={activity.date}
-                                            className={`calendar-day contribution-cube-cell ${cubeProps.className || ''}`}
+                                            className="calendar-day contribution-cube-cell"
                                             data-level={activity.level}
                                             data-tooltip-id="github-tooltip"
                                             data-tooltip-html={`<span style="color:var(--zinc-300)">[COMMIT_RECORD]</span><br/><strong>${activity.count} contributions</strong> on ${activity.date}`}
                                             style={{
-                                                ...cubeProps.style,
                                                 backgroundColor: isEmpty ? 'transparent' : (calendarColors[activity.level] || calendarColors[0]),
                                                 boxShadow: isEmpty ? `inset 0 0 0 1px ${calendarColors[0]}` : undefined,
                                             }}

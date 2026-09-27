@@ -35,7 +35,8 @@ const Projects = ({
   showArchiveLink = false,
   showHeader = true,
   showThumbnail = true,
-  sectionId = 'projects'
+  sectionId = 'projects',
+  indexable = false
 }) => {
   const navigate = useNavigate();
   const [enableCardTilt, setEnableCardTilt] = useState(false);
@@ -106,6 +107,8 @@ const Projects = ({
             className="tilt-wrapper"
           >
             <article
+              id={indexable ? `project-${project.slug}` : undefined}
+              data-section-index={indexable ? project.title : undefined}
               className="project-card"
               role="link"
               tabIndex={0}

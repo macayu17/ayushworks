@@ -1,6 +1,5 @@
 import Hero from '../components/Hero/Hero';
 import Projects from '../components/Projects/Projects';
-import Education from '../components/Education/Education';
 import Separator from '../components/Separator/Separator';
 import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -24,7 +23,7 @@ const formatBannerTime = (date) =>
     hour12: false,
   });
 
-const HomeBanner = () => {
+const HomeBanner = ({ theme }) => {
   const [time, setTime] = useState(() => formatBannerTime(new Date()));
 
   useEffect(() => {
@@ -37,8 +36,7 @@ const HomeBanner = () => {
 
   return (
     <section className="home-banner" aria-label="Night landscape banner">
-      <img src="/banner.gif" alt="" className="home-banner-image home-banner-image-dark" />
-      <img src="/banner-light.gif" alt="" className="home-banner-image home-banner-image-light" />
+      <img src={theme === 'light' ? '/banner-light.gif' : '/banner.gif'} alt="" className="home-banner-image" />
       <time className="home-banner-time" dateTime={time}>
         {time}
       </time>
@@ -88,7 +86,7 @@ const DeferredGitHubContributions = ({ username }) => {
   }, [shouldLoad]);
 
   return (
-    <div ref={wrapperRef}>
+    <div id="contributions" ref={wrapperRef}>
       {shouldLoad ? (
         <Suspense fallback={<ContributionsPlaceholder />}>
           <GitHubContributions username={username} />
@@ -291,15 +289,56 @@ const HomeQuote = () => (
   </figure>
 );
 
-const Home = ({ theme, toggleTheme, onOpenCmdk }) => {
+const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange }) => {
+  const signatureRef = useRef(null);
+  const [signatureVisible, setSignatureVisible] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    const signature = signatureRef.current;
+    if (!signature) return undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      setSignatureVisible(entry.isIntersecting);
+    }, { threshold: 0.08 });
+    observer.observe(signature);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const signature = signatureRef.current;
+    const rails = document.querySelectorAll('.side-pattern, .sidebar, .section-index, .content-border');
+    const update = () => {
+      const fadeEnd = signature.getBoundingClientRect().top + signature.offsetHeight * 0.25;
+      const fadeStart = Math.max(0, fadeEnd - window.innerHeight * 0.5);
+      rails.forEach((rail) => {
+        const top = rail.getBoundingClientRect().top;
+        rail.style.setProperty('--rail-fade-start', `${Math.max(0, fadeStart - top)}px`);
+        rail.style.setProperty('--rail-fade-end', `${Math.max(0, fadeEnd - top)}px`);
+      });
+      onHomeEndVisibilityChange(fadeEnd <= 0);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+      rails.forEach((rail) => {
+        rail.style.removeProperty('--rail-fade-start');
+        rail.style.removeProperty('--rail-fade-end');
+      });
+      onHomeEndVisibilityChange(false);
+    };
+  }, [onHomeEndVisibilityChange]);
+
   return (
     <div className="page-transition">
-      <HomeBanner />
+      <HomeBanner theme={theme} />
       <Hero theme={theme} toggleTheme={toggleTheme} onOpenCmdk={onOpenCmdk} />
+      <Separator />
+      <DeferredGitHubContributions username="macayu17" />
       <Separator />
       <Projects
         items={featuredProjects}
@@ -331,16 +370,20 @@ const Home = ({ theme, toggleTheme, onOpenCmdk }) => {
         />
       </details>
       <Separator />
-      <DeferredGitHubContributions username="macayu17" />
-      <Separator />
       <OpenSourcePreview />
       <Separator />
       <HomeSkills />
       <Separator />
-      <Education />
-      <Separator />
       <HomeQuote />
-      <div className="home-end-fade" aria-hidden="true" />
+      <div ref={signatureRef} className={`home-signature${signatureVisible ? ' is-visible' : ''}`} role="img" aria-label="Ayush">
+        <span className="home-signature-word" aria-hidden="true">
+          {[...'Ayush.'].map((letter, index) => (
+            <span key={`${letter}-${index}`} className="home-signature-letter" style={{ '--signature-delay': `${index * 110}ms` }}>
+              {letter}
+            </span>
+          ))}
+        </span>
+      </div>
     </div>
   );
 };

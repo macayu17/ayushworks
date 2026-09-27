@@ -1,0 +1,70 @@
+body[data-profile-intro] {
+  overflow: hidden;
+}
+
+body[data-profile-intro] #root {
+  opacity: 0;
+}
+
+.page-transition:has(.hero) {
+  animation: none;
+}
+
+body[data-profile-intro="reveal"] #root {
+  opacity: 1;
+  transition: opacity 500ms ease;
+}
+
+.profile-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.profile-intro-photo {
+  position: absolute;
+  transform-origin: top left;
+  overflow: hidden;
+  border: 1px solid var(--soft-border);
+  border-radius: 8px;
+}
+
+.profile-intro-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-intro-greeting {
+  position: absolute;
+  top: calc(50% + 46px);
+  left: 0;
+  width: 100%;
+  color: var(--zinc-100);
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  animation: profile-greeting-in 400ms ease both;
+  transition: opacity 200ms ease;
+}
+
+.profile-intro-greeting span {
+  display: block;
+  margin-top: 8px;
+  color: var(--zinc-400);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+body[data-profile-intro="moving"] .profile-intro-greeting,
+body[data-profile-intro="reveal"] .profile-intro-greeting {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes profile-greeting-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}

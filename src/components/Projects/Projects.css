@@ -82,6 +82,7 @@
 }
 
 .traffic-dot {
+  position: relative;
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -89,27 +90,28 @@
 }
 
 .traffic-dot.pulse-live {
-  background: #34d399; /* Emerald */
-  box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4);
-  animation: pulse-glow 2s infinite;
+  color: #34d399;
+  background: currentColor;
 }
 
 .traffic-dot.pulse-building {
-  background: #fbbf24; /* Amber */
-  box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4);
-  animation: pulse-glow-building 2s infinite;
+  color: #fbbf24;
+  background: currentColor;
 }
 
-@keyframes pulse-glow {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
-  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+.traffic-dot.pulse-live::after,
+.traffic-dot.pulse-building::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  animation: traffic-dot-pulse 2s ease-out infinite;
 }
 
-@keyframes pulse-glow-building {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
-  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(251, 191, 36, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+@keyframes traffic-dot-pulse {
+  0% { opacity: 0.65; transform: scale(0.55); }
+  70%, 100% { opacity: 0; transform: scale(1.6); }
 }
 
 .project-cover {

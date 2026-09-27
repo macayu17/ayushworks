@@ -192,6 +192,18 @@
   border-color: rgba(96, 165, 250, 0.38);
 }
 
+:root[data-theme="light"] .open-source-status.merged {
+  color: #065f46;
+  border-color: rgba(6, 95, 70, 0.42);
+  background-color: rgba(6, 95, 70, 0.06);
+}
+
+:root[data-theme="light"] .open-source-status.open {
+  color: #1d4ed8;
+  border-color: rgba(29, 78, 216, 0.38);
+  background-color: rgba(29, 78, 216, 0.05);
+}
+
 .open-source-status.closed {
   color: var(--zinc-400);
   border-color: var(--zinc-700);

@@ -2,6 +2,10 @@
   padding: 32px 0 64px;
 }
 
+.about .education {
+  margin-bottom: 48px;
+}
+
 /* Base typography */
 .text-mono {
   font-family: var(--font-jetbrains);

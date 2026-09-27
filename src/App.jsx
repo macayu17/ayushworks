@@ -6,7 +6,6 @@ import Sidebar from './components/Sidebar/Sidebar';
 import SectionIndex from './components/SectionIndex/SectionIndex';
 import CustomCursor from './components/CustomCursor/CustomCursor';
 import Footer from './components/Footer/Footer';
-import MatrixRain from './components/MatrixRain/MatrixRain';
 import { applySeoMetadata, getSeoMetadataForPath } from './utils/seo';
 
 // Pages
@@ -18,7 +17,6 @@ const ProjectsPage = lazy(() => import('./pages/Projects'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const OpenSourcePage = lazy(() => import('./pages/OpenSource'));
 const Resume = lazy(() => import('./pages/Resume'));
-const AiSummaryDock = lazy(() => import('./components/AiSummaryDock/AiSummaryDock'));
 const CommandPalette = lazy(() => import('./components/CommandPalette/CommandPalette'));
 const THEME_STORAGE_KEY = 'site-theme-revamp';
 
@@ -77,11 +75,11 @@ function App() {
     location.pathname.startsWith('/projects/') ||
     location.pathname === '/open-source' ||
     location.pathname === '/resume';
-  const showSectionIndex = location.pathname === '/';
+  const showSectionIndex = ['/', '/projects', '/about', '/skill'].includes(location.pathname);
   const [theme, setTheme] = useState(getInitialTheme);
   const [themeWave, setThemeWave] = useState(null);
-  const [shouldLoadAiDock, setShouldLoadAiDock] = useState(false);
   const [cmdkOpen, setCmdkOpen] = useState(false);
+  const [isHomeEndVisible, setIsHomeEndVisible] = useState(false);
   // ponytail: one preloaded element, reused. Swap for WebAudio only if overlapping plays are needed.
   const themeSoundRef = useRef(null);
   if (themeSoundRef.current === null && typeof Audio !== 'undefined') {
@@ -100,6 +98,12 @@ function App() {
   }, [seoMetadata]);
 
   useEffect(() => {
+    if (location.pathname !== '/') {
+      setIsHomeEndVisible(false);
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
     const handleCmdK = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
@@ -109,31 +113,6 @@ function App() {
     window.addEventListener('keydown', handleCmdK);
     return () => window.removeEventListener('keydown', handleCmdK);
   }, []);
-
-  useEffect(() => {
-    if (shouldLoadAiDock) {
-      return undefined;
-    }
-
-    const loadDock = () => setShouldLoadAiDock(true);
-    let idleId = null;
-    let timerId = null;
-
-    if ('requestIdleCallback' in window) {
-      idleId = window.requestIdleCallback(loadDock, { timeout: 1600 });
-    } else {
-      timerId = window.setTimeout(loadDock, 900);
-    }
-
-    return () => {
-      if (idleId !== null) {
-        window.cancelIdleCallback?.(idleId);
-      }
-      if (timerId !== null) {
-        window.clearTimeout(timerId);
-      }
-    };
-  }, [shouldLoadAiDock]);
 
   const commitTheme = (nextTheme, sync = false) => {
     applyThemeToDocument(nextTheme);
@@ -150,10 +129,10 @@ function App() {
   const runFallbackThemeWave = (wave, nextTheme) => {
     const waveId = window.crypto?.randomUUID?.() ?? `${Date.now()}`;
     setThemeWave({ ...wave, id: waveId, theme: nextTheme });
-    window.setTimeout(() => commitTheme(nextTheme), 180);
+    window.setTimeout(() => commitTheme(nextTheme), 80);
     window.setTimeout(() => {
       setThemeWave((currentWave) => (currentWave?.id === waveId ? null : currentWave));
-    }, 740);
+    }, 360);
   };
 
   const playThemeSound = () => {
@@ -185,7 +164,7 @@ function App() {
         return;
       }
 
-      const wave = { x: cx, y: cy, radius: Math.hypot(Math.max(cx, window.innerWidth - cx), Math.max(cy, window.innerHeight - cy)) };
+      const wave = { x: cx, y: cy, radius: Math.hypot(Math.max(cx, window.innerWidth - cx), Math.max(cy, window.innerHeight - cy)) + 100 };
       runFallbackThemeWave(wave, nextTheme);
       return;
     }
@@ -193,7 +172,7 @@ function App() {
     const radius = Math.hypot(
       Math.max(cx, window.innerWidth - cx),
       Math.max(cy, window.innerHeight - cy),
-    );
+    ) + 100;
     document.documentElement.style.setProperty('--vt-x', `${cx}px`);
     document.documentElement.style.setProperty('--vt-y', `${cy}px`);
     document.documentElement.style.setProperty('--vt-r', `${radius}px`);
@@ -207,9 +186,7 @@ function App() {
     <div style={{ position: 'relative', minHeight: '100vh', color: 'var(--zinc-100)', fontFamily: 'var(--font-geist)', backgroundColor: 'var(--zinc-900)' }}>
       <ErrorBoundary>
         <Suspense fallback={null}>
-          <div className="app-shell">
-            <MatrixRain />
-
+          <div className={`app-shell${isHomeEndVisible ? ' app-shell-home-end' : ''}`}>
             {/* Side pattern strips */}
             <div className="side-pattern left">
               <div className="side-pattern-inner"></div>
@@ -223,7 +200,14 @@ function App() {
 
             {/* Sidebar */}
             <Sidebar isWideRoute={isWideRoute} />
-            {showSectionIndex && <SectionIndex />}
+            {showSectionIndex && (
+              <SectionIndex
+                key={location.pathname}
+                sourceSelector={location.pathname === '/' ? undefined : '[data-section-index]'}
+                anchorSelector={location.pathname === '/' ? '#skills' : null}
+                wide={location.pathname === '/projects'}
+              />
+            )}
 
             {themeWave && (
               <span
@@ -246,7 +230,7 @@ function App() {
               <main className={`main-content${isWideRoute ? ' main-content-wide' : ''}`}>
                 <div className="content-border" id="main-content">
                   <Routes location={location} key={location.pathname}>
-                    <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} onOpenCmdk={() => setCmdkOpen(true)} />} />
+                    <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} onOpenCmdk={() => setCmdkOpen(true)} onHomeEndVisibilityChange={setIsHomeEndVisible} />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/projects" element={<ProjectsPage />} />
                     <Route path="/projects/:slug" element={<ProjectDetail />} />
@@ -256,17 +240,12 @@ function App() {
                     <Route path="/resume" element={<Resume />} />
                   </Routes>
                 </div>
-                <Footer />
+                {location.pathname !== '/' && <Footer />}
               </main>
             </div>
           </div>
         </Suspense>
 
-        {shouldLoadAiDock && (
-          <Suspense fallback={null}>
-            <AiSummaryDock />
-          </Suspense>
-        )}
         <Suspense fallback={null}>
           <CommandPalette
             isOpen={cmdkOpen}

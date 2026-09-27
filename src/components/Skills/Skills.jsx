@@ -76,7 +76,12 @@ const Skills = () => {
 
       <div className="skills-grid">
         {categories.map((cat, index) => (
-          <div key={index} className="skill-category-card bracket-box">
+          <div
+            key={index}
+            id={`skill-${cat.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+            data-section-index={cat.title}
+            className="skill-category-card bracket-box"
+          >
             <div className="skill-category-header">
               <span className="category-marker">// 0{index + 1}</span>
               <h3 className="category-title">{cat.title}</h3>

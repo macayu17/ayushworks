@@ -8,6 +8,7 @@
   color: var(--zinc-600);
   text-align: right;
   pointer-events: auto;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 
 .section-index-title {
@@ -77,4 +78,22 @@
   .section-index {
     right: calc(50% + 384px);
   }
+}
+
+.section-index-projects {
+  right: calc(50% + min(530px, calc(50vw - 250px)) + 18px);
+  width: 200px;
+}
+
+.section-index-projects .section-index-nav {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 10px;
+}
+
+.section-index-projects .section-index-link {
+  display: block;
+  min-width: 0;
+  padding-right: 12px;
+  overflow-wrap: anywhere;
+  line-height: 1.25;
 }

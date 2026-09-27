@@ -8,13 +8,13 @@ const Education = () => {
       institution: 'RV Institute of Technology & Management',
       period: 'Sep 2023 - Aug 2027 (Ongoing)',
       details: 'Relevant Coursework: Data Structures, Algorithms, Database Management Systems, Computer Networks, Object Oriented Programming.',
-      score: 'CGPA: 9.03',
+      score: 'CGPA: 9.0',
       logo: rvLogo
     }
   ];
 
   return (
-    <section className="education" id="education">
+    <section className="education" id="education" data-section-index="Education">
       <div className="section-header">
         <span>// EDUCATION</span>
       </div>

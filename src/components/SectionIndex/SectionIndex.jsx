@@ -9,7 +9,7 @@ const homeSections = [
   { id: 'skills', label: 'Skills' },
 ];
 
-export default function SectionIndex({ sections: staticSections = homeSections, sourceSelector, anchorSelector = '#skills', wide = false }) {
+export default function SectionIndex({ sections: staticSections = homeSections, sourceSelector, anchorSelector = '#skills' }) {
   const [sections, setSections] = useState(sourceSelector ? [] : staticSections);
   const [activeId, setActiveId] = useState(staticSections[0]?.id);
   const [offsetY, setOffsetY] = useState(0);
@@ -126,7 +126,7 @@ export default function SectionIndex({ sections: staticSections = homeSections, 
   return (
     <aside
       ref={asideRef}
-      className={`section-index${wide ? ' section-index-projects' : ''}`}
+      className="section-index"
       aria-label="Page sections"
       style={{ transform: `translateY(${offsetY}px)` }}
     >

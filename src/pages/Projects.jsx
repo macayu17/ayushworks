@@ -104,7 +104,7 @@ const Projects = () => {
 
         <div className="projects-page-shell">
           {filteredProjects.length > 0 ? (
-            <ProjectsSection items={filteredProjects} showHeader={false} sectionId={null} indexable />
+            <ProjectsSection items={filteredProjects} showHeader={false} sectionId={null} />
           ) : (
             <div className="projects-page-empty" role="status">
               No matching projects found.

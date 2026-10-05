@@ -75,7 +75,7 @@ function App() {
     location.pathname.startsWith('/projects/') ||
     location.pathname === '/open-source' ||
     location.pathname === '/resume';
-  const showSectionIndex = ['/', '/projects', '/about', '/skill'].includes(location.pathname);
+  const showSectionIndex = ['/', '/about', '/skill'].includes(location.pathname);
   const [theme, setTheme] = useState(getInitialTheme);
   const [themeWave, setThemeWave] = useState(null);
   const [cmdkOpen, setCmdkOpen] = useState(false);
@@ -205,7 +205,6 @@ function App() {
                 key={location.pathname}
                 sourceSelector={location.pathname === '/' ? undefined : '[data-section-index]'}
                 anchorSelector={location.pathname === '/' ? '#skills' : null}
-                wide={location.pathname === '/projects'}
               />
             )}
 

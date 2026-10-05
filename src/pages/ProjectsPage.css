@@ -1,4 +1,6 @@
 .projects-page {
+  max-width: 880px;
+  margin-inline: auto;
   padding: 24px 0;
 }
 

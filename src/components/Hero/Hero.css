@@ -87,7 +87,7 @@
 }
 
 .hero-subtitle {
-  font-family: var(--font-jetbrains); /* Screenshot shows mono font for this part */
+  font-family: var(--font-jetbrains);
   font-size: 0.82rem;
   color: var(--zinc-400);
   display: flex;

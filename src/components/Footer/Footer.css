@@ -15,7 +15,7 @@
 .footer-logo {
   font-size: 1.5rem;
   font-weight: 700;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-jetbrains);
   display: flex;
   align-items: center;
   gap: 0;

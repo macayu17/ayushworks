@@ -4,6 +4,10 @@ import Separator from '../components/Separator/Separator';
 import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaFlask } from 'react-icons/fa';
+import { Ascii } from 'ascii.rest/react';
+import { marineDrive, tajDawn, varanasiGhats } from 'ascii.rest/pieces';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 import { featuredProjects, funProjectCatalog } from '../data/projects';
 import { loadOpenSourcePRs } from '../utils/openSourcePRs';
 import { getTechIcon } from '../utils/techIcons';
@@ -25,6 +29,11 @@ const formatBannerTime = (date) =>
 
 const HomeBanner = ({ theme }) => {
   const [time, setTime] = useState(() => formatBannerTime(new Date()));
+  const [cardPlace, setCardPlace] = useState('right');
+  const positionCard = (event) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    setCardPlace(window.innerWidth - bounds.right >= 256 ? 'right' : 'bottom');
+  };
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -35,12 +44,49 @@ const HomeBanner = ({ theme }) => {
   }, []);
 
   return (
-    <section className="home-banner" aria-label="Night landscape banner">
-      <img src={theme === 'light' ? '/banner-light.gif' : '/banner.gif'} alt="" className="home-banner-image" />
-      <time className="home-banner-time" dateTime={time}>
-        {time}
-      </time>
-    </section>
+    <>
+      <section
+        className="home-banner"
+        aria-label={theme === 'light' ? 'Taj Mahal at dawn banner' : 'Varanasi Ghats banner'}
+        tabIndex={0}
+        data-tooltip-id="home-banner-info"
+        onPointerEnter={positionCard}
+        onFocus={positionCard}
+        onPointerMove={(event) => {
+          const banner = event.currentTarget;
+          const bounds = banner.getBoundingClientRect();
+          banner.style.setProperty('--hover-x', `${event.clientX - bounds.left}px`);
+          banner.style.setProperty('--hover-y', `${event.clientY - bounds.top}px`);
+        }}
+      >
+        <Ascii
+          piece={theme === 'light' ? tajDawn : varanasiGhats}
+          label={theme === 'light' ? 'Taj Mahal at dawn' : 'Varanasi Ghats at dusk'}
+          className="home-banner-image"
+        />
+        <time className="home-banner-time" dateTime={time}>
+          {time}
+        </time>
+      </section>
+      <Tooltip
+        id="home-banner-info"
+        className="home-banner-card"
+        place={cardPlace}
+        positionStrategy="fixed"
+        offset={16}
+        delayShow={300}
+        delayHide={150}
+        clickable
+        opacity={1}
+        globalCloseEvents={{ escape: true, scroll: true, resize: true }}
+      >
+        <span className="home-banner-card-kicker">{theme === 'light' ? 'AGRA' : 'ON THE GANGA'} &middot; INDIA</span>
+        <strong>{theme === 'light' ? 'Taj Mahal at dawn' : 'Varanasi Ghats'}</strong>
+        <p>{theme === 'light'
+          ? 'A symbol of enduring love, the Taj Mahal glows softly at dawn, its marble silhouette mirrored in still water.'
+          : 'Each evening at Dashashwamedh Ghat, priests honour the Ganga with glowing brass lamps and rhythmic chants during the Ganga Aarti.'}</p>
+      </Tooltip>
+    </>
   );
 };
 
@@ -310,7 +356,7 @@ const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange }) => 
     const signature = signatureRef.current;
     const rails = document.querySelectorAll('.side-pattern, .sidebar, .section-index, .content-border');
     const update = () => {
-      const fadeEnd = signature.getBoundingClientRect().top + signature.offsetHeight * 0.25;
+      const fadeEnd = signature.getBoundingClientRect().top - 64;
       const fadeStart = Math.max(0, fadeEnd - window.innerHeight * 0.5);
       rails.forEach((rail) => {
         const top = rail.getBoundingClientRect().top;
@@ -376,6 +422,9 @@ const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange }) => 
       <Separator />
       <HomeQuote />
       <div ref={signatureRef} className={`home-signature${signatureVisible ? ' is-visible' : ''}`} role="img" aria-label="Ayush">
+        <div className="home-signature-art" aria-hidden="true">
+          <Ascii piece={marineDrive} />
+        </div>
         <span className="home-signature-word" aria-hidden="true">
           {[...'Ayush.'].map((letter, index) => (
             <span key={`${letter}-${index}`} className="home-signature-letter" style={{ '--signature-delay': `${index * 110}ms` }}>

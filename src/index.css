@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Paper Mono';
+  src: url('/fonts/paper-mono/PaperMono-Variable.woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ===== GLOBAL RESET & SCROLLBAR ===== */
 html, body {
   scrollbar-width: thin;
@@ -38,8 +46,8 @@ body::-webkit-scrollbar-thumb,
   --zinc-200: #e4e4e7;
   --zinc-100: #f4f4f5;
 
-  --font-jetbrains: "JetBrains Mono", monospace;
-  --font-geist: "Geist", sans-serif;
+  --font-jetbrains: "Paper Mono", monospace;
+  --font-geist: "Paper Mono", monospace;
   --font-doto: "Doto", sans-serif;
 
   --bg-secondary: #000000;
@@ -141,8 +149,12 @@ a {
   text-decoration: none;
 }
 
-button {
+button, input, textarea, select {
   font-family: inherit;
+}
+
+pre, code, kbd, samp {
+  font-family: var(--font-jetbrains);
 }
 
 a:focus-visible,
@@ -426,6 +438,7 @@ textarea:focus-visible,
 .app-shell:has(.home-signature) .content-border::after {
   content: '';
   position: absolute;
+  z-index: 4;
   top: 0;
   bottom: 0;
   width: 1px;

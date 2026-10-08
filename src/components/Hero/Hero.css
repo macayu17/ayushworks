@@ -189,13 +189,13 @@
   justify-content: center;
   gap: 8px;
   box-sizing: border-box;
-  width: 118px;
+  width: max-content;
   height: 32px;
   padding: 7px 12px;
   border: 1px solid var(--soft-border);
   border-radius: 12px;
   font-family: var(--font-jetbrains);
-  font-size: 0.75rem;
+  font-size: 0.62rem;
   color: var(--zinc-500);
   background: transparent;
   white-space: nowrap;
@@ -399,7 +399,6 @@
     justify-self: flex-start;
     width: auto;
     padding: 8px 12px;
-    font-size: 0.7rem;
   }
 }
 

@@ -175,7 +175,7 @@ const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
         </NavLink>
         <div className="hero-views-box">
           <FiEye className="hero-views-icon" />
-          <span>{typeof views === 'number' ? views.toLocaleString() : '...'} views</span>
+          <span>{typeof views === 'number' ? views.toLocaleString() : '...'}</span>
         </div>
       </div>
       <ProfileIntro targetRef={profileRef} />

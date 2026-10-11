@@ -1,5 +1,22 @@
 import { fetchOpenSourceContributions } from '../lib/openSourceContributions.js';
 
+const CACHE_TTL = 6 * 60 * 60 * 1000;
+let cachedContributions = null;
+let pendingContributions = null;
+
+const loadContributions = async () => {
+  if (cachedContributions && Date.now() - cachedContributions.updatedAt < CACHE_TTL) return cachedContributions;
+  if (!pendingContributions) {
+    pendingContributions = fetchOpenSourceContributions()
+      .then((prs) => {
+        cachedContributions = { prs, updatedAt: Date.now() };
+        return cachedContributions;
+      })
+      .finally(() => { pendingContributions = null; });
+  }
+  return pendingContributions;
+};
+
 const sendJson = (response, statusCode, body) => {
   response.setHeader('Content-Type', 'application/json');
   response.setHeader(
@@ -19,11 +36,7 @@ export default async function handler(request, response) {
   }
 
   try {
-    const prs = await fetchOpenSourceContributions();
-    sendJson(response, 200, {
-      prs,
-      updatedAt: Date.now(),
-    });
+    sendJson(response, 200, await loadContributions());
   } catch (error) {
     sendJson(response, 502, {
       error: 'Failed to load open source contributions',

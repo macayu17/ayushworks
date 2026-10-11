@@ -3,7 +3,7 @@ import ProfileIntro from './ProfileIntro';
 import './Hero.css';
 import { FaEnvelope, FaGithub, FaLinkedinIn, FaFileAlt, FaMoon, FaSun } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { FiEye } from 'react-icons/fi';
+import { FiCalendar, FiEye } from 'react-icons/fi';
 import { NavLink, Link } from 'react-router-dom';
 import { getPortfolioViewCount } from '../../utils/viewCounter';
 import SocialHoverCard from '../SocialHoverCard/SocialHoverCard';
@@ -171,7 +171,11 @@ const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
         </div>
         <NavLink to="/contact" className="hero-contact-box" aria-label="Go to contact page">
           <FaEnvelope className="hero-contact-icon" />
-          <span>Contact Me</span>
+          <span>Say hi</span>
+        </NavLink>
+        <NavLink to="/book-a-call" className="hero-contact-box" aria-label="Book a call">
+          <FiCalendar className="hero-contact-icon" />
+          <span>Book a call</span>
         </NavLink>
         <div className="hero-views-box">
           <FiEye className="hero-views-icon" />

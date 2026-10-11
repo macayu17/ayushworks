@@ -46,6 +46,12 @@ const routeMetadata = {
       'Contact Ayush Kumar for internships, full-time roles, freelance work, collaborations, and software engineering opportunities.',
     canonicalPath: '/contact',
   },
+  '/book-a-call': {
+    title: 'Book a call | Ayush Kumar',
+    browserTitle: 'Ayush',
+    description: 'Book a 15-minute call with Ayush Kumar to discuss an idea, collaboration, or opportunity.',
+    canonicalPath: '/book-a-call',
+  },
   '/resume': {
     title: 'Resume | Ayush Kumar',
     browserTitle: 'Ayush',

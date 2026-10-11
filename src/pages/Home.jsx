@@ -11,6 +11,7 @@ import 'react-tooltip/dist/react-tooltip.css';
 import { featuredProjects, funProjectCatalog } from '../data/projects';
 import { loadOpenSourcePRs } from '../utils/openSourcePRs';
 import { getTechIcon } from '../utils/techIcons';
+import ContributionList, { OrganizationLogo } from '../components/ContributionList/ContributionList';
 import './Home.css';
 
 const GitHubContributions = lazy(() => import('../components/GitHubContributions/GitHubContributions'));
@@ -195,17 +196,18 @@ const OpenSourcePreview = () => {
     };
   }, []);
 
-  const tabs = ['Merged', 'Open', 'Closed'];
+  const tabs = ['Merged', 'Open'];
   const activeTabIndex = tabs.indexOf(activeStatus);
   const visibleEntries = entries.filter((entry) => entry.status === activeStatus);
-  const previewEntries = visibleEntries.slice(0, 4);
+  const previewEntries = visibleEntries.slice(0, 5);
+  const organizations = [...new Map(visibleEntries.map((entry) => [entry.repository.split('/')[0], entry])).values()];
 
   return (
     <section className="home-open-source" id="open-source-preview">
       <div className="home-open-source-header">
         <div>
-          <span className="home-open-source-kicker">Open Source</span>
-          <h2>Open Source Contributions</h2>
+          <span className="home-open-source-kicker">Open source / {status === 'ok' ? `${visibleEntries.length} ${activeStatus.toLowerCase()}` : 'syncing'}</span>
+          <h2><span aria-hidden="true">🧩</span> Open Source Contributions</h2>
         </div>
         <div
           className="home-open-source-tabs"
@@ -229,9 +231,15 @@ const OpenSourcePreview = () => {
         </div>
       </div>
 
+      {organizations.length > 0 && <div className="home-open-source-organizations">
+        <div className="home-open-source-logo-stack" aria-label="Contributing organizations">
+          {organizations.slice(0, 7).map((entry) => <OrganizationLogo key={entry.repository.split('/')[0]} entry={entry} />)}
+        </div>
+        <p>{activeStatus === 'Merged' ? 'Shipped into' : 'Contributing to'} <span>{organizations.slice(0, 3).map((entry) => entry.repository.split('/')[0]).join(', ')}</span>{organizations.length > 3 ? ` and ${organizations.length - 3} more` : ''}</p>
+      </div>}
       <div key={activeStatus} className="home-open-source-list">
         {status === 'loading' &&
-          Array.from({ length: 4 }).map((_, index) => (
+          Array.from({ length: 5 }).map((_, index) => (
             <div key={index} className="home-open-source-row skeleton" />
           ))}
 
@@ -243,26 +251,12 @@ const OpenSourcePreview = () => {
           <p className="home-open-source-empty">No {activeStatus.toLowerCase()} contributions to show.</p>
         )}
 
-        {previewEntries.map((entry) => (
-          <a
-            key={entry.id}
-            href={entry.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="home-open-source-row"
-          >
-            <span className={`home-open-source-dot ${entry.statusClass}`} />
-            <span className="home-open-source-copy">
-              <strong>{entry.title}</strong>
-              <span>{entry.repository}</span>
-            </span>
-          </a>
-        ))}
+        {previewEntries.length > 0 && <ContributionList entries={previewEntries} />}
       </div>
 
       <div className="home-open-source-footer">
         <Link to="/open-source" className="home-open-source-view-all">
-          View All
+          Show all {entries.length || ''}
           <FaArrowRight size={11} />
         </Link>
       </div>

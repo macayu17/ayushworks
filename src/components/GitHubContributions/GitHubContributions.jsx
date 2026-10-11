@@ -183,7 +183,12 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                             </div>
                         ))}
                     </div>
-                    <div className="calendar-legend" aria-hidden="true">
+                    <div className="calendar-footer">
+                      <div className="custom-total-contributions">
+                        <span className="custom-total-number">{totalContributions > 0 ? totalContributions : '...'}</span>
+                        <span className="custom-total-label">CONTRIBUTIONS</span>
+                      </div>
+                      <div className="calendar-legend" aria-hidden="true">
                         <span>Less</span>
                         {calendarColors.map((color, index) => (
                             <span
@@ -193,16 +198,13 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                             />
                         ))}
                         <span>More</span>
+                      </div>
                     </div>
                     <Tooltip
                         id="github-tooltip"
                         border="1px dashed var(--zinc-700)"
                         style={{ backgroundColor: 'var(--surface-panel-strong)', borderRadius: '4px', fontSize: '0.75rem', fontFamily: 'var(--font-jetbrains)', color: 'var(--zinc-100)', zIndex: 999 }}
                     />
-                </div>
-                <div className={`custom-total-contributions ${isCompactMobile ? 'mobile' : 'overlay'}`}>
-                    <span className="custom-total-number">{totalContributions > 0 ? totalContributions : '...'}</span>
-                    <span className="custom-total-label">CONTRIBUTIONS</span>
                 </div>
             </div>
         </section>

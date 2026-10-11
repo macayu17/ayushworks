@@ -13,6 +13,7 @@ const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Skills = lazy(() => import('./pages/Skills'));
 const Contact = lazy(() => import('./pages/Contact'));
+const BookCall = lazy(() => import('./pages/BookCall'));
 const ProjectsPage = lazy(() => import('./pages/Projects'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 const OpenSourcePage = lazy(() => import('./pages/OpenSource'));
@@ -105,9 +106,13 @@ function App() {
 
   useEffect(() => {
     const handleCmdK = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      const isTyping = e.target instanceof HTMLElement && (e.target.matches('input, textarea, select') || e.target.isContentEditable);
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setCmdkOpen(prev => !prev);
+      } else if (e.key === '/' && !isTyping && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        e.preventDefault();
+        setCmdkOpen(true);
       }
     };
     window.addEventListener('keydown', handleCmdK);
@@ -236,6 +241,7 @@ function App() {
                     <Route path="/open-source" element={<OpenSourcePage />} />
                     <Route path="/skill" element={<Skills />} />
                     <Route path="/contact" element={<Contact />} />
+                    <Route path="/book-a-call" element={<BookCall theme={theme} />} />
                     <Route path="/resume" element={<Resume />} />
                   </Routes>
                 </div>
@@ -248,6 +254,7 @@ function App() {
         <Suspense fallback={null}>
           <CommandPalette
             isOpen={cmdkOpen}
+            onOpen={() => setCmdkOpen(true)}
             onClose={() => setCmdkOpen(false)}
             theme={theme}
             toggleTheme={toggleTheme}

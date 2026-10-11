@@ -122,7 +122,7 @@
   display: flex;
   justify-content: center;
   gap: 12px;
-  margin: 20px 0 12px;
+  margin: 8px 0 8px;
 }
 
 .home-projects-action-btn {
@@ -134,7 +134,7 @@
   border-radius: 999px;
   background: var(--surface-low);
   font-family: var(--font-jetbrains);
-  font-size: 0.68rem;
+  font-size: .61rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--zinc-300);
@@ -224,7 +224,7 @@
   margin: 0;
   padding: 0 18px 4px;
   color: var(--zinc-500);
-  font-size: 0.86rem;
+  font-size: .7rem;
   line-height: 1.65;
 }
 
@@ -245,25 +245,27 @@
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .home-open-source-kicker {
   display: block;
   margin-bottom: 6px;
-  font-family: var(--font-jetbrains);
-  font-size: 0.64rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: .61rem;
+  letter-spacing: .04em;
   color: var(--zinc-500);
 }
 
 .home-open-source h2 {
   margin: 0;
-  font-family: var(--font-geist);
-  font-size: 1.15rem;
+  font-size: .86rem;
   line-height: 1.2;
   color: var(--zinc-100);
+}
+
+.home-open-source h2 > span {
+  margin-right: 4px;
+  font-size: .9rem;
 }
 
 .home-open-source-tabs {
@@ -271,158 +273,132 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 5px;
+  padding: 3px;
   border: 1px solid var(--soft-border);
-  border-radius: 10px;
+  border-radius: 9px;
   background: var(--surface-panel);
 }
 
 .home-open-source-tab-indicator {
   position: absolute;
-  left: 5px;
-  top: 5px;
-  bottom: 5px;
-  width: calc((100% - 18px) / 3);
+  left: 4px;
+  top: 4px;
+  bottom: 4px;
+  width: calc((100% - 12px) / 2);
   border: 1px solid var(--soft-border);
-  border-radius: 7px;
+  border-radius: 6px;
   background: var(--surface-hover);
   transform: translateX(calc(var(--active-tab-index) * (100% + 4px)));
-  transition: transform 0.28s var(--expo-out);
+  transition: transform .35s var(--expo-out);
   pointer-events: none;
 }
 
 .home-open-source-tab {
   position: relative;
   z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-width: 68px;
-  min-height: 34px;
+  min-width: 54px;
+  min-height: 26px;
   padding: 0 12px;
   border: 0;
-  border-radius: 7px;
+  border-radius: 6px;
   background: transparent;
   color: var(--zinc-500);
-  font-family: var(--font-geist);
-  font-size: 0.74rem;
-  font-weight: 650;
-  white-space: nowrap;
+  font: inherit;
+  font-size: .64rem;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color .2s ease;
 }
 
-.home-open-source-tab:hover {
-  color: var(--zinc-200);
-}
-
-.home-open-source-tab.active {
+.home-open-source-tab:hover, .home-open-source-tab.active {
   color: var(--zinc-100);
 }
 
-.home-open-source-list {
-  border-top: 1px dashed var(--zinc-800);
-  animation: home-open-source-list-in 0.22s ease-out both;
+.home-open-source-tab:focus-visible {
+  outline: 1px solid #a855f7;
 }
 
-.home-open-source-row {
-  display: grid;
-  grid-template-columns: 10px minmax(0, 1fr);
+.home-open-source-organizations {
+  display: flex;
+  align-items: center;
   gap: 12px;
-  align-items: start;
-  padding: 15px 0;
-  border-bottom: 1px dashed var(--zinc-800);
-  color: inherit;
+  margin-bottom: 8px;
 }
 
-.home-open-source-row:hover strong {
-  color: var(--zinc-50);
+.home-open-source-logo-stack {
+  display: flex;
+  flex-shrink: 0;
+  padding-left: 3px;
 }
 
-.home-open-source-dot {
-  width: 8px;
-  height: 8px;
-  margin-top: 6px;
-  border-radius: 999px;
-  background: #a855f7;
-  box-shadow: 0 0 14px rgba(168, 85, 247, 0.3);
+.home-open-source-logo-stack .contribution-logo {
+  width: 24px;
+  height: 24px;
+  margin-left: -3px;
+  border-color: var(--zinc-900);
+  border-width: 2px;
+  border-radius: 7px;
 }
 
-.home-open-source-dot.open {
-  background: #60a5fa;
-  box-shadow: 0 0 14px rgba(96, 165, 250, 0.28);
-}
-
-.home-open-source-dot.closed {
-  background: var(--zinc-500);
-  box-shadow: none;
-}
-
-.home-open-source-copy {
-  display: grid;
-  gap: 6px;
-  min-width: 0;
-}
-
-.home-open-source-copy strong {
-  color: var(--zinc-200);
-  font-family: var(--font-geist);
-  font-size: 0.94rem;
-  line-height: 1.35;
-  transition: color 0.2s ease;
-}
-
-.home-open-source-copy span {
+.home-open-source-organizations p {
+  margin: 0;
   color: var(--zinc-500);
-  font-family: var(--font-geist);
-  font-size: 0.82rem;
-  line-height: 1.25;
+  font-size: .65rem;
+  line-height: 1.6;
+}
+
+.home-open-source-organizations p span {
+  color: var(--zinc-300);
+}
+
+.home-open-source-list {
+  animation: home-open-source-list-in .25s ease-out both;
 }
 
 .home-open-source-row.skeleton {
   height: 74px;
-  background:
-    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.045), transparent);
+  border-radius: 8px;
+  background: linear-gradient(90deg, transparent, var(--surface-hover), transparent);
   background-size: 220% 100%;
   animation: home-open-source-skeleton 1.2s ease-in-out infinite;
 }
 
 .home-open-source-empty {
-  margin: 0;
   padding: 18px 0;
-  border-bottom: 1px dashed var(--zinc-800);
   color: var(--zinc-500);
-  font-family: var(--font-jetbrains);
-  font-size: 0.74rem;
+  font-size: .74rem;
 }
 
 .home-open-source-footer {
   display: flex;
-  justify-content: center;
-  margin-top: 18px;
+  justify-content: flex-start;
+  margin-top: 8px;
 }
 
 .home-open-source-view-all {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 38px;
-  padding: 0 16px;
-  border: 1px solid var(--soft-border);
-  border-radius: 8px;
-  background: var(--surface-low);
-  color: var(--zinc-400);
-  font-family: var(--font-geist);
-  font-size: 0.82rem;
-  font-weight: 650;
-  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  min-height: 28px;
+  color: var(--zinc-500);
+  font-size: .66rem;
+  transition: color .2s ease;
 }
 
 .home-open-source-view-all:hover {
   color: var(--zinc-100);
-  border-color: var(--zinc-600);
-  background: var(--surface-hover);
+}
+
+@media (max-width: 480px) {
+  .home-open-source-header {
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+  .home-open-source-organizations {
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 12px;
+}
 }
 
 .home-skills {
@@ -440,7 +416,7 @@
 .home-skills h2 {
   margin: 0;
   font-family: var(--font-geist);
-  font-size: 1.15rem;
+  font-size: .86rem;
   line-height: 1.2;
   color: var(--zinc-100);
 }
@@ -488,7 +464,7 @@
   background: var(--surface-low);
   color: var(--zinc-400);
   font-family: var(--font-geist);
-  font-size: 0.78rem;
+  font-size: .69rem;
   font-weight: 560;
   line-height: 1;
   white-space: nowrap;
@@ -581,7 +557,7 @@
   background: linear-gradient(90deg, var(--zinc-600), var(--zinc-200) 50%, var(--zinc-600));
   background-clip: text;
   font-family: var(--font-jetbrains);
-  font-size: clamp(0.82rem, 1.5vw, 0.96rem);
+  font-size: .78rem;
   font-weight: 600;
   line-height: 1.55;
 }
@@ -671,7 +647,7 @@
 
   .fun-projects-intro {
     padding: 0 16px 2px;
-    font-size: 0.8rem;
+    font-size: .7rem;
   }
 
   .fun-projects-dropdown .projects {
@@ -727,7 +703,7 @@
   .home-skill-chip {
     min-height: 32px;
     padding: 0 8px;
-    font-size: 0.72rem;
+    font-size: .69rem;
   }
 
   .home-quote {
@@ -740,7 +716,7 @@
   }
 
   .home-quote blockquote {
-    font-size: 0.9rem;
+    font-size: .78rem;
   }
 
   .home-quote figcaption {
@@ -843,4 +819,8 @@
 
 .content-border:has(.home-signature) {
   padding-bottom: 0;
+}
+
+.page-transition:has(.hero) .projects .section-header {
+  font-size: .8rem;
 }

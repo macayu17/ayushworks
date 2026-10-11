@@ -263,9 +263,9 @@
   align-self: flex-end;
   gap: 8px;
   box-sizing: border-box;
-  width: 108px;
+  width: max-content;
   height: 32px;
-  min-width: 0;
+  min-width: 108px;
   padding: 7px 12px;
   border: 1px solid var(--soft-border);
   border-radius: 10px;
@@ -275,6 +275,7 @@
   background: transparent;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  white-space: nowrap;
   transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
 }
 
@@ -286,6 +287,7 @@
 }
 
 .hero-contact-icon {
+  flex-shrink: 0;
   width: 11px;
   height: 11px;
 }

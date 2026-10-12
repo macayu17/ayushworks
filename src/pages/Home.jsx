@@ -329,7 +329,7 @@ const HomeQuote = () => (
   </figure>
 );
 
-const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange }) => {
+const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange, onSearchDockChange }) => {
   const signatureRef = useRef(null);
   const [signatureVisible, setSignatureVisible] = useState(false);
   useEffect(() => {
@@ -358,6 +358,7 @@ const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange }) => 
         rail.style.setProperty('--rail-fade-end', `${Math.max(0, fadeEnd - top)}px`);
       });
       onHomeEndVisibilityChange(fadeEnd <= 0);
+      onSearchDockChange(document.documentElement.scrollHeight - window.scrollY - window.innerHeight <= 100);
     };
     update();
     window.addEventListener('scroll', update, { passive: true });
@@ -370,8 +371,9 @@ const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange }) => 
         rail.style.removeProperty('--rail-fade-end');
       });
       onHomeEndVisibilityChange(false);
+      onSearchDockChange(false);
     };
-  }, [onHomeEndVisibilityChange]);
+  }, [onHomeEndVisibilityChange, onSearchDockChange]);
 
   return (
     <div className="page-transition">

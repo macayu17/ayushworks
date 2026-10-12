@@ -19,7 +19,7 @@ const buildCommands = (navigate, toggleTheme, theme) => [
   { id: 'x', group: 'Elsewhere', label: 'X / Twitter', detail: '@ayush_174_', external: true, icon: <FaXTwitter />, action: () => window.open('https://x.com/ayush_174_', '_blank', 'noopener,noreferrer') },
 ];
 
-const CommandPalette = ({ isOpen, onOpen, onClose, theme, toggleTheme }) => {
+const CommandPalette = ({ isOpen, onOpen, onClose, theme, toggleTheme, docked }) => {
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
   const [typed, setTyped] = useState('');
@@ -101,7 +101,7 @@ const CommandPalette = ({ isOpen, onOpen, onClose, theme, toggleTheme }) => {
   return (
     <>
       <div className={`cmdk-overlay${isOpen ? ' is-open' : ''}`} onClick={close} aria-hidden="true" />
-      <div className={`cmdk-panel${isOpen ? ' is-open' : ''}`} role={isOpen ? 'dialog' : undefined} aria-modal={isOpen || undefined} aria-label={isOpen ? 'Search and navigate' : undefined} onKeyDown={isOpen ? handleKey : undefined}>
+      <div className={`cmdk-panel${isOpen ? ' is-open' : ''}${docked ? ' is-docked' : ''}`} role={isOpen ? 'dialog' : undefined} aria-modal={isOpen || undefined} aria-label={isOpen ? 'Search and navigate' : undefined} onKeyDown={isOpen ? handleKey : undefined}>
         <div className="cmdk-menu" inert={!isOpen} aria-hidden={!isOpen}>
           <div className="cmdk-menu-inner">
             <div className="cmdk-list" ref={listRef} id="command-results" role="listbox" aria-label="Commands">

@@ -81,6 +81,7 @@ function App() {
   const [themeWave, setThemeWave] = useState(null);
   const [cmdkOpen, setCmdkOpen] = useState(false);
   const [isHomeEndVisible, setIsHomeEndVisible] = useState(false);
+  const [searchDocked, setSearchDocked] = useState(false);
   // ponytail: one preloaded element, reused. Swap for WebAudio only if overlapping plays are needed.
   const themeSoundRef = useRef(null);
   if (themeSoundRef.current === null && typeof Audio !== 'undefined') {
@@ -234,7 +235,7 @@ function App() {
               <main className={`main-content${isWideRoute ? ' main-content-wide' : ''}`}>
                 <div className="content-border" id="main-content">
                   <Routes location={location} key={location.pathname}>
-                    <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} onOpenCmdk={() => setCmdkOpen(true)} onHomeEndVisibilityChange={setIsHomeEndVisible} />} />
+                    <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} onOpenCmdk={() => setCmdkOpen(true)} onHomeEndVisibilityChange={setIsHomeEndVisible} onSearchDockChange={setSearchDocked} />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/projects" element={<ProjectsPage />} />
                     <Route path="/projects/:slug" element={<ProjectDetail />} />
@@ -254,6 +255,7 @@ function App() {
         <Suspense fallback={null}>
           <CommandPalette
             isOpen={cmdkOpen}
+            docked={location.pathname === '/' && searchDocked}
             onOpen={() => setCmdkOpen(true)}
             onClose={() => setCmdkOpen(false)}
             theme={theme}

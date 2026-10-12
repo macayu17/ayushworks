@@ -415,7 +415,13 @@ const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange }) => 
       <HomeSkills />
       <Separator />
       <HomeQuote />
-      <div ref={signatureRef} className={`home-signature${signatureVisible ? ' is-visible' : ''}`} role="img" aria-label="Ayush">
+      <div ref={signatureRef} className={`home-signature${signatureVisible ? ' is-visible' : ''}`} role="img" aria-label="Marine Drive, Mumbai, with the Ayush signature">
+        <div className="home-signature-note" aria-hidden="true">
+          <span>Marine Drive,<br />Mumbai</span>
+          <svg width="64" height="62" viewBox="0 0 64 62" fill="none">
+            <path d="M17 3C12 22 22 37 43 51M43 51L31 48M43 51L37 39" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
         <div className="home-signature-art" aria-hidden="true">
           <Ascii piece={marineDrive} />
         </div>

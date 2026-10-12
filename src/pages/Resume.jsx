@@ -3,8 +3,8 @@ import { FaFileDownload, FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './Resume.css';
 
-const RESUME_IMAGE = '/ResumeScreenshot.png';
-const RESUME_PDF_URL = '/Ayush_Kumar_Resume.pdf';
+const RESUME_IMAGE = '/ResumeScreenshot.png?v=8eb0670090';
+const RESUME_PDF_URL = '/Ayush_Kumar_Resume.pdf?v=8eb0670090';
 
 const Resume = () => {
   useEffect(() => {

@@ -741,6 +741,32 @@
   transform: translateX(-50%);
 }
 
+@font-face {
+  font-family: 'Caveat';
+  src: url('/fonts/caveat/Caveat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.home-signature-note {
+  position: absolute;
+  top: 8px;
+  left: max(24px, calc((100vw - 740px) / 2 + 32px));
+  z-index: 2;
+  color: var(--zinc-300);
+  font-family: 'Caveat', cursive;
+  font-size: 24px;
+  line-height: 1.05;
+  transform: rotate(-5deg);
+  pointer-events: none;
+}
+
+.home-signature-note svg {
+  display: block;
+  margin: 3px 0 0 36px;
+}
+
 .home-signature-art {
   position: absolute;
   left: 0;
@@ -802,6 +828,11 @@
 @media (max-width: 639px) {
   .home-signature { height: 100svh; margin-top: 50px; padding-bottom: 110px; }
   .home-signature-letter { font-size: 15vw; }
+  .home-signature-note {
+    top: auto;
+    bottom: calc(50vw + 40px);
+    left: 28px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -6,6 +6,25 @@
   font-display: swap;
 }
 
+.viewport-bottom-fade {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 50;
+  height: calc(72px + env(safe-area-inset-bottom, 0px));
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--zinc-900));
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 75%);
+  mask-image: linear-gradient(to bottom, transparent, #000 75%);
+}
+
+@media (max-width: 639px) {
+  .viewport-bottom-fade {
+    height: calc(48px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 /* ===== GLOBAL RESET & SCROLLBAR ===== */
 html, body {
   scrollbar-width: thin;

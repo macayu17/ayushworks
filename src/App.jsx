@@ -260,6 +260,7 @@ function App() {
             toggleTheme={toggleTheme}
           />
         </Suspense>
+        <div className="viewport-bottom-fade" aria-hidden="true" />
         <CustomCursor />
       </ErrorBoundary>
     </div>

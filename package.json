@@ -12,7 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "ascii.rest": "github:bas3line/ascii",
+    "ascii.rest": "github:bas3line/ascii#8fd792e079ee12c8850b4090617bd8253ffb6e6a",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-github-calendar": "^5.0.5",

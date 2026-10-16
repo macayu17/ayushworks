@@ -5,7 +5,7 @@ import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaFlask } from 'react-icons/fa';
 import { Ascii } from 'ascii.rest/react';
-import { marineDrive, tajDawn, varanasiGhats } from 'ascii.rest/pieces';
+import { gangaurGhat, jalMahal, marineDrive, tajDawn, varanasiGhats } from 'ascii.rest/pieces';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { featuredProjects, funProjectCatalog } from '../data/projects';
@@ -15,6 +15,30 @@ import ContributionList, { OrganizationLogo } from '../components/ContributionLi
 import './Home.css';
 
 const GitHubContributions = lazy(() => import('../components/GitHubContributions/GitHubContributions'));
+
+const lightBanner = Math.random() < 0.5 ? {
+  piece: tajDawn,
+  title: 'Taj Mahal at dawn',
+  location: 'AGRA',
+  description: 'A symbol of enduring love, the Taj Mahal glows softly at dawn, its marble silhouette mirrored in still water.',
+} : {
+  piece: jalMahal,
+  title: 'Jal Mahal',
+  location: 'JAIPUR',
+  description: 'The Water Palace rests in the calm waters of Man Sagar Lake, framed by the Aravalli hills.',
+};
+
+const darkBanner = Math.random() < 0.5 ? {
+  piece: varanasiGhats,
+  title: 'Varanasi Ghats',
+  location: 'ON THE GANGA',
+  description: 'Each evening at Dashashwamedh Ghat, priests honour the Ganga with glowing brass lamps and rhythmic chants during the Ganga Aarti.',
+} : {
+  piece: gangaurGhat,
+  title: 'Gangaur Ghat',
+  location: 'UDAIPUR',
+  description: 'On the shores of Lake Pichola, Gangaur Ghat looks out across Udaipur’s waterfront, where stone steps meet the water.',
+};
 
 const ContributionsPlaceholder = () => (
   <div className="github-contributions-placeholder" aria-hidden="true" />
@@ -29,6 +53,7 @@ const formatBannerTime = (date) =>
   });
 
 const HomeBanner = ({ theme }) => {
+  const banner = theme === 'light' ? lightBanner : darkBanner;
   const [time, setTime] = useState(() => formatBannerTime(new Date()));
   const [cardPlace, setCardPlace] = useState('right');
   const positionCard = (event) => {
@@ -48,7 +73,7 @@ const HomeBanner = ({ theme }) => {
     <>
       <section
         className="home-banner"
-        aria-label={theme === 'light' ? 'Taj Mahal at dawn banner' : 'Varanasi Ghats banner'}
+        aria-label={`${banner.title} banner`}
         tabIndex={0}
         data-tooltip-id="home-banner-info"
         onPointerEnter={positionCard}
@@ -61,8 +86,8 @@ const HomeBanner = ({ theme }) => {
         }}
       >
         <Ascii
-          piece={theme === 'light' ? tajDawn : varanasiGhats}
-          label={theme === 'light' ? 'Taj Mahal at dawn' : 'Varanasi Ghats at dusk'}
+          piece={banner.piece}
+          label={banner.title}
           className="home-banner-image"
         />
         <time className="home-banner-time" dateTime={time}>
@@ -81,11 +106,9 @@ const HomeBanner = ({ theme }) => {
         opacity={1}
         globalCloseEvents={{ escape: true, scroll: true, resize: true }}
       >
-        <span className="home-banner-card-kicker">{theme === 'light' ? 'AGRA' : 'ON THE GANGA'} &middot; INDIA</span>
-        <strong>{theme === 'light' ? 'Taj Mahal at dawn' : 'Varanasi Ghats'}</strong>
-        <p>{theme === 'light'
-          ? 'A symbol of enduring love, the Taj Mahal glows softly at dawn, its marble silhouette mirrored in still water.'
-          : 'Each evening at Dashashwamedh Ghat, priests honour the Ganga with glowing brass lamps and rhythmic chants during the Ganga Aarti.'}</p>
+        <span className="home-banner-card-kicker">{banner.location} &middot; INDIA</span>
+        <strong>{banner.title}</strong>
+        <p>{banner.description}</p>
       </Tooltip>
     </>
   );

@@ -834,7 +834,8 @@
   }
   .home-signature-letter { font-size: 15vw; }
   .home-signature-note {
-    top: 12px;
+    top: auto;
+    bottom: calc(50vw - 32px);
     left: 24px;
     font-size: 19px;
   }

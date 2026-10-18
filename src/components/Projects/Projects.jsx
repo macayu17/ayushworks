@@ -149,6 +149,7 @@ const Projects = ({
 
               {/* Card body */}
               <div className="project-body">
+                <p className="project-stack">{project.tags.slice(0, 3).join(' · ')}</p>
                 <div className="project-title-row">
                   <div className="project-title-copy">
                     <h3 className="project-title">{project.title}</h3>
@@ -191,6 +192,7 @@ const Projects = ({
                           onClick={stopCardNavigation}
                         >
                           <FaExternalLinkAlt size={14} />
+                          <span className="project-link-label">Live</span>
                         </a>
                       )}
 
@@ -204,6 +206,7 @@ const Projects = ({
                           onClick={stopCardNavigation}
                         >
                           <FaGithub size={15} />
+                          <span className="project-link-label">GitHub</span>
                         </a>
                       )}
                     </div>

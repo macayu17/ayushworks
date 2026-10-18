@@ -865,3 +865,36 @@
 .page-transition:has(.hero) .projects .section-header {
   font-size: .8rem;
 }
+
+@media (max-width: 639px) {
+  .home-projects-actions {
+    justify-content: flex-start;
+    margin: 12px 0;
+  }
+
+  .home-projects-action-btn {
+    padding: 4px 0;
+    border: 0;
+    background: transparent;
+    font-size: .68rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .fun-projects-dropdown {
+    border: 0;
+    border-top: 1px solid var(--soft-border);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .fun-projects-summary {
+    flex-direction: row;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 28px 0 0;
+  }
+
+  .fun-projects-kicker { font-size: .62rem; }
+  .fun-projects-count { font-size: .56rem; }
+}

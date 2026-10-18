@@ -46,7 +46,7 @@ const Projects = ({
       return undefined;
     }
 
-    const mediaQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const mediaQuery = window.matchMedia('(min-width: 640px) and (hover: hover) and (pointer: fine)');
     const updateTilt = () => setEnableCardTilt(mediaQuery.matches);
 
     updateTilt();

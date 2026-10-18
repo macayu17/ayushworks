@@ -315,11 +315,14 @@
 
   .hero-top-actions {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 1;
     justify-self: end;
   }
 
-  .hero-cmdk-btn,
+  .hero-cmdk-btn {
+    display: none;
+  }
+
   .hero-theme-btn {
     height: 32px;
   }
@@ -378,7 +381,7 @@
   }
 
   .hero-contact-box {
-    grid-row: 1;
+    grid-row: 2;
     align-self: center;
     width: 100%;
     min-width: 0;
@@ -404,9 +407,10 @@
   }
 
   .hero-views-box {
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: flex-start;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    margin-right: 36px;
     min-height: 32px;
     width: auto;
     padding: 8px 12px;

@@ -175,7 +175,7 @@
   }
 
   .contributions-header {
-    align-items: stretch;
+    align-items: flex-start;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 14px;
@@ -186,12 +186,11 @@
   }
 
   .contributions-page-link {
-    justify-content: space-between;
-    font-size: 0.54rem;
+    font-size: 0.6rem;
     padding: 7px 8px;
     gap: 6px;
-    width: 100%;
-    white-space: normal;
+    width: auto;
+    white-space: nowrap;
   }
 
   .calendar-wrapper {

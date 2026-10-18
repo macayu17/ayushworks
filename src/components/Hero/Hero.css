@@ -256,6 +256,17 @@
   color: var(--zinc-300);
 }
 
+.hero-theme-disc { transition: r 320ms ease; }
+.hero-theme-cutout { transition: cx 320ms ease, cy 320ms ease; }
+.hero-theme-rays {
+  transform-origin: 12px 12px;
+  transition: opacity 240ms ease, transform 320ms ease;
+}
+.hero-theme-glyph.is-moon .hero-theme-rays {
+  opacity: 0;
+  transform: rotate(45deg) scale(.5);
+}
+
 .hero-contact-box {
   display: inline-flex;
   align-items: center;
@@ -294,29 +305,22 @@
 
 @media (max-width: 639px) {
   .hero {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 8px;
     padding-bottom: 18px;
   }
 
-  .hero-left {
-    width: 100%;
-  }
-
-  .hero-right {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: center;
-    gap: 10px 8px;
-    margin-top: 4px;
-  }
-
+  .hero-left,
+  .hero-right,
   .hero-top-actions {
-    grid-column: 2;
+    display: contents;
+  }
+
+  .hero-identity-row {
+    grid-column: 1 / -1;
     grid-row: 1;
-    justify-self: end;
   }
 
   .hero-cmdk-btn {
@@ -324,7 +328,13 @@
   }
 
   .hero-theme-btn {
-    height: 32px;
+    position: absolute;
+    top: 4px;
+    right: 0;
+    width: 32px;
+    height: 36px;
+    border: 0;
+    background: transparent;
   }
 
   .hero-greeting {
@@ -340,6 +350,7 @@
   .hero-name-block {
     justify-content: flex-start;
     gap: 8px;
+    padding-right: 36px;
   }
 
   .hero-subtitle {
@@ -359,7 +370,9 @@
   }
 
   .hero-intro {
-    margin-top: 22px;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 4px;
     min-height: 122px;
     max-width: 100%;
   }
@@ -381,7 +394,7 @@
   }
 
   .hero-contact-box {
-    grid-row: 2;
+    grid-row: 4;
     align-self: center;
     width: 100%;
     min-width: 0;
@@ -391,10 +404,13 @@
   }
 
   .hero-social-box {
+    grid-column: 1;
+    grid-row: 3;
     width: auto;
     max-width: none;
-    margin-top: 16px;
-    align-self: flex-start;
+    margin-top: 0;
+    align-self: center;
+    justify-self: start;
     justify-content: flex-start;
     gap: 10px;
     padding: 7px 12px;
@@ -408,9 +424,9 @@
 
   .hero-views-box {
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 3;
     justify-self: end;
-    margin-right: 36px;
+    align-self: center;
     min-height: 32px;
     width: auto;
     padding: 8px 12px;
@@ -447,6 +463,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-theme-disc,
+  .hero-theme-cutout,
+  .hero-theme-rays {
+    transition: none;
+  }
   .hero-intro-word,
   .hero-social-ready {
     opacity: 1;

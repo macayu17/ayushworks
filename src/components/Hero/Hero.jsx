@@ -1,7 +1,7 @@
-import { Fragment, useState, useEffect, useRef } from 'react';
+import { Fragment, useState, useEffect, useRef, useId } from 'react';
 import ProfileIntro from './ProfileIntro';
 import './Hero.css';
-import { FaEnvelope, FaGithub, FaLinkedinIn, FaFileAlt, FaMoon, FaSun } from 'react-icons/fa';
+import { FaEnvelope, FaGithub, FaLinkedinIn, FaFileAlt } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { FiCalendar, FiEye } from 'react-icons/fi';
 import { NavLink, Link } from 'react-router-dom';
@@ -91,6 +91,7 @@ const AnimatedSubtitle = () => {
 const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
   const [views, setViews] = useState(null);
   const profileRef = useRef(null);
+  const themeMaskId = useId();
 
   useEffect(() => {
     let isActive = true;
@@ -166,7 +167,18 @@ const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
             <kbd>⌘K</kbd>
           </button>
           <button type="button" className="hero-theme-btn" onClick={toggleTheme} aria-label="Toggle theme">
-            {theme === 'dark' ? <FaSun size={12} /> : <FaMoon size={12} />}
+            <svg className={`hero-theme-glyph${theme === 'light' ? ' is-moon' : ''}`} width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <defs>
+                <mask id={themeMaskId}>
+                  <rect width="24" height="24" fill="white" />
+                  <circle className="hero-theme-cutout" cx={theme === 'dark' ? 24 : 17} cy={theme === 'dark' ? 0 : 7} r="7" fill="black" />
+                </mask>
+              </defs>
+              <circle className="hero-theme-disc" cx="12" cy="12" r={theme === 'dark' ? 5 : 8} fill="currentColor" mask={`url(#${themeMaskId})`} />
+              <g className="hero-theme-rays" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" />
+              </g>
+            </svg>
           </button>
         </div>
         <NavLink to="/contact" className="hero-contact-box" aria-label="Go to contact page">

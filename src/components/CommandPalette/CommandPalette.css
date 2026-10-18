@@ -36,9 +36,8 @@
 }
 
 @media (max-width: 639px) {
-  .cmdk-panel.is-docked:not(.is-open) {
-    left: calc(100% - 16px);
-    width: 240px;
+  .cmdk-panel:not(.is-open) {
+    display: none;
   }
 }
 

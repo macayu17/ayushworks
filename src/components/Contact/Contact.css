@@ -244,6 +244,22 @@ textarea.term-input:focus {
   border: 1px dashed var(--zinc-600);
 }
 
+.contact-copy-error {
+  margin: 0;
+  color: var(--zinc-400);
+  font-size: .75rem;
+  line-height: 1.7;
+}
+
+.contact-copy-error a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  color: var(--zinc-200);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .term-submit-group {
   margin-top: 8px;
 }

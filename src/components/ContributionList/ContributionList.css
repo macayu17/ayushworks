@@ -135,9 +135,16 @@
   outline-offset: -1px;
 }
 
+@media (max-width: 639px) {
+  .contribution-meta,
+  .contribution-row time {
+    font-size: .6875rem;
+  }
+}
+
 @media (max-width: 480px) {
   .contribution-row {
-    gap: 12px;
+    gap: 8px;
     padding: 9px 10px;
     grid-template-columns: 28px minmax(0, 1fr) auto;
     min-height: 58px;
@@ -148,10 +155,10 @@
 }
   .contribution-meta {
     gap: 5px;
-    font-size: .58rem;
+    font-size: .6875rem;
   }
   .contribution-row time {
-    font-size: .56rem;
+    font-size: .6875rem;
   }
 }
 

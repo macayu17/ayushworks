@@ -7,13 +7,20 @@ import SocialHoverCard from '../SocialHoverCard/SocialHoverCard';
 
 const Contact = () => {
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
   const [formStatus, setFormStatus] = useState("");
   const email = "ayushhoff@gmail.com";
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    setCopyFailed(false);
+    setCopied(false);
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopyFailed(true);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -103,6 +110,12 @@ const Contact = () => {
             <span>View Resume</span>
           </Link>
         </div>
+
+        {copyFailed && (
+          <p className="contact-copy-error" role="alert">
+            Couldn’t copy the address. <a href={`mailto:${email}`}>Email me instead.</a>
+          </p>
+        )}
 
         <div className="contact-terminal">
           <div className="term-header">

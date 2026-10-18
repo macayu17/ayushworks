@@ -896,6 +896,11 @@
     padding: 0 28px 0 0;
   }
 
-  .fun-projects-kicker { font-size: .62rem; }
-  .fun-projects-count { font-size: .56rem; }
+  .home-open-source-kicker,
+  .home-open-source-organizations p,
+  .home-open-source-view-all,
+  .fun-projects-kicker,
+  .fun-projects-count {
+    font-size: .6875rem;
+  }
 }

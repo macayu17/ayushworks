@@ -826,12 +826,23 @@
 }
 
 @media (max-width: 639px) {
-  .home-signature { height: 100svh; margin-top: 50px; padding-bottom: 110px; }
+  .home-quote { margin-bottom: 32px; }
+  .home-signature {
+    height: clamp(320px, 90vw, 440px);
+    margin-top: 24px;
+    padding-bottom: 96px;
+  }
+  .home-signature-art { bottom: 64px; }
   .home-signature-letter { font-size: 15vw; }
   .home-signature-note {
-    top: auto;
-    bottom: calc(50vw + 40px);
-    left: 28px;
+    top: 12px;
+    left: 24px;
+    font-size: 19px;
+  }
+  .home-signature-note svg {
+    width: 44px;
+    height: 44px;
+    margin-left: 28px;
   }
 }
 

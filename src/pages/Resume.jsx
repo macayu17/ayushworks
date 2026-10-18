@@ -3,7 +3,7 @@ import { FaFileDownload, FaArrowLeft, FaExternalLinkAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './Resume.css';
 
-const RESUME_IMAGE = '/ResumeScreenshot.png?v=e67305f215';
+const RESUME_IMAGE = '/ResumeScreenshot.webp?v=e67305f215';
 const RESUME_PDF_URL = '/Ayush_Kumar_Resume.pdf?v=e67305f215';
 
 const Resume = () => {

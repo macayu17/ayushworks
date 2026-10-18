@@ -7,6 +7,8 @@ import SectionIndex from './components/SectionIndex/SectionIndex';
 import CustomCursor from './components/CustomCursor/CustomCursor';
 import Footer from './components/Footer/Footer';
 import { applySeoMetadata, getSeoMetadataForPath } from './utils/seo';
+import themeSoundUrl from './assets/audio/paper-slide.mp3?inline';
+import { createThemeSound } from './utils/themeSound';
 
 // Pages
 const Home = lazy(() => import('./pages/Home'));
@@ -82,13 +84,10 @@ function App() {
   const [cmdkOpen, setCmdkOpen] = useState(false);
   const [isHomeEndVisible, setIsHomeEndVisible] = useState(false);
   const [searchDocked, setSearchDocked] = useState(false);
-  // ponytail: one preloaded element, reused. Swap for WebAudio only if overlapping plays are needed.
+  // Embedded audio is ready for the first toggle without a separate download.
   const themeSoundRef = useRef(null);
   if (themeSoundRef.current === null && typeof Audio !== 'undefined') {
-    themeSoundRef.current = new Audio('/paper-slide.wav');
-    themeSoundRef.current.volume = 0.32;
-    themeSoundRef.current.preload = 'auto';
-    themeSoundRef.current.load();
+    themeSoundRef.current = createThemeSound(themeSoundUrl);
   }
 
   useEffect(() => {
@@ -142,13 +141,7 @@ function App() {
   };
 
   const playThemeSound = () => {
-    try {
-      const audio = themeSoundRef.current;
-      audio.currentTime = 0;
-      audio.play().catch(() => {});
-    } catch {
-      /* audio playback unavailable */
-    }
+    themeSoundRef.current?.();
   };
 
   const toggleTheme = (event) => {

@@ -131,6 +131,8 @@ const Projects = ({
                       return (
                         <img
                           src={themedImage}
+                          srcSet={`${themedImage.replace('.webp', '-480.webp')} 480w, ${themedImage} 1200w`}
+                          sizes="(max-width: 639px) calc((100vw - 66px) / 2), (max-width: 767px) calc(100vw - 64px), 480px"
                           alt={`${project.title} preview`}
                           className="project-cover-image"
                           loading="lazy"

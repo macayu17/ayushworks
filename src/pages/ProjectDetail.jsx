@@ -87,6 +87,8 @@ const ProjectDetail = () => {
             {project.image ? (
               <img
                 src={project.image}
+                srcSet={`${project.image.replace('.webp', '-480.webp')} 480w, ${project.image} 1200w`}
+                sizes="(max-width: 767px) calc(100vw - 50px), 1000px"
                 alt={`${project.title} interface preview`}
                 decoding="async"
               />

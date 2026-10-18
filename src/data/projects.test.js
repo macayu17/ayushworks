@@ -63,7 +63,7 @@ describe('portfolio project catalog', () => {
       status: 'Live',
       github: 'https://github.com/macayu17/Talon',
       live: 'https://talon-ruby.vercel.app',
-      image: '/ProjectPreviews/Talon.png',
+      image: '/ProjectPreviews/Talon.webp',
     });
     expect(talon.tags).toEqual(expect.arrayContaining(['C++17', 'eBPF/XDP', 'FastAPI', 'Next.js']));
     expect(featuredProjects.map((project) => project.slug)).toContain('talon');

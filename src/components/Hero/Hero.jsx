@@ -122,7 +122,7 @@ const Hero = ({ theme, toggleTheme, onOpenCmdk }) => {
       <div className="hero-left">
         <div className="hero-identity-row">
           <div className="hero-profile-box" ref={profileRef}>
-            <img src="/favicon.png" alt="Ayush Kumar" className="hero-profile-img" />
+            <img src="/profile.webp" alt="Ayush Kumar" className="hero-profile-img" />
           </div>
           <div className="hero-name-block">
             <h1 className="hero-name">AYUSH</h1>

@@ -19,7 +19,7 @@ export default function Sidebar({ isWideRoute = false }) {
       <aside className={`sidebar${isWideRoute ? ' sidebar-wide' : ''}`}>
         {/* Logo */}
         <NavLink to="/" className="sidebar-logo" aria-label="Home">
-          <img src="/favicon.png" alt="Ayush" className="sidebar-logo-img" />
+          <img src="/profile.webp" alt="Ayush" className="sidebar-logo-img" />
         </NavLink>
 
         {/* Nav Items */}

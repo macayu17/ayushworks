@@ -1,12 +1,3 @@
-import occasioImage from '../assets/images/occasio.webp';
-import gridPulseImage from '../assets/images/f1.webp';
-import equityFlowImage from '../assets/images/equityflow.webp';
-import attendlyImage from '../assets/images/attendly.webp';
-import vectorImage from '../assets/images/vector.png';
-import sentinelImage from '../assets/images/Sentinel.webp';
-import iplAuctionImage from '../assets/images/iplauction.webp';
-import engramImage from '../assets/images/Engram.png';
-
 const rawProjectCatalog = [
   {
     slug: 'occasio',
@@ -27,7 +18,7 @@ const rawProjectCatalog = [
     tags: ['React', 'Vite', 'Tailwind CSS', 'Node.js', 'Express', 'Prisma', 'PostgreSQL'],
     github: 'https://github.com/macayu17/Occasio',
     live: 'https://occasio.ayushh.in/',
-    image: occasioImage,
+    image: '/ProjectPreviews/occasio.webp',
     accent: '#fb7185'
   },
   {
@@ -49,7 +40,7 @@ const rawProjectCatalog = [
     tags: ['FastAPI', 'React', 'D3.js', 'Docker', 'PostgreSQL', 'Python'],
     github: 'https://github.com/macayu17/f1-replay-system',
     live: 'https://gridpulse.ayushh.in',
-    image: gridPulseImage,
+    image: '/ProjectPreviews/gridpulse.webp',
     accent: '#38bdf8'
   },
   {
@@ -93,7 +84,7 @@ const rawProjectCatalog = [
     tags: ['Python', 'FastAPI', 'Next.js', 'TypeScript', 'WebSockets', 'XGBoost'],
     github: 'https://github.com/macayu17/SENTINEL',
     live: 'https://sentinel.ayushh.in/',
-    image: sentinelImage,
+    image: '/ProjectPreviews/sentinel.webp',
     accent: '#f97316'
   },
   {
@@ -116,9 +107,9 @@ const rawProjectCatalog = [
     tags: ['Python', 'FastAPI', 'PostgreSQL', 'pgvector', 'Next.js', 'TypeScript', 'MCP', 'Docker'],
     github: 'https://github.com/macayu17/Engram',
     live: 'https://engram.ayushh.in',
-    image: engramImage,
-    imageDark: '/ProjectPreviews/EngramDark.png',
-    imageLight: '/ProjectPreviews/EngramLight.png',
+    image: '/ProjectPreviews/engram.webp',
+    imageDark: '/ProjectPreviews/EngramDark.webp',
+    imageLight: '/ProjectPreviews/EngramLight.webp',
     accent: '#14b8a6'
   },
   {
@@ -140,7 +131,7 @@ const rawProjectCatalog = [
     tags: ['C++17', 'eBPF/XDP', 'FastAPI', 'Python', 'Next.js', 'PostgreSQL', 'Redis', 'Docker'],
     github: 'https://github.com/macayu17/Talon',
     live: 'https://talon-ruby.vercel.app',
-    image: '/ProjectPreviews/Talon.png',
+    image: '/ProjectPreviews/Talon.webp',
     accent: '#22c55e'
   },
   {
@@ -174,7 +165,7 @@ const rawProjectCatalog = [
     ],
     github: 'https://github.com/macayu17/ipl-auction-arena',
     live: 'https://iplauction.ayushh.in/',
-    image: iplAuctionImage,
+    image: '/ProjectPreviews/ipl-auction-arena.webp',
     accent: '#f59e0b'
   },
   {
@@ -196,9 +187,9 @@ const rawProjectCatalog = [
     tags: ['Next.js', 'React', 'TypeScript', 'FastAPI', 'Python', 'Tailwind CSS', 'Zustand'],
     github: 'https://github.com/macayu17/Equityflow',
     live: 'https://equityflow.ayushh.in',
-    image: equityFlowImage,
-    imageDark: '/ProjectPreviews/EquityflowDark.png',
-    imageLight: '/ProjectPreviews/EquityflowLight.png',
+    image: '/ProjectPreviews/equityflow.webp',
+    imageDark: '/ProjectPreviews/EquityflowDark.webp',
+    imageLight: '/ProjectPreviews/EquityflowLight.webp',
     accent: '#eab308'
   },
   {
@@ -242,7 +233,7 @@ const rawProjectCatalog = [
     tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'Zustand'],
     github: 'https://github.com/macayu17/attendly',
     live: 'https://attendly.ayushh.in',
-    image: attendlyImage,
+    image: '/ProjectPreviews/attendly.webp',
     accent: '#6366f1'
   },
   {
@@ -264,7 +255,7 @@ const rawProjectCatalog = [
     tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Zustand', 'dnd-kit', 'Radix UI', 'Zod'],
     github: 'https://github.com/macayu17/Vector',
     live: 'https://vector.ayushh.in',
-    image: vectorImage,
+    image: '/ProjectPreviews/vector.webp',
     accent: '#60a5fa'
   }
 ];

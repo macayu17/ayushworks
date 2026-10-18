@@ -75,7 +75,7 @@ export default function ProfileIntro({ targetRef }) {
   return createPortal(
     <div className="profile-intro" aria-hidden="true">
       <div ref={imageRef} className="profile-intro-photo">
-        <img src="/favicon.png" alt="" />
+        <img src="/profile.webp" alt="" />
       </div>
       <p className="profile-intro-greeting">Hello, I’m Ayush<span>Nice to see you here.</span></p>
     </div>,

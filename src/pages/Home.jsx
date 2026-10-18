@@ -5,7 +5,7 @@ import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaFlask } from 'react-icons/fa';
 import { Ascii } from 'ascii.rest/react';
-import { gangaurGhat, jalMahal, marineDrive, tajDawn, varanasiGhats } from 'ascii.rest/pieces';
+import { gangaurGhat, jalMahal, tajDawn, varanasiGhats } from 'ascii.rest/pieces';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { featuredProjects, funProjectCatalog } from '../data/projects';
@@ -15,6 +15,7 @@ import ContributionList, { OrganizationLogo } from '../components/ContributionLi
 import './Home.css';
 
 const GitHubContributions = lazy(() => import('../components/GitHubContributions/GitHubContributions'));
+const MarineDrive = lazy(() => import('../components/MarineDrive/MarineDrive'));
 
 const lightBanner = Math.random() < 0.5 ? {
   piece: tajDawn,
@@ -355,6 +356,7 @@ const HomeQuote = () => (
 const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange, onSearchDockChange }) => {
   const signatureRef = useRef(null);
   const [signatureVisible, setSignatureVisible] = useState(false);
+  const [signatureReady, setSignatureReady] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -366,7 +368,17 @@ const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange, onSea
       setSignatureVisible(entry.isIntersecting);
     }, { threshold: 0.08 });
     observer.observe(signature);
-    return () => observer.disconnect();
+    const preloadObserver = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setSignatureReady(true);
+        preloadObserver.disconnect();
+      }
+    }, { rootMargin: '400px 0px' });
+    preloadObserver.observe(signature);
+    return () => {
+      observer.disconnect();
+      preloadObserver.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -448,7 +460,7 @@ const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange, onSea
           </svg>
         </div>
         <div className="home-signature-art" aria-hidden="true">
-          <Ascii piece={marineDrive} />
+          {signatureReady && <Suspense fallback={null}><MarineDrive /></Suspense>}
         </div>
         <span className="home-signature-word" aria-hidden="true">
           {[...'Ayush.'].map((letter, index) => (

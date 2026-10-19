@@ -2,7 +2,7 @@ body[data-profile-intro] {
   overflow: hidden;
 }
 
-body[data-profile-intro] #root {
+body[data-profile-intro="greeting"] #root {
   opacity: 0;
 }
 
@@ -10,9 +10,8 @@ body[data-profile-intro] #root {
   animation: none;
 }
 
-body[data-profile-intro="reveal"] #root {
-  opacity: 1;
-  transition: opacity 500ms ease;
+body[data-profile-intro] .hero-profile-box {
+  visibility: hidden;
 }
 
 .profile-intro {

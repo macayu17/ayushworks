@@ -8,7 +8,7 @@ vi.mock('../components/Projects/Projects', () => ({ default: () => null }));
 vi.mock('../components/GitHubContributions/GitHubContributions', () => ({ default: () => null }));
 vi.mock('../utils/openSourcePRs', () => ({ loadOpenSourcePRs: async () => ({ prs: [] }) }));
 vi.mock('../utils/techIcons', () => ({ getTechIcon: () => null }));
-vi.mock('ascii.rest/react', () => ({ Ascii: ({ piece }) => <div data-testid={piece.meta.name} /> }));
+vi.mock('ascii.rest/react', () => ({ Ascii: ({ piece, style }) => <div data-testid={piece.meta.name} style={style} /> }));
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -58,6 +58,7 @@ it('picks from the matching banners on every theme switch and stays stable on ot
   expect(screen.getByLabelText('Jal Mahal banner')).toBeInTheDocument();
   view.rerender(home('dark'));
   expect(screen.getByLabelText('Amer Fort banner')).toBeInTheDocument();
+  expect(screen.getByTestId('amer fort')).toHaveStyle({ objectPosition: 'center 25%' });
   random.mockReturnValue(0);
   view.rerender(home('light'));
   expect(screen.getByLabelText('Taj Mahal at dawn banner')).toBeInTheDocument();

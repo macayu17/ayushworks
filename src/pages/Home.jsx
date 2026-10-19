@@ -98,6 +98,7 @@ const HomeBanner = ({ theme }) => {
           piece={banner.piece}
           label={banner.title}
           className="home-banner-image"
+          style={banner.piece === amerFort ? { objectPosition: 'center 25%' } : undefined}
         />
         <time className="home-banner-time" dateTime={time}>
           {time}

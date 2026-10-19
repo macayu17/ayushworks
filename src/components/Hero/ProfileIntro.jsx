@@ -17,25 +17,18 @@ export default function ProfileIntro({ targetRef }) {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const previousInert = root.inert;
     let animation;
-    let revealTimer;
+    let revealAnimation;
     let cancelled = false;
-    let revealing = false;
 
     const finish = () => {
       if (cancelled) return;
       hasPlayed = true;
+      revealAnimation?.cancel();
+      animation?.cancel();
       delete document.body.dataset.profileIntro;
       root.inert = previousInert;
       setVisible(false);
     };
-    const reveal = () => {
-      if (cancelled || revealing) return;
-      revealing = true;
-      document.body.dataset.profileIntro = 'reveal';
-      root.inert = previousInert;
-      revealTimer = window.setTimeout(finish, 500);
-    };
-
     document.body.dataset.profileIntro = 'greeting';
     root.inert = true;
     const target = targetRef.current.getBoundingClientRect();
@@ -48,20 +41,34 @@ export default function ProfileIntro({ targetRef }) {
     });
     const start = `translate(${dx}px, ${dy}px) scale(${112 / target.width})`;
     image.style.transform = start;
-    const moveTimer = window.setTimeout(() => {
+    const cx = target.left + dx + 56;
+    const cy = target.top + dy + 56;
+    const radius = Math.hypot(Math.max(cx, window.innerWidth - cx), Math.max(cy, window.innerHeight - cy));
+    const movePortrait = () => {
+      if (cancelled) return;
       document.body.dataset.profileIntro = 'moving';
       animation = image.animate([
         { transform: start }, { transform: 'translate(0, 0) scale(1)' },
       ], { duration: 650, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' });
-      animation.onfinish = reveal;
+      // Cancelling the finished animation must not restore the centred pose.
+      image.style.transform = 'translate(0, 0) scale(1)';
+      animation.onfinish = finish;
+    };
+    const revealTimer = window.setTimeout(() => {
+      document.body.dataset.profileIntro = 'reveal';
+      revealAnimation = root.animate([
+        { clipPath: `circle(0px at ${cx}px ${cy}px)` },
+        { clipPath: `circle(${radius}px at ${cx}px ${cy}px)` },
+      ], { duration: 1000, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' });
+      revealAnimation.onfinish = movePortrait;
     }, 550);
-    const safetyTimer = window.setTimeout(finish, 2300);
+    const safetyTimer = window.setTimeout(finish, 2900);
     window.addEventListener('resize', finish);
     motion.addEventListener('change', finish);
     return () => {
       cancelled = true;
       animation?.cancel();
-      window.clearTimeout(moveTimer);
+      revealAnimation?.cancel();
       window.clearTimeout(revealTimer);
       window.clearTimeout(safetyTimer);
       window.removeEventListener('resize', finish);

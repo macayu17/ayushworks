@@ -27,59 +27,22 @@
   border-color: var(--zinc-700);
   border-style: solid;
 }
-/* For image box - 4 corners */
-.bracket-corners::before {
-  top: 0; left: 0; border-width: 1px 0 0 1px;
-}
-.bracket-corners::after {
-  top: 0; right: 0; border-width: 1px 1px 0 0;
-}
-.bracket-corners-bottom::before {
-  bottom: 0; left: 0; border-width: 0 0 1px 1px;
-}
-.bracket-corners-bottom::after {
-  bottom: 0; right: 0; border-width: 0 1px 1px 0;
-}
-
 /* Identity Section */
-.about-identity {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+.about-intro {
+  display: grid;
+  gap: 24px;
   margin-bottom: 48px;
 }
-@media (min-width: 768px) {
-  .about-identity {
-    flex-direction: row;
-    align-items: center;
-  }
-}
 
-.identity-image-wrapper {
-  position: relative;
-  padding: 8px;
-  width: 220px;
-  flex-shrink: 0;
-}
-.identity-image {
-  width: 100%;
-  aspect-ratio: 1/1.1;
-  object-fit: cover;
-  filter: grayscale(100%);
-  display: block;
-}
-.identity-label {
-  font-family: var(--font-jetbrains);
-  font-size: 0.65rem;
-  color: var(--zinc-500);
-  text-align: center;
-  margin-top: 12px;
-  letter-spacing: 0.1em;
+@media (min-width: 768px) {
+  .about-intro {
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
 }
 
 .identity-stats {
   position: relative;
-  flex-grow: 1;
   padding: 16px 0;
 }
 /* Right/left top/bottom brackets for stats box */
@@ -97,6 +60,7 @@
 .stat-row {
   display: flex;
   justify-content: space-between;
+  gap: 16px;
   margin-bottom: 16px;
   font-family: var(--font-jetbrains);
   font-size: 0.8rem;
@@ -130,8 +94,7 @@
 .about-desc-block {
   position: relative;
   background: var(--surface-panel);
-  padding: 24px 32px;
-  margin-bottom: 48px;
+  padding: 24px;
 }
 .about-desc-block::before { top: 0; right: 0; border-width: 1px 1px 0 0; }
 .about-desc-block::after { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
@@ -302,13 +265,8 @@
     padding: 24px 0 40px;
   }
 
-  .about-identity {
-    gap: 20px;
+  .about-intro {
     margin-bottom: 32px;
-  }
-
-  .identity-image-wrapper {
-    width: 170px;
   }
 
   .stats-divider {
@@ -327,7 +285,6 @@
 
   .about-desc-block {
     padding: 18px 16px;
-    margin-bottom: 32px;
   }
 
   .desc-title {

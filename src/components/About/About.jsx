@@ -1,85 +1,75 @@
 import './About.css';
 import { FaRegEnvelope, FaChevronRight } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import ayushImg from '../../assets/images/AyushBW11.webp';
 import Education from '../Education/Education';
 
 const About = () => {
   return (
     <section className="about" id="about">
       
-      {/* Identity Grid */}
-      <div className="about-identity" id="about-identity" data-section-index="Identity">
-        <div className="identity-image-wrapper bracket-box bracket-corners">
-          <img 
-            src={ayushImg} 
-            alt="Ayush Kumar" 
-            className="identity-image"
-            decoding="async"
-          />
-          <div className="bracket-box bracket-corners-bottom" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}></div>
-          <div className="identity-label">FIG.01 // IDENTITY</div>
-        </div>
+      <div className="about-intro">
+        {/* Identity Grid */}
+        <div className="about-identity" id="about-identity" data-section-index="Identity">
+          <div className="identity-stats bracket-box stats-brackets">
+            <div className="stats-divider">// IDENTITY</div>
 
-        <div className="identity-stats bracket-box stats-brackets">
-          <div className="stats-divider">---</div>
-          
-          <div className="stat-row">
-            <div className="stat-label-wrap">
-              <span className="stat-num">00</span>
-              <span>NAME</span>
+            <div className="stat-row">
+              <div className="stat-label-wrap">
+                <span className="stat-num">00</span>
+                <span>NAME</span>
+              </div>
+              <div className="stat-value">Ayush Kumar</div>
             </div>
-            <div className="stat-value">Ayush Kumar</div>
-          </div>
-          
-          <div className="stat-row">
-            <div className="stat-label-wrap">
-              <span className="stat-num">01</span>
-              <span>AGE</span>
+
+            <div className="stat-row">
+              <div className="stat-label-wrap">
+                <span className="stat-num">01</span>
+                <span>AGE</span>
+              </div>
+              <div className="stat-value">22</div>
             </div>
-            <div className="stat-value">22</div>
-          </div>
-          
-          <div className="stat-row">
-            <div className="stat-label-wrap">
-              <span className="stat-num">02</span>
-              <span>LOCATION</span>
+
+            <div className="stat-row">
+              <div className="stat-label-wrap">
+                <span className="stat-num">02</span>
+                <span>LOCATION</span>
+              </div>
+              <div className="stat-value">Bengaluru, IN</div>
             </div>
-            <div className="stat-value">Bengaluru, IN</div>
-          </div>
-          
-          <div className="stat-row">
-            <div className="stat-label-wrap">
-              <span className="stat-num">03</span>
-              <span>ROLE</span>
+
+            <div className="stat-row">
+              <div className="stat-label-wrap">
+                <span className="stat-num">03</span>
+                <span>ROLE</span>
+              </div>
+              <div className="stat-value">Software Engineer</div>
             </div>
-            <div className="stat-value">Software Engineer</div>
-          </div>
-          
-          <div className="stat-row">
-            <div className="stat-label-wrap">
-              <span className="stat-num">04</span>
-              <span>STATUS</span>
-            </div>
-            <div className="stat-value">
-              <span className="stat-dot"></span>
-              Open to Work
+
+            <div className="stat-row">
+              <div className="stat-label-wrap">
+                <span className="stat-num">04</span>
+                <span>STATUS</span>
+              </div>
+              <div className="stat-value">
+                <span className="stat-dot"></span>
+                Open to Work
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Description Block */}
-      <div className="about-desc-block bracket-box" id="about-story" data-section-index="About Me">
-        <h2 className="desc-title">
-          <span className="desc-square"></span>
-          I love what I do.
-        </h2>
-        <p className="desc-text">
-          Simple as that. I enjoy building things that look good and work even better. 
-          Currently at RV Institute of Technology, love to explore new things and build cool stuff. 
-          If you vibe with my work or just want to chat about tech, I'm always open.
-        </p>
+        {/* Description Block */}
+        <div className="about-desc-block bracket-box" id="about-story" data-section-index="About Me">
+          <h2 className="desc-title">
+            <span className="desc-square"></span>
+            I love what I do.
+          </h2>
+          <p className="desc-text">
+            I build full-stack applications, AI tools, and backend systems. Lately, that means working on
+            agent memory and market simulation, and contributing to open source. I enjoy digging into
+            how things work, especially where product design meets systems engineering.
+          </p>
+        </div>
       </div>
 
       <Education />

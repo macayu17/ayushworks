@@ -5,7 +5,7 @@ import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaFlask } from 'react-icons/fa';
 import { Ascii } from 'ascii.rest/react';
-import { gangaurGhat, jalMahal, tajDawn, varanasiGhats } from 'ascii.rest/pieces';
+import { amerFort, gangaurGhat, jalMahal, tajDawn, varanasiGhats } from 'ascii.rest/pieces';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { featuredProjects, funProjectCatalog } from '../data/projects';
@@ -17,29 +17,34 @@ import './Home.css';
 const GitHubContributions = lazy(() => import('../components/GitHubContributions/GitHubContributions'));
 const MarineDrive = lazy(() => import('../components/MarineDrive/MarineDrive'));
 
-const lightBanner = Math.random() < 0.5 ? {
+const lightBanners = [{
   piece: tajDawn,
   title: 'Taj Mahal at dawn',
   location: 'AGRA',
   description: 'A symbol of enduring love, the Taj Mahal glows softly at dawn, its marble silhouette mirrored in still water.',
-} : {
+}, {
   piece: jalMahal,
   title: 'Jal Mahal',
   location: 'JAIPUR',
   description: 'The Water Palace rests in the calm waters of Man Sagar Lake, framed by the Aravalli hills.',
-};
+}];
 
-const darkBanner = Math.random() < 0.5 ? {
+const darkBanners = [{
   piece: varanasiGhats,
   title: 'Varanasi Ghats',
   location: 'ON THE GANGA',
   description: 'Each evening at Dashashwamedh Ghat, priests honour the Ganga with glowing brass lamps and rhythmic chants during the Ganga Aarti.',
-} : {
+}, {
   piece: gangaurGhat,
   title: 'Gangaur Ghat',
   location: 'UDAIPUR',
   description: 'On the shores of Lake Pichola, Gangaur Ghat looks out across Udaipur’s waterfront, where stone steps meet the water.',
-};
+}, {
+  piece: amerFort,
+  title: 'Amer Fort',
+  location: 'JAIPUR',
+  description: 'Amer Fort rises above Maota Lake, its sandstone walls and courtyards framed by the Aravalli hills.',
+}];
 
 const ContributionsPlaceholder = () => (
   <div className="github-contributions-placeholder" aria-hidden="true" />
@@ -54,7 +59,10 @@ const formatBannerTime = (date) =>
   });
 
 const HomeBanner = ({ theme }) => {
-  const banner = theme === 'light' ? lightBanner : darkBanner;
+  const [banner] = useState(() => {
+    const banners = theme === 'light' ? lightBanners : darkBanners;
+    return banners[Math.floor(Math.random() * banners.length)];
+  });
   const [time, setTime] = useState(() => formatBannerTime(new Date()));
   const [cardPlace, setCardPlace] = useState('right');
   const positionCard = (event) => {
@@ -412,7 +420,7 @@ const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange, onSea
 
   return (
     <div className="page-transition">
-      <HomeBanner theme={theme} />
+      <HomeBanner key={theme} theme={theme} />
       <Hero theme={theme} toggleTheme={toggleTheme} onOpenCmdk={onOpenCmdk} />
       <Separator />
       <DeferredGitHubContributions username="macayu17" />

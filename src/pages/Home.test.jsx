@@ -10,7 +10,10 @@ vi.mock('../utils/openSourcePRs', () => ({ loadOpenSourcePRs: async () => ({ prs
 vi.mock('../utils/techIcons', () => ({ getTechIcon: () => null }));
 vi.mock('ascii.rest/react', () => ({ Ascii: ({ piece }) => <div data-testid={piece.meta.name} /> }));
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => {
+  vi.unstubAllGlobals();
+  vi.restoreAllMocks();
+});
 
 it('mounts Marine Drive only when approaching the footer and keeps it mounted', async () => {
   const observers = [];
@@ -35,5 +38,31 @@ it('mounts Marine Drive only when approaching the footer and keeps it mounted', 
   expect(preload.disconnect).toHaveBeenCalled();
   act(() => preload.callback([{ isIntersecting: false }]));
   expect(screen.getByTestId('marine drive')).toBeInTheDocument();
+  view.unmount();
+});
+
+it('picks from the matching banners on every theme switch and stays stable on other renders', () => {
+  vi.stubGlobal('IntersectionObserver', class {
+    observe() {}
+    disconnect() {}
+  });
+  vi.stubGlobal('scrollTo', vi.fn());
+  const random = vi.spyOn(Math, 'random').mockReturnValue(0);
+  const home = (theme) => <MemoryRouter><Home theme={theme} onHomeEndVisibilityChange={vi.fn()} onSearchDockChange={vi.fn()} /></MemoryRouter>;
+  const view = render(home('dark'));
+  expect(screen.getByLabelText('Varanasi Ghats banner')).toBeInTheDocument();
+  random.mockReturnValue(0.99);
+  view.rerender(home('dark'));
+  expect(screen.getByLabelText('Varanasi Ghats banner')).toBeInTheDocument();
+  view.rerender(home('light'));
+  expect(screen.getByLabelText('Jal Mahal banner')).toBeInTheDocument();
+  view.rerender(home('dark'));
+  expect(screen.getByLabelText('Amer Fort banner')).toBeInTheDocument();
+  random.mockReturnValue(0);
+  view.rerender(home('light'));
+  expect(screen.getByLabelText('Taj Mahal at dawn banner')).toBeInTheDocument();
+  random.mockReturnValue(0.4);
+  view.rerender(home('dark'));
+  expect(screen.getByLabelText('Gangaur Ghat banner')).toBeInTheDocument();
   view.unmount();
 });

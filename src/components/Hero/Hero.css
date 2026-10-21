@@ -350,6 +350,7 @@
   }
 
   .hero-name-block {
+    flex-basis: 0;
     justify-content: flex-start;
     gap: 8px;
     padding-right: 36px;
@@ -359,11 +360,10 @@
   }
 
   .hero-subtitle {
+    display: block;
     max-width: 100%;
     min-height: 1.15em;
     font-size: clamp(0.62rem, 2.8vw, 0.76rem);
-    align-items: center;
-    flex-wrap: wrap;
     white-space: normal;
   }
 

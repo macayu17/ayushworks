@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { FiGitPullRequest, FiXCircle } from 'react-icons/fi';
-import { GoGitMerge } from 'react-icons/go';
+import { FiXCircle } from 'react-icons/fi';
+import { GoGitMerge, GoGitPullRequest } from 'react-icons/go';
 import './ContributionList.css';
 
 export const OrganizationLogo = ({ entry, className = '' }) => {
@@ -41,7 +41,7 @@ const ContributionList = ({ entries }) => {
           <span className="contribution-date">
             <time dateTime={entry.date}>{new Date(entry.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</time>
             <span className={`contribution-status ${entry.statusClass || entry.status.toLowerCase()}`} role="img" aria-label={entry.status} title={entry.status}>
-              {entry.status === 'Merged' ? <GoGitMerge /> : entry.status === 'Open' ? <FiGitPullRequest /> : <FiXCircle />}
+              {entry.status === 'Merged' ? <GoGitMerge /> : entry.status === 'Open' ? <GoGitPullRequest /> : <FiXCircle />}
             </span>
           </span>
         </a>

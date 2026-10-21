@@ -10,7 +10,8 @@ import { getWeekPaddedContributionRange } from '../../utils/contributionCalendar
 const GitHubContributions = ({ username = 'macayu17' }) => {
     const calendarWrapperRef = useRef(null);
     const [totalContributions, setTotalContributions] = useState(0);
-    const [contributions, setContributions] = useState([]);
+    const [contributions, setContributions] = useState(null);
+    const [hasEntered, setHasEntered] = useState(false);
     const [siteTheme, setSiteTheme] = useState(() =>
         typeof document !== 'undefined' && document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'
     );
@@ -47,9 +48,7 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
             try {
                 const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
                 const data = await response.json();
-                if (Array.isArray(data?.contributions)) {
-                    setContributions(data.contributions);
-                }
+                setContributions(Array.isArray(data?.contributions) ? data.contributions : []);
                 if (data && data.total) {
                     const keys = Object.keys(data.total);
                     if (keys.length > 0) {
@@ -58,6 +57,7 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                 }
             } catch (err) {
                 console.error("Failed to fetch contributions for total count", err);
+                setContributions([]);
             }
         };
         fetchContributions();
@@ -66,6 +66,27 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
             themeObserver.disconnect();
         };
     }, [username]);
+
+    useEffect(() => {
+        if (contributions === null || hasEntered) return undefined;
+        let inView = false;
+        const reveal = () => {
+            if (inView && !document.body.hasAttribute('data-profile-intro')) {
+                setHasEntered(true);
+            }
+        };
+        const observer = new IntersectionObserver(([entry]) => {
+            inView = entry.isIntersecting;
+            reveal();
+        }, { threshold: 0.15 });
+        const introObserver = new MutationObserver(reveal);
+        observer.observe(calendarWrapperRef.current);
+        introObserver.observe(document.body, { attributes: true, attributeFilter: ['data-profile-intro'] });
+        return () => {
+            observer.disconnect();
+            introObserver.disconnect();
+        };
+    }, [contributions, hasEntered]);
 
     useEffect(() => {
         if (!calendarWrapperRef.current) {
@@ -160,9 +181,9 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
                             </span>
                         ))}
                     </div>
-                    <div className="calendar-grid" aria-label={`${username} GitHub contribution calendar`}>
+                    <div className={`calendar-grid${hasEntered ? ' is-revealed' : ''}`} aria-label={`${username} GitHub contribution calendar`}>
                         {weeks.map((week, weekIndex) => (
-                            <div className="calendar-week" key={`week-${weekIndex}`}>
+                            <div className="calendar-week" key={`week-${weekIndex}`} style={{ '--week-delay': `${weekIndex * 16}ms` }}>
                                 {week.map((activity) => {
                                     const isEmpty = !activity.level;
 

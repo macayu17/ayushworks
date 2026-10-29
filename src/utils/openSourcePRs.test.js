@@ -1,5 +1,7 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { loadOpenSourcePRs, OPEN_SOURCE_CACHE_TTL } from './openSourcePRs';
+
+afterEach(() => { vi.unstubAllGlobals(); });
 
 const apiPayload = {
   prs: [
@@ -83,4 +85,43 @@ describe('open source PR loader', () => {
     expect(result.prs).toEqual(apiPayload.prs);
     expect(result.fromCache).toBe(false);
   });
+});
+
+test('shares overlapping API requests and allows another refresh after completion', async () => {
+  let resolve;
+  const fetchMock = vi.fn().mockImplementationOnce(() => new Promise((done) => { resolve = done; }))
+    .mockResolvedValue({ ok: true, json: async () => apiPayload });
+  vi.stubGlobal('fetch', fetchMock);
+  const first = loadOpenSourcePRs({ forceRefresh: true });
+  const second = loadOpenSourcePRs({ forceRefresh: true });
+  expect(fetchMock).toHaveBeenCalledTimes(1);
+  resolve({ ok: true, json: async () => apiPayload });
+  expect(await first).toEqual(await second);
+  await loadOpenSourcePRs({ forceRefresh: true });
+  expect(fetchMock).toHaveBeenCalledTimes(2);
+});
+
+test('retries after a shared failed request and preserves stale data', async () => {
+  localStorage.setItem('portfolio-open-source-contributions-v9', JSON.stringify({ data: apiPayload.prs, updatedAt: 1 }));
+  const fetchMock = vi.fn().mockRejectedValueOnce(new Error('offline'))
+    .mockResolvedValue({ ok: true, json: async () => apiPayload });
+  vi.stubGlobal('fetch', fetchMock);
+  const results = await Promise.all([loadOpenSourcePRs({ forceRefresh: true }), loadOpenSourcePRs({ forceRefresh: true })]);
+  expect(fetchMock).toHaveBeenCalledTimes(1);
+  expect(results.every((result) => result.isStale)).toBe(true);
+  expect((await loadOpenSourcePRs({ forceRefresh: true })).isStale).toBe(false);
+});
+
+// Both the homepage preview and archive use the same status/date order.
+test('sorts contribution status and newest dates without mutating its input', async () => {
+  const { sortContributions } = await import('./openSourcePRs');
+  const input = [
+    { status: 'Closed', date: '2026-10-21' },
+    { status: 'Open', date: '2026-10-20' },
+    { status: 'Merged', date: '2026-10-19' },
+    { status: 'Merged', date: '2026-10-22' },
+  ];
+  const original = [...input];
+  expect(sortContributions(input)).toEqual([input[3], input[2], input[1], input[0]]);
+  expect(input).toEqual(original);
 });

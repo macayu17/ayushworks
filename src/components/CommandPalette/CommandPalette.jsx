@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { FaHome, FaUser, FaCode, FaEnvelope, FaFolderOpen, FaFileAlt, FaMoon, FaSun, FaSearch, FaGithub, FaLinkedinIn, FaCodeBranch } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import './CommandPalette.css';
+import TypedPrompt from './TypedPrompt';
 
-const prompts = ['Explore my projects', 'See my open source work', 'Say hello', 'Switch the theme'];
 const buildCommands = (navigate, toggleTheme, theme) => [
   { id: 'contact', group: 'Quick actions', label: 'Say hi', detail: 'Get in touch', icon: <FaEnvelope />, action: () => navigate('/contact') },
   { id: 'theme', group: 'Quick actions', label: theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme', detail: 'A change of scenery', icon: theme === 'dark' ? <FaSun /> : <FaMoon />, action: toggleTheme },
@@ -22,7 +22,6 @@ const buildCommands = (navigate, toggleTheme, theme) => [
 const CommandPalette = ({ isOpen, onOpen, onClose, theme, toggleTheme, docked }) => {
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
-  const [typed, setTyped] = useState('');
   const [highlight, setHighlight] = useState({ top: 0, height: 36 });
   const inputRef = useRef(null);
   const triggerRef = useRef(null);
@@ -31,25 +30,6 @@ const CommandPalette = ({ isOpen, onOpen, onClose, theme, toggleTheme, docked })
   const navigate = useNavigate();
   const commands = useMemo(() => buildCommands(navigate, toggleTheme, theme), [navigate, toggleTheme, theme]);
   const filtered = useMemo(() => commands.filter((cmd) => `${cmd.label} ${cmd.detail} ${cmd.group}`.toLowerCase().includes(query.trim().toLowerCase())), [commands, query]);
-
-  useEffect(() => {
-    if (isOpen || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-    let timer;
-    let word = 0;
-    let length = 0;
-    let deleting = false;
-    const tick = () => {
-      const phrase = prompts[word];
-      length += deleting ? -1 : 1;
-      setTyped(phrase.slice(0, length));
-      let delay = deleting ? 32 : 65;
-      if (length === phrase.length) { deleting = true; delay = 2100; }
-      if (length === 0) { deleting = false; word = (word + 1) % prompts.length; delay = 450; }
-      timer = window.setTimeout(tick, delay);
-    };
-    timer = window.setTimeout(tick, 450);
-    return () => window.clearTimeout(timer);
-  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -131,7 +111,7 @@ const CommandPalette = ({ isOpen, onOpen, onClose, theme, toggleTheme, docked })
         ) : (
           <button type="button" ref={triggerRef} className="cmdk-trigger cmdk-input-row" onClick={open} aria-label="Open search" aria-haspopup="dialog" aria-expanded="false">
             <FaSearch className="cmdk-search-icon" />
-            <span className="cmdk-typed" aria-hidden="true">{typed || '\u00a0'}<span className="cmdk-caret" /></span>
+            <TypedPrompt />
             <kbd>/</kbd>
           </button>
         )}

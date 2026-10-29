@@ -1,4 +1,12 @@
 @font-face {
+  font-family: 'Doto';
+  src: url('/fonts/doto/Doto-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Paper Mono';
   src: url('/fonts/paper-mono/PaperMono-Variable.woff2') format('woff2');
   font-weight: 100 800;
@@ -535,22 +543,6 @@ textarea:focus-visible,
   .section-header {
     flex-wrap: wrap;
     gap: 8px 12px;
-  }
-}
-
-/* ===== DOT MATRIX FONT ===== */
-.dot-matrix {
-  font-family: "Doto", sans-serif;
-  font-size: 4rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.05em;
-  line-height: 1;
-}
-
-@media (min-width: 640px) {
-  .dot-matrix {
-    font-size: 5rem;
   }
 }
 

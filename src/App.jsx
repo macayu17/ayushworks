@@ -150,12 +150,9 @@ function App() {
 
     playThemeSound();
 
-    const cx = event?.currentTarget
-      ? event.currentTarget.getBoundingClientRect().left + event.currentTarget.getBoundingClientRect().width / 2
-      : window.innerWidth / 2;
-    const cy = event?.currentTarget
-      ? event.currentTarget.getBoundingClientRect().top + event.currentTarget.getBoundingClientRect().height / 2
-      : window.innerHeight / 2;
+    const bounds = event?.currentTarget?.getBoundingClientRect();
+    const cx = bounds ? bounds.left + bounds.width / 2 : window.innerWidth / 2;
+    const cy = bounds ? bounds.top + bounds.height / 2 : window.innerHeight / 2;
 
     if (prefersReducedMotion || !document.startViewTransition) {
       if (prefersReducedMotion) {
@@ -230,7 +227,7 @@ function App() {
                   <Routes location={location} key={location.pathname}>
                     <Route path="/" element={<Home theme={theme} toggleTheme={toggleTheme} onOpenCmdk={() => setCmdkOpen(true)} onHomeEndVisibilityChange={setIsHomeEndVisible} onSearchDockChange={setSearchDocked} />} />
                     <Route path="/about" element={<About />} />
-                    <Route path="/projects" element={<ProjectsPage />} />
+                    <Route path="/projects" element={<ProjectsPage theme={theme} />} />
                     <Route path="/projects/:slug" element={<ProjectDetail />} />
                     <Route path="/open-source" element={<OpenSourcePage />} />
                     <Route path="/skill" element={<Skills />} />

@@ -6,13 +6,6 @@
   margin-bottom: 48px;
 }
 
-/* Base typography */
-.text-mono {
-  font-family: var(--font-jetbrains);
-}
-.text-sans {
-  font-family: var(--font-geist);
-}
 
 /* Corner bracket mixins */
 .bracket-box {

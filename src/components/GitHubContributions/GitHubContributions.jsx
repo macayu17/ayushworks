@@ -7,14 +7,16 @@ import 'react-tooltip/dist/react-tooltip.css';
 import { getContributionCalendarLayout } from '../../utils/contributionCalendarLayout';
 import { getWeekPaddedContributionRange } from '../../utils/contributionCalendarData';
 
-const GitHubContributions = ({ username = 'macayu17' }) => {
+const themeColors = {
+    dark: ['#18181b', '#3f3f46', '#71717a', '#a1a1aa', '#f4f4f5'],
+    light: ['#d9cebd', '#cdb395', '#a58564', '#6f5846', '#24211e']
+};
+
+const GitHubContributions = ({ username = 'macayu17', theme = 'dark' }) => {
     const calendarWrapperRef = useRef(null);
     const [totalContributions, setTotalContributions] = useState(0);
     const [contributions, setContributions] = useState(null);
     const [hasEntered, setHasEntered] = useState(false);
-    const [siteTheme, setSiteTheme] = useState(() =>
-        typeof document !== 'undefined' && document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'
-    );
     const [isCompactMobile, setIsCompactMobile] = useState(() =>
         typeof window !== 'undefined' ? window.innerWidth < 640 : false
     );
@@ -25,24 +27,13 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
         })
     );
 
-    const themeColors = useMemo(() => ({
-        dark: ['#18181b', '#3f3f46', '#71717a', '#a1a1aa', '#f4f4f5'],
-        light: ['#d9cebd', '#cdb395', '#a58564', '#6f5846', '#24211e']
-    }), []);
-
     useEffect(() => {
-        const updateTheme = () => {
-            setSiteTheme(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
-        };
         const updateCompactMode = () => {
             setIsCompactMobile(window.innerWidth < 640);
         };
 
-        updateTheme();
         updateCompactMode();
         window.addEventListener('resize', updateCompactMode);
-        const themeObserver = new MutationObserver(updateTheme);
-        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
         const fetchContributions = async () => {
             try {
@@ -63,7 +54,6 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
         fetchContributions();
         return () => {
             window.removeEventListener('resize', updateCompactMode);
-            themeObserver.disconnect();
         };
     }, [username]);
 
@@ -150,7 +140,7 @@ const GitHubContributions = ({ username = 'macayu17' }) => {
         return labels;
     }, [weeks]);
 
-    const calendarColors = themeColors[siteTheme];
+    const calendarColors = themeColors[theme];
     return (
         <section className="github-contributions">
             <div className="contributions-header">

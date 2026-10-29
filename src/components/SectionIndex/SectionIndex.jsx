@@ -32,6 +32,31 @@ export default function SectionIndex({ sections: staticSections = homeSections, 
   }, [sourceSelector]);
 
   useEffect(() => {
+    let frame;
+    const updateActiveSection = () => {
+      if (Date.now() < lockUntilRef.current) {
+        return;
+      }
+      const sectionElements = sections
+        .map((section) => document.getElementById(section.id))
+        .filter(Boolean);
+
+      if (sectionElements.length === 0) {
+        return;
+      }
+
+      const anchorY = Math.min(window.innerHeight * 0.32, 320);
+      const positioned = sectionElements.map((element) => ({
+        element,
+        top: element.getBoundingClientRect().top,
+      }));
+      const atPageEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      const current = atPageEnd ? positioned.at(-1) : positioned.reduce((active, section) => (
+        section.top <= anchorY && section.top > active.top + 1 ? section : active
+      ), positioned[0]);
+
+      setActiveId(current.element.id);
+    };
     const updateAnchorOffset = () => {
       const aside = asideRef.current;
       if (!aside) {
@@ -62,53 +87,24 @@ export default function SectionIndex({ sections: staticSections = homeSections, 
         setOffsetY(next);
       }
     };
-
-    updateAnchorOffset();
-    window.addEventListener('scroll', updateAnchorOffset, { passive: true });
-    window.addEventListener('resize', updateAnchorOffset);
-
+    const update = () => {
+      frame = undefined;
+      updateActiveSection();
+      updateAnchorOffset();
+    };
+    const schedule = () => {
+      if (frame === undefined) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
     return () => {
-      window.removeEventListener('scroll', updateAnchorOffset);
-      window.removeEventListener('resize', updateAnchorOffset);
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
       document.querySelector('.sidebar')?.style.removeProperty('--home-sidebar-offset');
     };
   }, [anchorSelector, sections]);
-
-  useEffect(() => {
-    const updateActiveSection = () => {
-      if (Date.now() < lockUntilRef.current) {
-        return;
-      }
-      const sectionElements = sections
-        .map((section) => document.getElementById(section.id))
-        .filter(Boolean);
-
-      if (sectionElements.length === 0) {
-        return;
-      }
-
-      const anchorY = Math.min(window.innerHeight * 0.32, 320);
-      const positioned = sectionElements.map((element) => ({
-        element,
-        top: element.getBoundingClientRect().top,
-      }));
-      const atPageEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
-      const current = atPageEnd ? positioned.at(-1) : positioned.reduce((active, section) => (
-        section.top <= anchorY && section.top > active.top + 1 ? section : active
-      ), positioned[0]);
-
-      setActiveId(current.element.id);
-    };
-
-    updateActiveSection();
-    window.addEventListener('scroll', updateActiveSection, { passive: true });
-    window.addEventListener('resize', updateActiveSection);
-
-    return () => {
-      window.removeEventListener('scroll', updateActiveSection);
-      window.removeEventListener('resize', updateActiveSection);
-    };
-  }, [sections]);
 
   const handleNavigate = (event, id) => {
     event.preventDefault();

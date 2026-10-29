@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
+    "lint": "eslint src api lib scripts vite.config.js eslint.config.js",
     "test": "vitest --run",
     "optimize:images": "node scripts/optimize-images.mjs",
     "preview": "vite preview"
@@ -15,7 +15,6 @@
     "ascii.rest": "github:bas3line/ascii#8fd792e079ee12c8850b4090617bd8253ffb6e6a",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-github-calendar": "^5.0.5",
     "react-icons": "^5.5.0",
     "react-parallax-tilt": "^1.7.320",
     "react-router-dom": "^7.13.1",

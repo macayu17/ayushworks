@@ -40,3 +40,19 @@ test('the final section becomes active at the end of the page', () => {
     delete document.documentElement.scrollHeight;
   }
 });
+
+test('batches scroll bursts and cancels the pending update when unmounted', () => {
+  const request = vi.fn().mockReturnValue(42);
+  const cancel = vi.fn();
+  vi.stubGlobal('requestAnimationFrame', request);
+  vi.stubGlobal('cancelAnimationFrame', cancel);
+  const view = render(<SectionIndex sections={[]} anchorSelector={null} />);
+  try {
+    for (let index = 0; index < 60; index++) window.dispatchEvent(new Event('scroll'));
+    expect(request).toHaveBeenCalledTimes(1);
+    view.unmount();
+    expect(cancel).toHaveBeenCalledWith(42);
+  } finally {
+    vi.unstubAllGlobals();
+  }
+});

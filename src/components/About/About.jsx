@@ -1,6 +1,7 @@
 import './About.css';
 import { FaRegEnvelope, FaChevronRight } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 import Education from '../Education/Education';
 
 const About = () => {
@@ -91,16 +92,15 @@ const About = () => {
 
       {/* Cards */}
       <div className="about-cards" id="about-toolbox">
-        {/* Intentionally removed Timeline card per user request */}
         
-        <a href="/skill" className="about-card bracket-box" style={{display: 'block'}}>
+        <Link to="/skill" className="about-card bracket-box" style={{display: 'block'}}>
           <div className="ac-top">
             <span>[ 02 ]</span>
             <FaChevronRight className="ac-icon" />
           </div>
           <h3 className="ac-title">My Toolbox</h3>
           <p className="ac-desc">The frameworks and tools I use</p>
-        </a>
+        </Link>
       </div>
 
       {/* Hobbies & Interests */}

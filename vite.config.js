@@ -54,6 +54,7 @@ export default defineConfig({
   plugins: [react(), localApiPlugin()],
   assetsInclude: ['**/*.glb'],
   test: {
+    include: ['src/**/*.test.{js,jsx}', 'api/**/*.test.js', 'lib/**/*.test.js'],
     environment: 'jsdom',
     globals: true,
     setupFiles: './src/test/setup.js',

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { FaChevronDown, FaCodeBranch, FaGithub } from 'react-icons/fa';
 import { FaGitlab } from 'react-icons/fa6';
-import { loadOpenSourcePRs, OPEN_SOURCE_CACHE_TTL } from '../utils/openSourcePRs';
+import { loadOpenSourcePRs, OPEN_SOURCE_CACHE_TTL, sortContributions } from '../utils/openSourcePRs';
 import { getOpenSourceMetricCards } from '../utils/openSourceMetrics';
 import './OpenSourcePage.css';
 
@@ -30,28 +30,6 @@ const formatRefreshTime = (dateValue) => {
     minute: '2-digit',
   });
 };
-
-const getStatusRank = (status) => {
-  if (status === 'Merged') {
-    return 0;
-  }
-
-  if (status === 'Open') {
-    return 1;
-  }
-
-  return 2;
-};
-
-const sortContributions = (contributions) =>
-  [...contributions].sort((first, second) => {
-    const statusRank = getStatusRank(first.status) - getStatusRank(second.status);
-    if (statusRank !== 0) {
-      return statusRank;
-    }
-
-    return new Date(second.date).getTime() - new Date(first.date).getTime();
-  });
 
 const SkeletonCard = () => (
   <article className="open-source-card open-source-card-skeleton">

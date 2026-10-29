@@ -678,14 +678,6 @@
     padding: 13px 0;
   }
 
-  .home-open-source-copy strong {
-    font-size: 0.86rem;
-  }
-
-  .home-open-source-copy span {
-    font-size: 0.76rem;
-  }
-
   .home-skills {
     padding: 18px 0;
   }
@@ -709,10 +701,6 @@
   .home-quote {
     margin: 72px auto 72px;
     max-width: 300px;
-  }
-
-  .home-end-fade {
-    height: 160px;
   }
 
   .home-quote blockquote {
@@ -743,7 +731,7 @@
 
 @font-face {
   font-family: 'Caveat';
-  src: url('/fonts/caveat/Caveat-Regular.ttf') format('truetype');
+  src: url('/fonts/caveat/Caveat-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;

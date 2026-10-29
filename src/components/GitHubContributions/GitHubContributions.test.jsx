@@ -44,5 +44,9 @@ it('waits for data, visibility and the profile intro, then reveals once with a l
   expect(firstWeek.children[0].style.getPropertyValue('--cell-delay')).toBe('');
   act(() => observers[0].callback([{ isIntersecting: false }]));
   expect(grid).toHaveClass('is-revealed');
+  view.rerender(<MemoryRouter><GitHubContributions theme="light" /></MemoryRouter>);
+  expect(grid).toHaveClass('is-revealed');
+  expect(grid.querySelector('.calendar-day').style.boxShadow).toContain('#d9cebd');
+  expect(fetch).toHaveBeenCalledTimes(1);
   view.unmount();
 });

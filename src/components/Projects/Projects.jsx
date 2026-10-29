@@ -10,25 +10,8 @@ const stopCardNavigation = (event) => {
   event.stopPropagation();
 };
 
-const useSiteTheme = () => {
-  const [theme, setTheme] = useState(() =>
-    typeof document !== 'undefined' && document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'
-  );
-
-  useEffect(() => {
-    const update = () => {
-      setTheme(document.documentElement.dataset.theme === 'light' ? 'light' : 'dark');
-    };
-    update();
-    const observer = new MutationObserver(update);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-    return () => observer.disconnect();
-  }, []);
-
-  return theme;
-};
-
 const Projects = ({
+  theme,
   items = projectCatalog,
   title = '// PROJECTS',
   intro = 'Open any project to see the full breakdown, stack, and links.',
@@ -39,7 +22,6 @@ const Projects = ({
 }) => {
   const navigate = useNavigate();
   const [enableCardTilt, setEnableCardTilt] = useState(false);
-  const siteTheme = useSiteTheme();
 
   useEffect(() => {
     if (!window.matchMedia) {
@@ -124,7 +106,7 @@ const Projects = ({
               {showThumbnail && (
                 <div className={`project-cover ${project.image || project.imageDark || project.imageLight ? 'has-image' : 'is-fallback'}`}>
                   {(() => {
-                    const themedImage = siteTheme === 'light'
+                    const themedImage = theme === 'light'
                       ? (project.imageLight || project.imageDark || project.image)
                       : (project.imageDark || project.imageLight || project.image);
                     if (themedImage) {

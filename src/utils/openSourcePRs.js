@@ -53,6 +53,8 @@ const writeCache = (data, updatedAt = Date.now()) => {
   return cachePayload;
 };
 
+let pendingRequest;
+
 const fetchFromPortfolioApi = async () => {
   const response = await fetch(OPEN_SOURCE_ENDPOINT, {
     cache: 'no-store',
@@ -88,7 +90,8 @@ export const loadOpenSourcePRs = async ({ forceRefresh = false } = {}) => {
   }
 
   try {
-    const contributions = await fetchFromPortfolioApi();
+    pendingRequest ??= fetchFromPortfolioApi().finally(() => { pendingRequest = undefined; });
+    const contributions = await pendingRequest;
     const cached = writeCache(contributions.prs, contributions.updatedAt);
 
     return {
@@ -111,3 +114,25 @@ export const loadOpenSourcePRs = async ({ forceRefresh = false } = {}) => {
     throw error;
   }
 };
+
+const getStatusRank = (status) => {
+  if (status === 'Merged') {
+    return 0;
+  }
+
+  if (status === 'Open') {
+    return 1;
+  }
+
+  return 2;
+};
+
+export const sortContributions = (contributions) =>
+  [...contributions].sort((first, second) => {
+    const statusRank = getStatusRank(first.status) - getStatusRank(second.status);
+    if (statusRank !== 0) {
+      return statusRank;
+    }
+
+    return new Date(second.date).getTime() - new Date(first.date).getTime();
+  });

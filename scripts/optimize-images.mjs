@@ -53,3 +53,6 @@ await sharp('public/favicon.png').resize(32, 32).png().toFile('public/favicon-32
 await sharp('public/favicon.png').resize(180, 180).png().toFile('public/apple-touch-icon.png');
 await sharp('public/ResumeScreenshot.png').webp({ quality: 90, effort: 6 })
   .toFile('public/ResumeScreenshot.webp');
+
+await sharp('src/assets/images/image.png').resize(128, 128).webp({ lossless: true, effort: 6 })
+  .toFile('src/assets/images/rv-logo.webp');

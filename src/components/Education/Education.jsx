@@ -1,5 +1,5 @@
 import './Education.css';
-import rvLogo from '../../assets/images/image.png';
+import rvLogo from '../../assets/images/rv-logo.webp';
 
 const Education = () => {
   const educationData = [

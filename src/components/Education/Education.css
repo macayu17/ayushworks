@@ -22,14 +22,6 @@
   }
 }
 
-.edu-index {
-  font-family: var(--font-jetbrains);
-  font-size: 0.75rem;
-  color: var(--zinc-600);
-  min-width: 40px;
-  padding-top: 4px;
-}
-
 .edu-content {
   flex-grow: 1;
 }

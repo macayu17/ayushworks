@@ -9,7 +9,7 @@ import { amerFort, gangaurGhat, jalMahal, tajDawn, varanasiGhats } from 'ascii.r
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { featuredProjects, funProjectCatalog } from '../data/projects';
-import { loadOpenSourcePRs } from '../utils/openSourcePRs';
+import { loadOpenSourcePRs, sortContributions } from '../utils/openSourcePRs';
 import { getTechIcon } from '../utils/techIcons';
 import ContributionList, { OrganizationLogo } from '../components/ContributionList/ContributionList';
 import './Home.css';
@@ -58,17 +58,8 @@ const formatBannerTime = (date) =>
     hour12: false,
   });
 
-const HomeBanner = ({ theme }) => {
-  const [banner] = useState(() => {
-    const banners = theme === 'light' ? lightBanners : darkBanners;
-    return banners[Math.floor(Math.random() * banners.length)];
-  });
+const BannerClock = () => {
   const [time, setTime] = useState(() => formatBannerTime(new Date()));
-  const [cardPlace, setCardPlace] = useState('right');
-  const positionCard = (event) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    setCardPlace(window.innerWidth - bounds.right >= 256 ? 'right' : 'bottom');
-  };
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -77,6 +68,20 @@ const HomeBanner = ({ theme }) => {
 
     return () => window.clearInterval(timer);
   }, []);
+
+  return <time className="home-banner-time" dateTime={time}>{time}</time>;
+};
+
+const HomeBanner = ({ theme }) => {
+  const [banner] = useState(() => {
+    const banners = theme === 'light' ? lightBanners : darkBanners;
+    return banners[Math.floor(Math.random() * banners.length)];
+  });
+  const [cardPlace, setCardPlace] = useState('right');
+  const positionCard = (event) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    setCardPlace(window.innerWidth - bounds.right >= 256 ? 'right' : 'bottom');
+  };
 
   return (
     <>
@@ -100,9 +105,7 @@ const HomeBanner = ({ theme }) => {
           className="home-banner-image"
           style={banner.piece === amerFort ? { objectPosition: 'center 25%' } : undefined}
         />
-        <time className="home-banner-time" dateTime={time}>
-          {time}
-        </time>
+        <BannerClock />
       </section>
       <Tooltip
         id="home-banner-info"
@@ -124,7 +127,7 @@ const HomeBanner = ({ theme }) => {
   );
 };
 
-const DeferredGitHubContributions = ({ username }) => {
+const DeferredGitHubContributions = ({ username, theme }) => {
   const wrapperRef = useRef(null);
   const [shouldLoad, setShouldLoad] = useState(false);
 
@@ -169,7 +172,7 @@ const DeferredGitHubContributions = ({ username }) => {
     <div id="contributions" ref={wrapperRef}>
       {shouldLoad ? (
         <Suspense fallback={<ContributionsPlaceholder />}>
-          <GitHubContributions username={username} />
+          <GitHubContributions username={username} theme={theme} />
         </Suspense>
       ) : (
         <ContributionsPlaceholder />
@@ -177,28 +180,6 @@ const DeferredGitHubContributions = ({ username }) => {
     </div>
   );
 };
-
-const getStatusRank = (status) => {
-  if (status === 'Merged') {
-    return 0;
-  }
-
-  if (status === 'Open') {
-    return 1;
-  }
-
-  return 2;
-};
-
-const sortOpenSourceEntries = (entries) =>
-  [...entries].sort((first, second) => {
-    const rank = getStatusRank(first.status) - getStatusRank(second.status);
-    if (rank !== 0) {
-      return rank;
-    }
-
-    return new Date(second.date).getTime() - new Date(first.date).getTime();
-  });
 
 const OpenSourcePreview = () => {
   const [entries, setEntries] = useState([]);
@@ -214,7 +195,7 @@ const OpenSourcePreview = () => {
           return;
         }
 
-        setEntries(sortOpenSourceEntries(result.prs));
+        setEntries(sortContributions(result.prs));
         setStatus('ok');
       })
       .catch((error) => {
@@ -393,23 +374,31 @@ const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange, onSea
   useEffect(() => {
     const signature = signatureRef.current;
     const rails = document.querySelectorAll('.side-pattern, .sidebar, .section-index, .content-border');
+    let frame;
     const update = () => {
+      frame = undefined;
       const fadeEnd = signature.getBoundingClientRect().top - 64;
       const fadeStart = Math.max(0, fadeEnd - window.innerHeight * 0.5);
-      rails.forEach((rail) => {
-        const top = rail.getBoundingClientRect().top;
+      const positions = [...rails].map((rail) => rail.getBoundingClientRect().top);
+      const docked = document.documentElement.scrollHeight - window.scrollY - window.innerHeight <= 100;
+      rails.forEach((rail, index) => {
+        const top = positions[index];
         rail.style.setProperty('--rail-fade-start', `${Math.max(0, fadeStart - top)}px`);
         rail.style.setProperty('--rail-fade-end', `${Math.max(0, fadeEnd - top)}px`);
       });
       onHomeEndVisibilityChange(fadeEnd <= 0);
-      onSearchDockChange(document.documentElement.scrollHeight - window.scrollY - window.innerHeight <= 100);
+      onSearchDockChange(docked);
+    };
+    const schedule = () => {
+      if (frame === undefined) frame = requestAnimationFrame(update);
     };
     update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
     return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
       rails.forEach((rail) => {
         rail.style.removeProperty('--rail-fade-start');
         rail.style.removeProperty('--rail-fade-end');
@@ -424,9 +413,10 @@ const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange, onSea
       <HomeBanner key={theme} theme={theme} />
       <Hero theme={theme} toggleTheme={toggleTheme} onOpenCmdk={onOpenCmdk} />
       <Separator />
-      <DeferredGitHubContributions username="macayu17" />
+      <DeferredGitHubContributions username="macayu17" theme={theme} />
       <Separator />
       <Projects
+        theme={theme}
         items={featuredProjects}
         intro="A few things I've built and spent real time on. Open any project to see the full story."
         showArchiveLink={false}
@@ -449,6 +439,7 @@ const Home = ({ theme, toggleTheme, onOpenCmdk, onHomeEndVisibilityChange, onSea
           Smaller builds and focused experiments that still deserve a quick look.
         </p>
         <Projects
+          theme={theme}
           items={funProjectCatalog}
           showHeader={false}
           showThumbnail={false}

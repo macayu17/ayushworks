@@ -262,12 +262,6 @@
   opacity: 1;
 }
 
-.project-tag-text {
-  font-family: var(--font-jetbrains);
-  font-size: 0.62rem;
-  color: var(--zinc-500);
-}
-
 .project-actions {
   display: flex;
   align-items: center;

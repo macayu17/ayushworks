@@ -5,7 +5,7 @@ import { projectCatalog } from '../data/projects';
 import { filterProjects, getProjectFilterOptions } from '../utils/projectFilters';
 import './ProjectsPage.css';
 
-const Projects = () => {
+const Projects = ({ theme }) => {
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('');
   const [tag, setTag] = useState('');
@@ -104,7 +104,7 @@ const Projects = () => {
 
         <div className="projects-page-shell">
           {filteredProjects.length > 0 ? (
-            <ProjectsSection items={filteredProjects} showHeader={false} sectionId={null} />
+            <ProjectsSection theme={theme} items={filteredProjects} showHeader={false} sectionId={null} />
           ) : (
             <div className="projects-page-empty" role="status">
               No matching projects found.

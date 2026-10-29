@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { FiXCircle } from 'react-icons/fi';
 import { GoGitMerge, GoGitPullRequest } from 'react-icons/go';
 import './ContributionList.css';
@@ -16,14 +16,13 @@ export const OrganizationLogo = ({ entry, className = '' }) => {
 };
 
 const ContributionList = ({ entries }) => {
-  const listRef = useRef(null);
   const [highlight, setHighlight] = useState(null);
   const moveHighlight = (event) => {
     const row = event.currentTarget;
     setHighlight({ top: row.offsetTop, height: row.offsetHeight });
   };
   return (
-    <div ref={listRef} className="contribution-list" onPointerLeave={() => setHighlight(null)} onBlur={(event) => {
+    <div className="contribution-list" onPointerLeave={() => setHighlight(null)} onBlur={(event) => {
       if (!event.currentTarget.contains(event.relatedTarget)) setHighlight(null);
     }}>
       <span className="contribution-highlight" aria-hidden="true" style={{ transform: `translateY(${highlight?.top || 0}px)`, height: highlight?.height || 56, opacity: highlight ? 1 : 0 }} />
